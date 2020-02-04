@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="author" content="seonamho - SK MNS" >
+	<meta name="description" content="">
+	<meta name="keywords" content="Site Template">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Site Template">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
+
+	<title>버튼 그룹 가이드</title>
+	<link rel="stylesheet" href="/guide/guide.css" media="screen, print" />
+
+	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
+	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
+	<script src="/js/jquery-3.2.1.min.js"></script>
+
+	<!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <![endif]-->
+	
+	<script src="/guide/guide.js"></script>
+
+</head>
+<body>
+<div id="work-list">
+	<div class="guide">
+
+		<section id="guide-basic">
+			<h2 class="guide-sec-tit">버튼 그룹</h2>
+			<div class="guide-sec">
+				<h3 class="guide-stit">기본형</h3>
+				<p>margin:20px 0 - 적용</p>
+				<p>정렬은 center 기본 / tr , tl 태그를 추가하여 좌우 정렬</p>
+				<div class="guide-show">
+				<!-- 코드 작성 -->
+					<div class="btn-group">
+						<a href="#" class="btn-m">버튼 M 사이즈</a>
+						<button type="button" class="btn-m" onclick=""><span>버튼 M 사이즈</span></button>
+					</div>
+					<div class="btn-group tr">
+						<a href="#" class="btn-m">버튼 M 사이즈</a>
+						<button type="button" class="btn-m" onclick=""><span>버튼 M 사이즈</span></button>
+					</div>
+					<div class="btn-group tl">
+						<a href="#" class="btn-m">버튼 M 사이즈</a>
+						<button type="button" class="btn-m" onclick=""><span>버튼 M 사이즈</span></button>
+					</div>
+				<!-- // 코드 작성 -->
+				</div>
+<xmp><div class="btn-group">
+	<a href="#" class="btn-m">버튼 M 사이즈</a>
+	<button type="button" class="btn-m" onclick=""><span>버튼 M 사이즈</span></button>
+</div>
+<div class="btn-group tr">
+	<a href="#" class="btn-m">버튼 M 사이즈</a>
+	<button type="button" class="btn-m" onclick=""><span>버튼 M 사이즈</span></button>
+</div>
+<div class="btn-group tl">
+	<a href="#" class="btn-m">버튼 M 사이즈</a>
+	<button type="button" class="btn-m" onclick=""><span>버튼 M 사이즈</span></button>
+</div>
+</xmp>
+			</div>
+
+			<div class="guide-sec">
+				<h3 class="guide-stit">width 100% 정렬</h3>
+				<p>주로 모바일에서 사용되는 layout</p>
+				<p>btn-group 아래에 span 태그를 추가하여 버튼을 각각 wrapping.</p>
+				<p>item3 클래스 추가 시 3중 배열 - item4 클래스 추가시 4중배열</p>
+				<p>추가 배열은 item5 ~ 클래스 추가 후 layout.css 스타일 수정.</p>
+				<div class="guide-show">
+				<!-- 코드 작성 -->
+					<div class="btn-group">
+						<span><a href="#" class="btn-m">버튼 M 사이즈</a></span>
+						<span><button type="button" class="btn-m" onclick=""><span>버튼 M 사이즈</span></button></span>
+					</div>
+					<div class="btn-group item3">
+						<span><a href="#" class="btn-m">버튼 M 사이즈</a></span>
+						<span><a href="#" class="btn-m">버튼 M 사이즈</a></span>
+						<span><button type="button" class="btn-m" onclick=""><span>버튼 M 사이즈</span></button></span>
+					</div>
+					<div class="btn-group item4">
+						<span><a href="#" class="btn-m">버튼 M 사이즈</a></span>
+						<span><a href="#" class="btn-m">버튼 M 사이즈</a></span>
+						<span><a href="#" class="btn-m">버튼 M 사이즈</a></span>
+						<span><button type="button" class="btn-m" onclick=""><span>버튼 M 사이즈</span></button></span>
+					</div>
+				<!-- // 코드 작성 -->
+				</div>
+<xmp><div class="btn-group">
+	<span><a href="#" class="btn-m">버튼 M 사이즈</a></span>
+	<span><button type="button" class="btn-m" onclick=""><span>버튼 M 사이즈</span></button></span>
+</div>
+
+<div class="btn-group item3">
+	<span><a href="#" class="btn-m">버튼 M 사이즈</a></span>
+	<span><a href="#" class="btn-m">버튼 M 사이즈</a></span>
+	<span><button type="button" class="btn-m" onclick=""><span>버튼 M 사이즈</span></button></span>
+</div>
+
+<div class="btn-group item4">
+	<span><a href="#" class="btn-m">버튼 M 사이즈</a></span>
+	<span><a href="#" class="btn-m">버튼 M 사이즈</a></span>
+	<span><button type="button" class="btn-m" onclick=""><span>버튼 M 사이즈</span></button></span>
+	<span><button type="button" class="btn-m" onclick=""><span>버튼 M 사이즈</span></button></span>
+</div>
+</xmp>
+			</div>
+
+		</section>
+	</div>
+	<a href="#work-list" class="guide-top">Top</a>	
+</div>
+</body>
+</html>

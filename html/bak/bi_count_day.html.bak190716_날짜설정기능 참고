@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="author" content="seonamho & jeonsooyoung - SK MNS" >
+	<meta name="description" content="">
+	<meta name="keywords" content="SKB 출입통제">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="SKB 출입통제">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	
+	<title>일간 | 방문자수 | 방문통계 | A-Project</title>
+	
+	<!--[if lt IE 9]><script src="/js/html5shiv.js"></script><![endif]-->
+
+	<link rel="stylesheet" href="../css/layout.css" media="screen, print" />
+	<link rel="stylesheet" href="../css/contents.css" media="screen, print" />
+	<script src="../js/jquery-1.12.4.min.js"></script>
+	<script src="../js/layerpop.js"></script>
+	<script src="../js/inpdesign.js"></script>
+	<script src="../js/common.js"></script>
+	
+	<!-- chart.js -->
+	<link rel="stylesheet" href="../css/Chart.css" media="screen, print" />
+	<script src="../js/Chart.min.js"></script>
+	<script src="../js/utils.js"></script>
+	
+	<!-- calendar -->
+	<link rel="stylesheet" href="../css/nCalendar.css" media="screen, print" />
+	<script src="../js/calendar_namo.js"></script>
+	<script>
+		var dateArr = new Array(); // 달력에서 선택한 날짜 배열
+		$(function(){
+
+			$('.cal').nCalendar({
+				showType : 'button'
+			});
+
+			$('.inp-cal.range').each(function(){
+				var toDay = new Date();
+
+				var $start = $(this).find('.start'),
+				$end = $(this).find('.end');	
+				
+				var $startVal, $startD, gapD, $endVal, endD;
+
+				// 페이지 로드 시 일정 설정
+				$end.val(dateChangeInp(toDay));
+				$endVal = $end.val();
+				$startD = dateChange($endVal, (-11));
+				$start.val(dateChangeInp($startD));
+				gapD = toDay;
+				dateArrPush($startD, toDay);
+
+
+				// 시작일 선택 설정
+				$start.on('change',function(){
+					$startVal = $(this).val(),
+					$startD = dateChange($startVal),
+					gapD = dateChange($startVal, 11);
+					$end.val('');
+				});
+
+				// 종료일 선택 설정 
+				$end.on('change',function(){
+					if($(this).val().length > 0) {
+						$endVal = $(this).val(),
+						$endD = dateChange($endVal);
+
+						if($endD < $startD || $endD > gapD) {
+							alert('기간 설정은 최대 12일까지 가능합니다.');
+							$end.val(dateChangeInp(gapD));
+							$endD = gapD;
+						}
+						dateArrPush($startD, $endD);
+					}
+				});
+			});
+		});
+
+		// 날짜 - Date 변환 함수 - 2019-2-1 같은 날짜데이터를 date 값으로 변환
+		function dateChange(e,d){
+			var thisY = e.split('.')[0],
+			thisM = Number(e.split('.')[1] - 1),
+			thisD = Number(e.split('.')[2]),
+			nowDate;
+			d != null ? nowDate = new Date(thisY, thisM, thisD + d) : nowDate = new Date(thisY, thisM, thisD);
+			return nowDate;
+		}
+
+		// date 값을 2019-00-00 형식으로 변환
+		function dateChangeInp(e){
+			var thisY = e.getFullYear(),
+			thisM = e.getMonth() + 1,
+			thisD = e.getDate();
+			if(thisM < 10) thisM = '0'+thisM;
+			if(thisD < 10) thisD = '0'+thisD;
+			var result = ''+thisY+'.'+thisM+'.'+thisD+'';
+			return result;
+		}
+
+		// 달력에서 선택된 날짜 배열 값 push
+		function dateArrPush(s, e){
+			var thisY = s.getFullYear(), thisM = s.getMonth(), thisD = s.getDate(),
+			maxDate =  Math.floor(((e - s) / 86400000) + 1);
+
+			dateArr = [];
+			for(i=0; i<maxDate; i++){
+				var date = new Date(thisY, thisM, thisD + i);
+				dateArr.push(''+date.getDate()+'일');
+			}
+		}
+	</script>
+
+</head>
+<body>
+	<div id="wrap" class="monitor">
+		<!-- 좌측 메뉴 -->
+		<div id="side">
+			<h1 class="logo"><a href="#"><img src="../images/logo_skb.png" alt="SK broadband"></a></h1>
+			<div class="user-info">
+				<button type="button" class="btn-login"><span>로그인</span></button>
+				<!-- 로그인 후
+				<p>안전대장님</p>
+				<button type="button" class="btn-s"><span>로그아웃</span></button>
+				<!-- // 로그인 후 -->
+			</div>
+			<div class="menu">
+				<ul class="depth1">
+					<li>
+						<a href="#" class="door">출입통제</a>
+						<ul class="depth2">
+							<li><a href="#">사용현황</a></li>
+							<li><a href="#">원격제어</a></li>
+							<li><a href="#">스케줄링</a></li>
+							<li><a href="#">모니터링</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#" class="man">사용자</a>
+						<ul class="depth2">
+							<li><a href="#">사용자</a></li>
+							<li><a href="#">그룹</a></li>
+							<li><a href="#">출입자</a></li>
+							<li><a href="#">SMS알림</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#" class="camera">장치</a>
+						<ul class="depth2">
+							<li><a href="#">출입장치</a></li>
+							<li><a href="#">HR카메라</a></li>
+							<li><a href="#">IP 관리</a></li>
+						</ul>
+					</li>
+					<li class="on">
+						<a href="#" class="stat">방문통계</a>
+						<ul class="depth2">
+							<li><a href="#">지점비교</a></li>
+							<li class="on"><a href="#">방문자수</a></li>
+							<li><a href="#">연령통계</a></li>
+							<li><a href="#">성별통계</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- // 좌측 메뉴 -->
+
+		<!-- 컨텐츠 -->
+		<div id="contents">
+			<div class="page-title">
+				<h2 class="txt">롯데백화점 건대점</h2>
+				<div class="option-wrap">
+					<button type="button" class="btn-store-select">지점선택</button>
+					<div class="option-box store-select">
+						<ul>
+							<li class="on"><a href="#">본점</a></li>	
+							<li><a href="#">센텀점</a></li>	
+							<li><a href="#">건대점</a></li>
+							<li><a href="#">분당점</a></li>
+							<li><a href="#">구리점</a></li>
+							<li><a href="#">노원점</a></li>
+						</ul>
+						<span class="arrow"></span>
+					</div>
+				</div>
+			</div>
+			<div class="page-info">
+				<span class="date">2019.06.24. 14:30 기준</span>
+			</div>
+			<div class="cnt-box">
+				<div class="tbl-top">
+					<!-- 날짜 표시 영역 -->
+					<div class="date-set">
+						<div class="inp-cal range">
+							<button type="button" class="btn-date prev">이전</button>
+							<span><input type="text" name="" class="cal start" value="2019.07.01"></span>
+							<i>~</i>
+							<span><input type="text" name="" class="cal end" value=""></span>
+							<button type="button" class="btn-date next">다음</button>
+						</div>
+
+						<!-- 시간 선택 box-->
+						<ul class="tab-time">
+							<li class="on"><a href="#">1일</a></li>
+							<li><a href="#">7일</a></li>
+							<li><a href="#">3개월</a></li>
+							<li><a href="#">1년</a></li>
+						</ul>
+						<!-- //시간 선택 box-->
+					</div>
+					<!-- // 날짜 표시 영역 -->
+					<div class="tr">
+						<label for="group-select" class="select-label">카메라 검색 조건</label>
+						<div class="option-wrap">
+							<select class="select" id="group-select">
+								<option value="group">그룹</option>
+								<option value="camera">카메라별</option>
+							</select>
+						</div>
+						<div class="option-wrap">
+							<select class="select" >
+								<option value="1">1번 비상구 그룹</option>
+								<option value="2">2번 비상구 그룹</option>
+							</select>
+						</div>
+						<button type="submit" class="btn-l btn-darkblue"><span>적용</span></button>
+					</div>
+				</div>
+
+				<!-- 차트 UI -->				
+				<div class="chart-wrap">
+					<!-- <div id="do_legend"></div> -->
+					<div class="scales">
+						<p class="scale-y">(명)</p>
+						<p class="scale-x">(일)</p>
+					</div>
+					<canvas id="canvas"></canvas>
+					<!-- <a  src="" id="img" download="graphImg.png">저장</a> -->
+				</div>
+				<div class="btn-box tr">
+					<button type="button" class="btn-m"><span>통계다운로드</span><span class="ico-down"></span></button>
+				</div>
+				<!-- //차트 UI -->	
+
+				<!-- 테이블 UI-->
+				<div class="tbl-type2">
+					<table>
+						<colgroup>
+							<col style="width:12.5%" />
+							<col style="width:12.5%" />
+							<col style="width:12.5%" />
+							<col style="width:12.5%" />
+							<col style="width:12.5%" />
+							<col style="width:12.5%" />
+							<col style="width:12.5%" />
+							<col style="width:12.5%" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th scope="row">시간</th>
+								<th scope="row">2019.07.07</th>
+								<th scope="row">2019.07.06</th>
+								<th scope="row">2019.07.05</th>
+								<th scope="row">2019.07.04</th>
+								<th scope="row">2019.07.03</th>
+								<th scope="row">2019.07.02</th>
+								<th scope="row">2019.07.01</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="col" class="tx-blue">IN</th>
+								<td>55,123</td>
+								<td>55,123</td>
+								<td>55,123</td>
+								<td>55,123</td>
+								<td>55,123</td>
+								<td>55,123</td>
+								<td>55,123</td>
+							</tr>
+							<tr>
+								<th scope="col" class="tx-red">OUT</th>
+								<td>55,123</td>
+								<td>55,123</td>
+								<td>55,123</td>
+								<td>55,123</td>
+								<td>55,123</td>
+								<td>55,123</td>
+								<td>55,123</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="tbl-btm tr">
+						<span>*단위:명</span>
+					</div>
+				</div>
+				<!-- //테이블 UI-->
+
+
+			</div>
+
+
+		</div>
+		<!-- // 컨텐츠 -->
+
+	</div> 
+
+	
+	<script>
+		// 그래프 설정
+		var config = {
+			type: 'bar',
+			data: {
+				labels: ['1일', '2일',  '3일', '4일', '5일', '6일', '7일', '8일', '9일', '10일'], // 일자
+				datasets: [{
+					label: 'IN',
+					backgroundColor: window.chartColors.blue,
+					borderColor: window.chartColors.blue,
+					data: [200,140,210,180,149,250],
+					fill: false
+					
+				}, {
+					label: 'OUT',
+					fill: false,
+					backgroundColor: window.chartColors.red,
+					borderColor: window.chartColors.red,
+					data: [80,120,260,320,90,80]
+				}]
+			},
+			options: {
+				responsive: true,
+				animation: {
+					onComplete: function(animation){
+						$('#img').attr('href',this.toBase64Image());
+					}
+				},
+				maintainAspectRatio: false,
+				title: {
+					display: false,
+					text: '방문자수'
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: false,
+					titleFontStyle : 'normal',
+					titleMarginBottom : 15,
+					titleFontColor : 'rgba(200,200,205,1)',
+					backgroundColor : 'rgba(90,91,109,1)',
+					bodySpacing : 10,
+					xPadding : 20,
+					yPadding : 15,
+					caretPadding : 5,
+					caretSize : 6,
+					cornerRadius : 3,
+					displayColors : false
+				},
+				legend: {
+					position: "top",
+					labels : {
+						usePointStyle : true,
+						boxWidth : 5,
+						fontSize : 13,
+						padding : 30
+					}
+				},
+				scales : {
+					yAxes : [{
+						gridLines : {
+							drawTicks : false,
+							drawBorder :false,
+							color: '#f2f2f2',
+							zeroLineColor : '#666'
+						},
+						ticks : {
+							beginAtZero : true,
+							stepSize : 50,
+							padding : 10,
+							callback : function (dataLabel, index){
+								return index % 2 === 0 ? dataLabel : '';
+							}
+						},
+						datalabels : true
+					}],
+					xAxes : [{
+						barThickness: 10,
+						gridLines : {
+							drawTicks : false,
+							color: ['#666','#fff']
+						},
+						ticks : {
+							fontColor : '#333',
+							fontStyle : 'bold',
+							padding : 10
+						}
+					}]
+				}
+			}
+		};
+
+		// 그래프 생성
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myLine = new Chart(ctx, config);
+			//$("#do_legend").html(window.myLine.generateLegend());
+		};
+
+		// 그래프 클릭 시 시간 + 데이터명 호출
+		document.getElementById('canvas').onclick = function(evt) {
+			var points = myLine.getElementAtEvent(evt)[0];
+			if(points != null) console.log(myLine.data.labels[points._index], myLine.data.datasets[points._datasetIndex].label);			
+		};
+
+		
+	</script>
+</body>
+</html>

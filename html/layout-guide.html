@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="author" content="seonamho - SK MNS" >
+	<meta name="description" content="퍼블리싱 템플릿 사이트">
+	<meta name="keywords" content="html css javascript jquery 퍼블리셔 퍼블리싱">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="퍼블리싱 템플릿 사이트 (for skmns)">
+	<meta property="og:description" content="skmns 사내용 퍼블리싱 템플릿 사이트">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="10.125.253.31:2300">
+	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
+
+	<title>Layout | 기본 가이드</title>
+	<link rel="stylesheet" href="/guide/guide.css" media="screen, print" />
+
+	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
+	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
+	<script src="/js/jquery-3.2.1.min.js"></script>
+
+	<!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <![endif]-->	
+	<script src="/guide/guide.js"></script>
+
+</head>
+<body>
+<div id="work-list">
+	<div class="guide">
+		
+
+		<!-- input ================================================================ -->
+		<section id="guide-input">
+			<h2 class="guide-sec-tit">Layout</h2>
+
+			<div class="guide-sec">
+				<h3 class="guide-stit">가로형</h3>
+				<p>가로 1000px 기준 (기준 변경 시 CSS 수정)</p>
+				<p>height 100% 설정 - footer 가 항상 브라우저 하단에.</p>
+				<p>가로 100% 일 경우 #wrap 에 full 클래스 추가</p>
+				<a href="layout-ver.html" class="guide-link">예시화면</a>
+<xmp><div id="wrap">
+<!-- <div id="wrap" class="full"> 가로 100%일 경우 -->
+	<header id="top">
+		<div class="top-menu">
+			최 상단 메뉴
+		</div>
+		<div class="gnb-wrap">
+			<h1 class="logo">LOGO</h1>
+			<div class="gnb-menu">
+				GNB 영역
+			</div>
+		</div>
+		<div class="all-menu">
+			전체 메뉴 보기 영역
+		</div>
+	</header>
+
+	<div id="mid">
+		<div class="contents">
+			컨텐츠 영역
+		</div>
+	</div>
+
+	<div id="btm">
+		footer 컨텐츠
+	</div>
+</div>
+</xmp>
+			</div>
+
+			<div class="guide-sec">
+				<h3 class="guide-stit">세로형</h3>
+				<p>#wrap 에 layout-hor 클래스 추가</p>
+				<p>height 100% 설정 - footer 가 항상 브라우저 하단에.</p>
+				<a href="layout-hor.html" class="guide-link">예시화면</a>
+<xmp><div id="wrap" class="layout-hor">
+	<header id="top">
+		<div class="top-menu">
+			최 상단 메뉴
+		</div>
+	</header>
+
+	<div id="mid">
+		<div class="contents">
+			<aside class="side-wrap">
+				사이드 메뉴 영역
+			</aside>
+			<div class="cnt-wrap">
+				컨텐츠 영역
+			</div>
+		</div>
+	</div>
+
+	<div id="btm">
+		footer 컨텐츠
+	</div>
+</div>
+</xmp>
+			</div>
+
+			<div class="guide-sec">
+				<h3 class="guide-stit">가로+세로형</h3>
+				<p>가로 1000px 기준 (기준 변경 시 CSS 수정)</p>
+				<p>height 100% 설정 - footer 가 항상 브라우저 하단에.</p>
+				<p>가로 100% 일 경우 #wrap 에 full 클래스 추가</p>
+				<a href="layout-mix.html" class="guide-link">예시화면</a>
+<xmp><div id="wrap">
+	<header id="top">
+		<div class="top-menu">
+			최 상단 메뉴
+		</div>
+		<div class="gnb-wrap">
+			<h1 class="logo">LOGO</h1>
+			<div class="gnb-menu">
+				GNB 영역
+			</div>
+		</div>
+		<div class="all-menu">
+			전체 메뉴 보기 영역
+		</div>
+	</header>
+
+	<div id="mid">
+		<div class="contents">
+			<aside class="side-wrap">
+				사이드 메뉴 영역
+			</aside>
+			<div class="cnt-wrap">
+				컨텐츠 영역
+			</div>
+		</div>
+	</div>
+
+	<div id="btm">
+		footer 컨텐츠
+	</div>
+</div>
+</xmp>
+			</div>
+		</section>
+
+
+	</div>
+	<a href="#work-list" class="guide-top">Top</a>	
+</div>
+</body>
+</html>

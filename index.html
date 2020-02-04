@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="author" content="seonamho - SK MNS" >
+	<meta name="description" content="퍼블리싱 템플릿 사이트">
+	<meta name="keywords" content="html css javascript jquery 퍼블리셔 퍼블리싱">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="퍼블리싱 템플릿 사이트 (for skmns)">
+	<meta property="og:description" content="skmns 사내용 퍼블리싱 템플릿 사이트">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="10.125.253.31:2300">
+	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
+
+	<title>Site Template</title>
+	<link rel="stylesheet" href="http://10.125.253.31:2000/guide/list-guide.css" media="screen, print" />
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="http://10.125.253.31:2000/guide/list-guide.js"></script>
+</head>
+<body>
+<div id="work-list">
+	<div class="title">
+		<h1 class="project-title">Site Template</h1>
+		<p class="project-info">
+			<span>&bull; 작업일자 : 2018-08-07 ~ </span>
+			<span>&bull; 담당자 : 서남호 / 심해란</span>
+		</p>
+	</div>
+	<div class="menu">
+		<ul>
+			<li><a href="index.html" class="view">Site Template</a></li>
+		</ul>
+	</div>
+	<div class="function">
+		<div class="text-finder func-wrap">
+			<span class="tit">Class 검색</span>
+			<!-- <input type="text" name="find-tx" id="find-tx-id" placeholder="검색 영역 ID"" title="검색 영역 ID"> -->
+			<input type="text" name="find-tx" id="find-tx" placeholder="class" title="검색 class">
+			<button type="button" class="btn-find-tx">검색</button>
+			<!-- <div class="temp"></div> -->
+			<input type="hidden" class="temp">
+		</div>
+		<div class="func-wrap">
+			<span class="tit">미리보기</span>
+			<span class="check">
+				<input type="checkbox" name="" id="view-chk">
+				<label for="view-chk">미리보기</label>
+			</span>
+		</div>
+		<div class="ing-per">
+			&bull; 진행율 : <span class="end-page"></span> / <span class="total-page"></span> ( <span class="per"></span> %)
+		</div>
+	</div>
+	<div class="list">
+		<div class="tbl-wrap">
+			<table>
+				<caption>프로젝트 리스트</caption>
+				<colgroup>
+					<col style="width:5%"/>
+					<col style="width:10%"/>
+					<col style="width:10%"/>
+					<col style="width:10%"/>
+					<col style="width:10%"/>
+					<col style="width:8%"/>
+					<col style="width:auto"/>
+					<col style="width:8%"/>
+					<col style="width:auto"/>
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col">No.</th>
+						<th scope="col">depth1</th>
+						<th scope="col">depth2</th>
+						<th scope="col">depth3</th>
+						<th scope="col">depth4</th>
+						<th scope="col">진행상태</th>
+						<th scope="col">링크</th>
+						<th scope="col">완료일자</th>
+						<th scope="col">수정 및 참고</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr>
+						<td class="no"></td>
+						<td class="depth1">기본 가이드</td>
+						<td class="depth2"></td>
+						<td class="depth3"></td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><a href="html/guide.html" target="_blank">guide</a></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<!-- 레이아웃 -->
+					<tr>
+						<td class="no"></td>
+						<td class="depth1">레이아웃</td>
+						<td class="depth2">페이지 [PC]</td>
+						<td class="depth3">가이드</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><a href="html/layout-guide.html" target="_blank">layout-guide</a></td>
+						<td class="end-date">2018-08-21</td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">예시화면</td>
+						<td class="depth4">가로형</td>
+						<td class="state"></td>
+						<td class="link"><a href="html/layout-ver.html" target="_blank">layout-ver</a></td>
+						<td class="end-date">2018-08-07</td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3"></td>
+						<td class="depth4">세로형</td>
+						<td class="state"></td>
+						<td class="link"><a href="html/layout-hor.html" target="_blank">layout-hor</a></td>
+						<td class="end-date">2018-08-07</td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3"></td>
+						<td class="depth4">가로 + 세로형</td>
+						<td class="state"></td>
+						<td class="link"><a href="html/layout-mix.html" target="_blank">layout-mix</a></td>
+						<td class="end-date">2018-08-07</td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">페이지 [Mobile]</td>
+						<td class="depth3">가이드</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/layout-guide-mobile.html" target="_blank">layout-guide-mobile</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">예시화면</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/layout-mobile.html" target="_blank">layout-mobile</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">Float</td>
+						<td class="depth3"></td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><a href="html/float.html" target="_blank">float</a></td>
+						<td class="end-date">2019-04-04</td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">컨텐츠 Box</td>
+						<td class="depth3"></td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><a href="html/cnt-box.html" target="_blank">cnt-box</a></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">약관</td>
+						<td class="depth3"></td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><a href="html/article.html" target="_blank">article</a></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">조직도</td>
+						<td class="depth3"></td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/organization.html" target="_blank">organization</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+
+					<!-- 텍스트 및 리스트 -->
+					<tr>
+						<td class="no"></td>
+						<td class="depth1">텍스트</td>
+						<td class="depth2">타이틀</td>
+						<td class="depth3"></td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><a href="html/title.html" target="_blank">title</a></td>
+						<td class="end-date">2018-08-07</td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">안내문구</td>
+						<td class="depth3"></td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/desc.html" target="_blank">desc</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify">단독형(P) / 리스트형(li) 포함</td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">강조 스타일</td>
+						<td class="depth3"></td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/highlight.html" target="_blank">highlight</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+
+					<!-- 기본 공통 요소 -->
+					<tr>
+						<td class="no"></td>
+						<td class="depth1">기본 공통 요소</td>
+						<td class="depth2">Input 관련</td>
+						<td class="depth3">기본 스타일</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/input-basic.html" target="_blank">input-basic</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">조합 스타일</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/input-set.html" target="_blank">input-set</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">디자인 적용</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><a href="html/input-design.html" target="_blank">input-design</a></td>
+						<td class="end-date">2018-08-07</td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">입력값 확인</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><a href="html/input-check.html" target="_blank">input-check</a></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">버튼</td>
+						<td class="depth3">기본 스타일</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><a href="html/button.html" target="_blank">button</a></td>
+						<td class="end-date">2018-08-21</td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">그룹</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><a href="html/button-group.html" target="_blank">button-group</a></td>
+						<td class="end-date">2018-08-21</td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">테이블</td>
+						<td class="depth3">기본스타일</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/table.html" target="_blank">table</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">상단 th 고정</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/table-th-fixed.html" target="_blank">table-th-fixed</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">주변 요소</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/table-side.html" target="_blank">table-side</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">페이징</td>
+						<td class="depth3"></td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/paging.html" target="_blank">paging</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">li 리스트</td>
+						<td class="depth3">리스트형</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/list-list.html" target="_blank">list-list</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">카드형</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/list-card.html" target="_blank">list-card</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">토글형</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/list-toggle.html" target="_blank">list-toggle</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>					
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">depth on/off 형</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/list-depth.html" target="_blank">list-depth</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+
+					<!-- 기능 요소 -->
+					<tr>
+						<td class="no"></td>
+						<td class="depth1">기능 요소</td>
+						<td class="depth2">Tab menu</td>
+						<td class="depth3"></td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/tabmenu.html" target="_blank">tabmenu</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">Toggle</td>
+						<td class="depth3"></td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/Toggle.html" target="_blank">Toggle</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">말풍선</td>
+						<td class="depth3"></td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/balloon.html" target="_blank">balloon</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify">클릭형 / 오버형</td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">Progress Bar</td>
+						<td class="depth3"></td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/Progress.html" target="_blank">Progress</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">레이어팝업</td>
+						<td class="depth3">일반 레이어 팝업</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><a href="html/layerpop.html" target="_blank">layerpop</a></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">알럿 / 컨펌용</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/alert.html" target="_blank">alert</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">달력</td>
+						<td class="depth3">기본형(단독)</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><a href="html/calendar.html" target="_blank">calendar</a></td>
+						<td class="end-date">2018-08-21</td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">페이지 고정형</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><a href="html/calendar-page.html" target="_blank">calendar-page</a></td>
+						<td class="end-date">2019-07-30</td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">기간 선택</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><a href="html/calendar-range.html" target="_blank">calendar-range</a></td>
+						<td class="end-date">2019-08-06</td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">주간 달력</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><a href="html/calendar-week.html" target="_blank">calendar-week</a></td>
+						<td class="end-date">2019-01-16</td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">월간 달력</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><a href="html/calendar-month.html" target="_blank">calendar-month</a></td>
+						<td class="end-date">2019-01-17</td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">시간선택</td>
+						<td class="depth3">dropdown 형</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><a href="html/time-dropdown.html" target="_blank">time-dropdown</a></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">모달 형</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/time-modal.html" target="_blank">time-modal</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2">배너</td>
+						<td class="depth3">기본형</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/banner-slide.html" target="_blank">banner-slide</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">리스트형</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/banner-list.html" target="_blank">banner-list</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">텍스트형</td>
+						<td class="depth4"></td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/banner-txt.html" target="_blank">banner-txt</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+					<tr>
+						<td class="no"></td>
+						<td class="depth1"></td>
+						<td class="depth2"></td>
+						<td class="depth3">모바일용</td>
+						<td class="depth4">기본(플리킹)</td>
+						<td class="state"></td>
+						<td class="link"><!-- <a href="html/banner-mobile.html" target="_blank">banner-mobile</a> --></td>
+						<td class="end-date"></td>
+						<td class="modify"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<div class="iframe">
+		<iframe src="" frameborder="0" scrollbars="yes"></iframe>
+		<button type="button" class="btn-frame-close">닫기</button>
+	</div>
+</div>
+</body>
+</html>

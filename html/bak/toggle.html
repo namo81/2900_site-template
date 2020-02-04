@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta name="author" content="SK MNS - namo" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<title></title>
+	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
+	<link rel="stylesheet" href="/css/jquery-ui.custom.css" media="screen, print" />
+	<script src="/js/jquery-1.12.4.min.js"></script>
+	<script src="/js/jquery-ui.custom.js"></script>
+	<script src="/js/gnbmenu-v1.0.js"></script>
+	<script src="/js/common.js"></script>
+
+	<!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div id="skip-navi">
+		<a href="#">skip-btn1</a>
+		<a href="#">skip-btn2</a>
+		<a href="#">skip-btn3</a>
+	</div>
+	<div id="wrap" class="full">
+		<!-- header -->
+		<header id="top">
+			<!-- top-menu -->
+			<div class="top-menu">
+				<div class="inbox">
+					<ul>
+						<li><a href="#">top-btn1</a></li>
+						<li><a href="#">top-btn2</a></li>
+						<li><button type="button">top-btn3</button></li>
+					</ul>
+				</div>
+			</div>
+			
+			<!-- gnb -->
+			<div class="gnb-wrap">
+				<h1 class="logo">LOGO</h1>
+				<div class="gnb-menu">
+					<ul class="depth1">
+						<li>
+							<a href="#">menu1</a>
+							<ul class="depth2">
+								<li><a href="#">menu1-1</a></li>
+								<li><a href="#">menu1-2</a></li>
+								<li><a href="#">menu1-3</a></li>
+								<li><a href="#">menu1-4</a></li>
+								<li><a href="#">menu1-5</a></li>
+								<li><a href="#">menu1-6</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">menu2</a>
+							<ul class="depth2">
+								<li><a href="#">menu2-1</a></li>
+								<li><a href="#">menu2-2</a></li>
+								<li><a href="#">menu2-3</a></li>
+								<li><a href="#">menu2-4</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">menu3</a>
+							<ul class="depth2">
+								<li><a href="#">menu3-1</a></li>
+								<li><a href="#">menu3-2</a></li>
+								<li><a href="#">menu3-3</a></li>
+								<li><a href="#">menu3-4</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">menu4</a>
+							<ul class="depth2">
+								<li><a href="#">menu4-1</a></li>
+								<li><a href="#">menu4-2</a></li>
+								<li><a href="#">menu4-3</a></li>
+								<li><a href="#">menu4-4</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">menu5</a>
+							<ul class="depth2">
+								<li><a href="#">menu5-1</a></li>
+								<li><a href="#">menu5-2</a></li>
+								<li><a href="#">menu5-3</a></li>
+								<li><a href="#">menu5-4</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<button type="button" class="btn-all-menu">전체보기</button>
+			</div>
+
+			<!-- 전체메뉴 -->
+			<div class="all-menu same-gnb"> <!-- same-gnb 클래스가 있을 경우 gnb-menu 를 그대로 가져옴. 레이아웃 구조가 다를 경우 클래스 삭제 후 직접 코드 작성. -->
+				<div class="inbox">
+					<!-- 메뉴 로딩될 영역 -->
+					<button type="button" class="btn-all-close">메뉴닫기</button>
+				</div>
+			</div>
+		</header>
+		
+		<!-- mid -->
+		<div id="mid">			
+			<div class="contents">
+				<!-- side 메뉴 -->
+				<aside class="side-wrap">
+					<ul class="depth1">
+						<li><a href="#">서브메뉴 depth1</a></li>
+						<li>
+							<a href="#">서브메뉴 depth2</a>
+							<ul class="depth2"> 
+								<li><a href="#">서브메뉴 depth2-1</a></li>
+								<li><a href="#">서브메뉴 depth2-2</a></li>
+								<li><a href="#">서브메뉴 depth2-3</a></li>
+							</ul>
+						</li>
+						<li><a href="#">서브메뉴 depth3</a></li>
+						<li><a href="#">서브메뉴 depth4</a></li>
+					</ul>
+				</aside>
+
+				<!-- 컨텐츠 영역 -->
+				<div class="cnt-wrap">
+
+					<div class="location">
+						<span><a href="#">Home</a> &gt;</span>
+						<span><a href="#">상위페이지</a> &gt;</span>
+						<span>현재페이지</span>
+					</div>
+
+					<h2 class="title-dep1">토글 컨텐츠</h2>
+
+					<h3 class="title-dep2">토글 컨텐츠 리스트형</h2>
+					<!-- toggle - 리스트 -->
+					<div class="tgl-wrap">
+						<ul>
+							<li>
+								<button type="button" class="btn-tgl"><span>토글 버튼</span></button>
+								<div class="tgl-cnt">
+									토글 컨텐츠 영역
+								</div>
+							</li>
+							<li>
+								<button type="button" class="btn-tgl"><span>토글 버튼</span></button>
+								<div class="tgl-cnt">
+									토글 컨텐츠 영역
+								</div>
+							</li>
+							<li>
+								<button type="button" class="btn-tgl on"><span>토글 버튼</span></button>
+								<div class="tgl-cnt">
+									토글 컨텐츠 영역
+								</div>
+							</li>
+							<li>
+								<button type="button" class="btn-tgl"><span>토글 버튼</span></button>
+								<div class="tgl-cnt">
+									토글 컨텐츠 영역
+								</div>
+							</li>
+						</ul>
+					</div>
+
+					<h3 class="title-dep2">토글 컨텐츠 단독형</h2>
+					<!-- toggle - 단독 - btn-tgl + tgl-cnt 구조만 유지하면 토글 기능 구현 됨. -->
+					<div class="cnt-area">
+						<button type="button" class="btn-tgl btn-s"><span>토글 버튼 - 단독</span></button>
+						<div class="tgl-cnt">
+							토글 컨텐츠 영역
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		
+		<!-- btm -->
+		<div id="btm">
+			<footer>COPYRIGHT &copy; 2017 msp admin template. All right reserved.</footer>
+		</div>
+	</div>
+
+</body>
+</html>

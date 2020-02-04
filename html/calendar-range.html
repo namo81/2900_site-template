@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="author" content="seonamho - SK MNS" >
+	<meta name="description" content="">
+	<meta name="keywords" content="Site Template">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Site Template">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
+
+	<title>기본 가이드</title>
+	<link rel="stylesheet" href="/guide/guide.css" media="screen, print" />
+
+	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
+	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
+	<script src="/js/jquery-3.2.1.min.js"></script>
+
+	<!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <![endif]-->	
+	<script src="/guide/guide.js"></script>
+
+	<!-- calendar 관련 설정 -->
+	<link rel="stylesheet" href="/css/nCalendar.css" media="screen, print" />
+	<script src="/js/nCalendarRange_v1.0.0.js"></script>
+	<script>
+		$(function(){
+			$('.inp-cal.range').nCalendarRange({
+				showType : 'both'
+			});
+		});
+	</script>
+
+</head>
+<body>
+<div id="work-list">
+	<div class="guide">
+		
+
+		<!-- input ================================================================ -->
+		<section id="guide-input">
+			<h2 class="guide-sec-tit">Calendar</h2>
+
+			<div class="guide-sec">
+				<h4 class="guide-sstit">기간선택</h3>
+				<p>range 클래스 추가</p>
+				<p>width 값은 별도 지정 / min-width 는 320px 로 지정</p>
+				<div class="guide-show">
+					<div class="inp-cal range" style="width:320px">
+						<span><input type="text" name="" placeholder="" class="cal start"/></span>
+						<i>~</i>
+						<span><input type="text" name="" placeholder="" class="cal end"/></span>
+					</div>
+				</div>
+<xmp><div class="inp-cal range" style="width:320px">
+	<span><input type="text" name="" placeholder="" class="cal"/></span>
+	<i>~</i>
+	<span><input type="text" name="" placeholder="" class="cal"/></span>
+</div>
+</xmp>
+			</div>
+		</section>
+
+
+	</div>
+	<a href="#work-list" class="guide-top">Top</a>	
+</div>
+</body>
+</html>

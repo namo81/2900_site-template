@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="author" content="seonamho - SK MNS" >
+	<meta name="description" content="">
+	<meta name="keywords" content="Site Template">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Site Template">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
+
+	<title></title>
+	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
+	<script src="/js/common.js"></script>
+	<script src="/js/layerpop_v3.0.0.js"></script>
+
+	<!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <![endif]-->
+
+	<script>
+		window.onload = function(){
+			nlayer.showBtn('.open-layer', 'fixed'); // body fixed 설정
+			nlayer.showBtn('.open-layer2', 'hidden'); // body overflow:hidden 설정
+			nlayer.showFunc('layer1'); // 함수형 호출 - 대상 팝업 id 값 설정
+		}
+	</script>
+</head>
+<body>
+	<div id="skip-navi">
+		<a href="#">skip-btn1</a>
+		<a href="#">skip-btn2</a>
+		<a href="#">skip-btn3</a>
+	</div>
+	<div id="wrap" class="full">
+		<!-- header -->
+		<header id="top">
+			<!-- top-menu -->
+			<div class="top-menu">
+				<div class="inbox">
+					<ul>
+						<li><a href="#">top-btn1</a></li>
+						<li><a href="#">top-btn2</a></li>
+						<li><button type="button">top-btn3</button></li>
+					</ul>
+				</div>
+			</div>
+			
+			<!-- gnb -->
+			<div class="gnb-wrap">
+				<h1 class="logo">LOGO</h1>
+				<div class="gnb-menu">
+					<ul class="depth1">
+						<li>
+							<a href="#">menu1</a>
+							<ul class="depth2">
+								<li><a href="#">menu1-1</a></li>
+								<li><a href="#">menu1-2</a></li>
+								<li><a href="#">menu1-3</a></li>
+								<li><a href="#">menu1-4</a></li>
+								<li><a href="#">menu1-5</a></li>
+								<li><a href="#">menu1-6</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">menu2</a>
+							<ul class="depth2">
+								<li><a href="#">menu2-1</a></li>
+								<li><a href="#">menu2-2</a></li>
+								<li><a href="#">menu2-3</a></li>
+								<li><a href="#">menu2-4</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">menu3</a>
+							<ul class="depth2">
+								<li><a href="#">menu3-1</a></li>
+								<li><a href="#">menu3-2</a></li>
+								<li><a href="#">menu3-3</a></li>
+								<li><a href="#">menu3-4</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">menu4</a>
+							<ul class="depth2">
+								<li><a href="#">menu4-1</a></li>
+								<li><a href="#">menu4-2</a></li>
+								<li><a href="#">menu4-3</a></li>
+								<li><a href="#">menu4-4</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">menu5</a>
+							<ul class="depth2">
+								<li><a href="#">menu5-1</a></li>
+								<li><a href="#">menu5-2</a></li>
+								<li><a href="#">menu5-3</a></li>
+								<li><a href="#">menu5-4</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<button type="button" class="btn-all-menu">전체보기</button>
+			</div>
+
+			<!-- 전체메뉴 -->
+			<div class="all-menu same-gnb"> <!-- same-gnb 클래스가 있을 경우 gnb-menu 를 그대로 가져옴. 레이아웃 구조가 다를 경우 클래스 삭제 후 직접 코드 작성. -->
+				<div class="inbox">
+					<!-- 메뉴 로딩될 영역 -->
+					<button type="button" class="btn-all-close">메뉴닫기</button>
+				</div>
+			</div>
+		</header>
+		
+		<!-- mid -->
+		<div id="mid">			
+			<div class="contents">
+				<!-- side 메뉴 -->
+				<aside class="side-wrap">
+					<ul class="depth1">
+						<li><a href="#">서브메뉴 depth1</a></li>
+						<li>
+							<a href="#">서브메뉴 depth2</a>
+							<ul class="depth2"> 
+								<li><a href="#">서브메뉴 depth2-1</a></li>
+								<li><a href="#">서브메뉴 depth2-2</a></li>
+								<li><a href="#">서브메뉴 depth2-3</a></li>
+							</ul>
+						</li>
+						<li><a href="#">서브메뉴 depth3</a></li>
+						<li><a href="#">서브메뉴 depth4</a></li>
+					</ul>
+				</aside>
+
+				<!-- 컨텐츠 영역 -->
+				<div class="cnt-wrap">
+
+					<div class="location">
+						<span><a href="#">Home</a> &gt;</span>
+						<span><a href="#">상위페이지</a> &gt;</span>
+						<span>현재페이지</span>
+					</div>
+
+					<h2 class="title-dep1">레이어 팝업</h2>
+					
+					<div class="cnt-area">
+						<button type="button" data-target="layer1" class="btn01 open-layer" style="margin-bottom:500px;">레이어팝업1</button> <br>
+						<button type="button" data-target="layer2" class="btn01 open-layer2" style="margin-bottom:500px;">레이어팝업2</button><br>
+						<button type="button" data-target="layer3" class="btn01 open-layer">레이어팝업3</button><br>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		
+		<!-- btm -->
+		<div id="btm">
+			<footer>COPYRIGHT &copy; 2017 msp admin template. All right reserved.</footer>
+		</div>
+	</div>
+
+<!-- 레이어팝업 영역 ----------------------------------------------------------- -->
+<!-- layerPop - 1 -->
+<div class="layer-pop" id="layer1">
+	<div class="layer-cnt">
+		<div class="layer-top">test</div>
+		<div class="layer-mid">
+			<p>tx</p>
+			<p>tx</p>
+			<button type="button" data-target="layer2" class="btn01 open-layer2">레이어팝업</button><br>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<p>tx</p>
+			<button type="button" class="close-layer">닫기</button>
+		</div>
+	</div>
+</div>
+
+<!-- layerPop - 2 -->
+<div class="layer-pop" id="layer2">
+	<div class="layer-cnt">
+		<button type="button" class="close-layer all">닫기</button>
+	</div>
+</div>
+
+<!-- layerPop - 3 -->
+<div class="layer-pop" id="layer3">
+	<div class="layer-cnt">
+		test <br>test <br>test <br>test <br>
+		<button type="button" class="close-layer">닫기</button>
+	</div>
+</div>
+
+</body>
+</html>
