@@ -7,7 +7,6 @@
 // 2019-09-05 - ver1.3 - show 방식 변경 - 마우스/키보드 분리
 // 2019-10-23 - 부모요소의 poisiton 체크 -- fixed 있을 경우 달력도 fixed 로 설정 // 닫을 때 position, top, left 값 초기화
 
-
 $.fn.nCalendar = function(option){
 
 	this.each(function(){

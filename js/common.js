@@ -15,6 +15,25 @@ if (window.Element && !Element.prototype.closest) {
     };
 }
 
+// parents 기능 함수 - 부모요소 배열 반환
+Element.prototype.parents = function(selector) {
+	var elements = [];
+	var elem = this;
+	var ishaveselector = selector !== undefined;
+ 
+	while ((elem = elem.parentElement) !== null) {
+		if (elem.nodeType !== Node.ELEMENT_NODE) {
+			continue;
+		}
+ 
+		if (!ishaveselector || elem.matches(selector)) {
+			elements.push(elem);
+		}
+	}
+ 
+	return elements;
+};
+
 // hasClass 대체 - obj 가 특정 class 를 가지고 있는지 확인 - boolean 값 리턴
 function funcHasClass(obj, cls){
 	var objCls = obj.className;
@@ -39,6 +58,20 @@ function funcRemoveClass(obj, cls){
 	}
 }
 
+// offset 함수.
+function offset(elem) {
+    if(!elem) elem = this;
+
+    var x = elem.offsetLeft;
+    var y = elem.offsetTop;
+
+    while (elem = elem.offsetParent) {
+        x += elem.offsetLeft;
+        y += elem.offsetTop;
+    }
+
+    return { left: x, top: y };
+}
 
 //tab-menu 설정
 function tabmenu(){
