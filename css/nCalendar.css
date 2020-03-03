@@ -15,8 +15,8 @@
 .cal-wrap th { padding:5px 0 7px; background:#777; color:#fff; border:none; }
 /* .cal-wrap .cal-title { padding:10px 0 10px; font-size:16px; background:#fff; } */
 .cal-wrap td { padding:1px; border:none;}
-.cal-wrap td button, .cal-wrap td > span { display:block; width:100%; padding:5px 10px; border-radius:3px; text-align:center; box-sizing:border-box;}
-.cal-wrap td button[disabled], .cal-wrap td > span { color:#999; }
+.cal-wrap td button, .cal-wrap td > span { display:block; width:100%; padding:5px 10px; border-radius:3px; text-align:center; box-sizing:border-box; }
+.cal-wrap .cal-area button[disabled], .cal-wrap td > span { color:#999; cursor:default;}
 .cal-wrap button.today { padding:4px 0; border:1px solid #15a0d1; color:#15a0d1; font-weight:bold; background:#fff;}
 .cal-wrap .select-day { background:#15a0d1; color:#fff; font-weight:bold;}
 .cal-wrap .btn-hover { background:#15a0d1; }
@@ -29,7 +29,7 @@
 /* 월간달력용 */
 .cal-wrap .cal-month-list { width:100%; }
 .cal-wrap .cal-month-list li { float:left; width:23%; padding:1%; }
-.cal-wrap .cal-month-list li > button { display:block; width:100%; padding:8px; border:1px solid #ddd; color:#777; border-radius:3px; }
+.cal-wrap .cal-month-list li > button { display:block; width:100%; padding:8px; border:1px solid #ddd; border-radius:3px; }
 .cal-wrap .cal-month-list button.thisMonth { border:1px solid #15a0d1; color:#15a0d1; font-weight:bold; background:#fff; }
 .cal-wrap .cal-month-list button.select-mon { background:#15a0d1; color:#fff; font-weight:bold; border-color:#15a0d1; }
 

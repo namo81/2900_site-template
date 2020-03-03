@@ -33,7 +33,16 @@
 	<script>
 		$(function(){
 			$('.cal').nCalendar({
-				showType : 'both'
+				showType : 'both',
+				todayLimit : true,
+				limitType : 'after'
+			});
+
+			$('.cal-mon').nCalendar({
+				showType : 'both',
+				calType : 'month',
+				todayLimit : true,
+				limitType : 'after'
 			});
 		});
 	</script>
@@ -61,15 +70,17 @@
 				<p>input 및 달력 버튼 style은 layout.css 로 설정</p>
 				<div class="guide-show">
 					<div class="inp-cal" style="width:300px">
-						<input type="text" name="" placeholder="" class="cal" value="2019-04-05"/>
+						<input type="text" name="" placeholder="" class="cal" />
 					</div>
 					<div class="inp-cal" style="width:300px">
-						<input type="text" name="" placeholder="" class="cal" value="2029-09-01"/>
+						<input type="text" name="" placeholder="" class="cal-mon" value=""/>
 					</div>
 				</div>
 <xmp>$('.cal').nCalendar({
-	showType : 'button',				// 달력 호출 방식 / button - 버튼 클릭시 / input - input 에 focus / both - 버튼,input 둘다 사용
-	changeMon : true,				// 달력 상단 월 변경 select 표출 여부
+	showType : 'button',				// 달력 호출 방식 / button - 버튼 클릭시 / input - input 에 focus / both - 버튼,input 둘다 사용	
+	calType : null,						// null: 일반 기본형 ,  month : 월간달력
+	dayType : 'kr',						// kr : 한글, en : 영문 (월~일 표기)
+	changeMon : true,					// 달력 상단 월 변경 select 표출 여부
 	changeYear : true,					// 달력 상단 연도 변경 select 표출 여부
 	yearRange : '2019:2040',				// 연도 제한 '시작연도:종료연도'
 	showBtnPanel : true,				// 하단 '오늘', '닫기' 버튼 영역 표출 여부

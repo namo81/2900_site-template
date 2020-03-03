@@ -91,7 +91,7 @@ var nLayerHideFunc = function(tg){
 // 레이어 팝업 열기
 var nLayerShow = function(e, pageSet, btn){
 	var target_layer	= document.getElementById(e),
-		btn_close		= target_layer.querySelector(btnClose);
+		btn_close		= target_layer.querySelectorAll(btnClose);
 
 	target_layer.style.display = 'block';
 	funcAddClass(target_layer, showClass);
@@ -99,10 +99,12 @@ var nLayerShow = function(e, pageSet, btn){
 	nLayerPageSet(pageSet);
 	target_layer.focus();
 	
-	btn_close.addEventListener('click', function(){
-		nLayerHide(btn_close, btn);
-		this.removeEventListener('click', arguments.callee);
-	});
+	for(b=0; b<btn_close.length; b++) {
+		btn_close[b].addEventListener('click', function(){
+			nLayerHide(this, btn);
+			this.removeEventListener('click', arguments.callee);
+		});
+	}
 
 	/* btn_close.addEventListener('click', function(){
 		nLayerHide(btn_close, btn, pageSet);
