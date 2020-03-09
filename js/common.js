@@ -85,6 +85,51 @@ function tabmenu(){
 	});
 }
 
+// 말풍선 요소
+function nBalloon(selector) {
+	var nBallEle = document.querySelectorAll(selector);
+
+	if(nBallEle.length > 1) {
+		Array.prototype.forEach.call(nBallEle, function(el, index, array){
+			nBalloonSet(el);
+		});
+	} 
+	else if (nBallEle.length == 1) nBalloonSet(nBallEle[0]);
+	else null;
+}
+
+// 실제 말풍선 관련 기능 함수
+function nBalloonSet(Ele){
+	var ballWrap	= Ele,
+		btn			= ballWrap.querySelector('.btn-balloon'),
+		cnt			= ballWrap.querySelector('.cnt-balloon'),
+		btnClose	= ballWrap.querySelector('.btn-ball-close'),
+		wrapTop		= Number(offset(ballWrap).top + btn.height),
+		wrapLeft	= Number(offset(ballWrap).left),
+		setTop		= Number(btn.getAttribute('data-top')),
+		setLeft		= Number(btn.getAttribute('data-left'));
+
+	var cntShow = function() {
+		cnt.style.top = wrapTop + setTop +'px';
+		cnt.style.left = wrapLeft + setLeft +'px';
+		funcAddClass(cnt, 'on');
+	}, cntHide = function(){
+		cnt.style.top = '';
+		cnt.style.left = '';
+		funcRemoveClass(cnt, 'on');
+	}, cntCtrl = function() {
+		funcHasClass(cnt, 'on') ? cntHide() : cntShow();
+	}
+	
+	if(funcHasClass(ballWrap, 'hover')){
+		btn.addEventListener('mouseover', cntShow);
+		btn.addEventListener('mouseleave', cntHide);
+	} else {
+		btn.addEventListener('click', cntCtrl);
+	}
+
+	if(btnClose != null) btnClose.addEventListener('click', cntHide);
+}
 
 /*$(function(){
 	
