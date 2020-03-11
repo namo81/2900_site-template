@@ -1,9 +1,7 @@
 // calendar
 // 서남호(namo) - for m.s.p
-// 2018-08-08 - ver1.0 - 기본 단독형
-// 2019-04-22 - ver1.1 - 일/주/월 동시 사용 관련 버그 수정
-// 2019-07-11 - ver1.2 - 수정(td 에 날짜 입력)
-
+// 2019-09-05 - ver1.0.0 - 기간형 최초버전
+// 2020-03-11 - ver1.1.0 - 달력 2개 / 1개형 선택 기능 추가 // 선택 중 상태표기 수정
 
 $.fn.nCalendarRange = function(option){
 
@@ -11,12 +9,16 @@ $.fn.nCalendarRange = function(option){
 		var set = $.extend({
 			wrap : this,
 			showType : 'button',
+			dualCal : true,
 			yearRange : '2019:2040',
 			showBtnPanel : true,
 			closeBtnTx : '닫기',
 			applyBtnTx : '확인',
 			nextTx : '>',
-			prevTx : '<'
+			prevTx : '<',
+			rangeLimit : null, // 선택 기간 제한
+			todayLimit : false, // 오늘 기준 선택 제한
+			limitType : null // null : 오늘 이전 날짜 선택 제한 / after : 오늘 이후 날짜 선택 제한
 		}, option);
 			
 		//초기 세팅	
@@ -98,17 +100,17 @@ $.fn.nCalendarRange = function(option){
 			$rightTx, // Right 연/월 표기
 			$btnArea, // 오늘/닫기 버튼 영역
 			$closeBtn, // 닫기 버튼
-			$applyBtn; // 확인 버튼
+			$applyBtn, // 확인 버튼
+			setState = false; // 시작일 선택 상태 boolean
 
 		var startDate, endDate; // 입력용 값
 
-		//body 에 달력 div 생성
-		$('body').append('<div class="cal-wrap range"><div class="left"><div class="cal-area"></div></div><div class="right"><div class="cal-area"></div></div></div>');
-		$calWrap = $('.cal-wrap.range'),
+		// 달력 기본 영역 생성 ===========================================
+		//body 에 달력 div 생성		
+		$('body').append('<div class="cal-wrap range"><div class="left"><div class="cal-area"></div></div></div>');
+		$calWrap = $('.cal-wrap').last(),
 		$left = $calWrap.children('.left'),
-		$right = $calWrap.children('.right'),
-		$calLeft = $left.children('.cal-area'),
-		$calRight = $right.children('.cal-area');
+		$calLeft = $left.children('.cal-area');
 
 		// left 상단 설정
 		$left.prepend('<div class="cal-top"></div>');
@@ -116,25 +118,37 @@ $.fn.nCalendarRange = function(option){
 
 		var cntLeft ="";
 		cntLeft += '<button type="button" class="cal-btn prev">'+set.prevTx+'</button>';
-		cntLeft += '<p class="tx-yearMon"></p>';		
+		cntLeft += '<p class="tx-yearMon"></p>';
+		cntLeft += '<button type="button" class="cal-btn next">'+set.nextTx+'</button>';
 	
 		$ctrlLeft.append(cntLeft);
 		
-		$right.prepend('<div class="cal-top"></div>');
-		$ctrlRight= $right.find('.cal-top');
-
-		var cntRight ="";
-		cntRight += '<button type="button" class="cal-btn next">'+set.nextTx+'</button>';
-		cntRight += '<p class="tx-yearMon"></p>';		
-	
-		$ctrlRight.append(cntRight);
-
 		$prevM = $calWrap.find('.cal-btn.prev'),
 		$nextM = $calWrap.find('.cal-btn.next'),
-		$leftTx = $left.find('.tx-yearMon'),
-		$rightTx = $right.find('.tx-yearMon');
+		$leftTx = $left.find('.tx-yearMon');
+		
+		if(set.dualCal == true) {
+			$calWrap.addClass('dual');
+			$nextM.remove();
+			$calWrap.append('<div class="right"><div class="cal-area"></div></div>');
+			$right = $calWrap.children('.right'),
+			$calRight = $right.children('.cal-area');
 
-		// 하단 오늘/닫기 버튼 영역
+			$right.prepend('<div class="cal-top"></div>');
+			$ctrlRight= $right.find('.cal-top');
+
+			var cntRight ="";
+			cntRight += '<button type="button" class="cal-btn next">'+set.nextTx+'</button>';
+			cntRight += '<p class="tx-yearMon"></p>';		
+		
+			$ctrlRight.append(cntRight);
+			
+			
+			$nextM = $calWrap.find('.cal-btn.next');
+			$rightTx = $right.find('.tx-yearMon');
+		}
+
+		// 하단 확인/닫기 버튼 영역
 		$calWrap.append('<div class="cal-btns"></div>');
 		$btnArea = $calWrap.find('.cal-btns');
 		$btnArea.append('<button type="button" class="btn-cal-apply">'+set.applyBtnTx+'</button>');
@@ -142,14 +156,17 @@ $.fn.nCalendarRange = function(option){
 		$applyBtn = $calWrap.find('.btn-cal-apply'),
 		$closeBtn = $calWrap.find('.btn-cal-close');
 
-		// 달력 설정
+		// 달력 그리기 및 호출 ==================================================
 		var calendarOn = function(){ // 설정된 연,월,일로 달력 생성 및 기능 적용 (show X)
 			chkYoil();
 			makeCalendar(startYoil, nalsu[month],year,month + 1, $calLeft);
-			makeCalendar(endYoil, nalsu[month],rightYear,rightMon + 1, $calRight);
 			$leftTx.text(''+year+'년 '+(month +1)+'월');
-			$rightTx.text(''+rightYear+'년 '+(rightMon +1)+'월');
-			setToActiveDay();
+			if(set.dualCal == true) {
+				makeCalendar(endYoil, nalsu[month],rightYear,rightMon + 1, $calRight);
+				$rightTx.text(''+rightYear+'년 '+(rightMon +1)+'월');
+			}
+			setState == false ? setToActiveDay() : setToSelectDay();
+			if(set.todayLimit == true )limitNextPrevSet();
 		}, calPosition = function (tg){
 			// 달력 위치 설정 - input 기준
 			var Top = tg.offset().top + tg.outerHeight(),
@@ -225,17 +242,29 @@ $.fn.nCalendarRange = function(option){
 			var $btnTd = $calWrap.find('td').children('button');
 
 			$btnTd.each(function(){
+				if(set.todayLimit == true ) limitSet($(this));
 				$(this).click(function(){
 					if(endDate == null && startDate == null || endDate != null && startDate != null) {
 						$calWrap.find('td').removeClass('start end in-range');
 						startDate = $(this).parent().data('date');
 						endDate = null;
 						$(this).parent().addClass('start');
+						setState = true;
 					} else if (endDate == null && startDate != null) {
-						if( changeToDate($(this).parent().data('date')) > changeToDate(startDate)){
-							endDate = $(this).parent().data('date');
-							$applyBtn.prop('disabled',false).attr('disabled',false);
-							$(this).parent().addClass('end');
+						if(set.rangeLimit == null) {
+							if( changeToDate($(this).parent().data('date')) > changeToDate(startDate)){
+								endDate = $(this).parent().data('date');
+								$applyBtn.prop('disabled',false).attr('disabled',false);
+								$(this).parent().addClass('end');
+							}
+						} else {
+							if( changeToDate($(this).parent().data('date')) > changeToDate(startDate) && changeToDate($(this).parent().data('date')) < changeToDate(startDate).valueOf() + (60 * 60 * 24 * 1000 * set.rangeLimit)){
+								endDate = $(this).parent().data('date');
+								$applyBtn.prop('disabled',false).attr('disabled',false);
+								$(this).parent().addClass('end');
+							} else {
+								alert('기간 선택은 시작일 이후 '+set.rangeLimit+'일 이내여야 합니다.');
+							}
 						}
 					} 
 				});
@@ -298,17 +327,69 @@ $.fn.nCalendarRange = function(option){
 				});
 			}
 		}
-		
+
+		// 확인 누르기 전 선택 중일 경우 설정
+		function setToSelectDay(){
+			var $td = $calWrap.find('td'),
+				sDate, eDate;
+			
+			if(endDate == null) {
+				sDate = changeToDate(startDate);
+				$td.each(function(){
+					if($(this).data('date') != null){
+						var date = changeToDate($(this).data('date'));
+						if( date.valueOf() == sDate.valueOf() ) $(this).addClass('start');
+					}
+				});
+			} else {
+				sDate = changeToDate(startDate);
+				eDate = changeToDate(endDate);
+				$td.each(function(){
+					if($(this).data('date') != null){
+						var date = changeToDate($(this).data('date'));
+						if( date.valueOf() == sDate.valueOf() ) $(this).addClass('start');
+						else if( date.valueOf() == eDate.valueOf() ) $(this).addClass('end');
+						else if ( date > sDate && date < eDate ) $(this).addClass('in-range');
+					}
+				});
+			}
+		}
+
+		// 기타 기능 ==========================================================================
+		function limitSet(e){ // 오늘 날짜 제한 기능 관련
+			var tg = e,
+				tgYear = changeToDate(tg.parent().data('date')).getFullYear(),
+				tgMonth = changeToDate(tg.parent().data('date')).getMonth(),
+				tgDay = tg.text();
+			if(set.limitType == 'after') {
+				if(tgYear > thisYear || tgYear == thisYear && tgMonth > thisMonth || tgYear == thisYear && tgMonth == thisMonth && tgDay > today ) tg.attr('disabled', true);
+				// 1년전 까지만 선택 가능 - 임시 기능 (카드매출조회 용)
+				if(tgYear < thisYear - 1 || tgYear == thisYear - 1 && tgMonth < thisMonth || tgYear == thisYear-1 && tgMonth == thisMonth && tgDay < today) tg.attr('disabled', true);
+			} else {
+				if(tgYear < thisYear || tgYear == thisYear && tgMonth < thisMonth || tgYear == thisYear && tgMonth == thisMonth && tgDay < today ) tg.attr('disabled', true);
+			}
+		}
+
+		function limitNextPrevSet(){
+			if(set.limitType == 'after') {
+				year > thisYear || year == thisYear && month > thisMonth -1 ? $nextM.attr('disabled',true) : $nextM.attr('disabled', false);
+			} else {
+				year < thisYear || year == thisYear && month < thisMonth +1 ? $prevM.attr('disabled',true) : $prevM.attr('disabled', false);
+			}
+		}
+
 		// 달력 닫기
 		function calhide(){
 			$calWrap.removeClass('on'); 
 			$calLeft.empty();
-			$calRight.empty();
+			if(set.dualCal == true) $calRight.empty();
 			$btn.focus();
 			startDate = null;
 			endDate = null;
+			setState = false;
 		}
 			
+		// 달력 그리기 ==========================================================================
 		function makeCalendar(yoil, nalsu, year, month, tgCal) {		
 			var str= "";
 			str = "<table border ='0'>";
@@ -346,7 +427,11 @@ $.fn.nCalendarRange = function(option){
 			
 			str += "</tbody></table>";
 			tgCal.html(str);
-			if(tgCal == $calRight) btnSet();
+			if(set.dualCal == true) {
+				if(tgCal == $calRight) btnSet();
+			} else {
+				btnSet();
+			}
 		}
 	});
 	return this;

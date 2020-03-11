@@ -29,11 +29,15 @@
 
 	<!-- calendar 관련 설정 -->
 	<link rel="stylesheet" href="/css/nCalendar.css" media="screen, print" />
-	<script src="/js/nCalendarRange_v1.0.0.js"></script>
+	<script src="/js/nCalendarRange_v1.1.0.js"></script>
 	<script>
 		$(function(){
 			$('.inp-cal.range').nCalendarRange({
-				showType : 'both'
+				showType : 'both',
+				dualCal : false,
+				todayLimit : true,
+				limitType : 'after',
+				rangeLimit : 30
 			});
 		});
 	</script>
