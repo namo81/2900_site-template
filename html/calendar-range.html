@@ -29,11 +29,15 @@
 
 	<!-- calendar 관련 설정 -->
 	<link rel="stylesheet" href="/css/nCalendar.css" media="screen, print" />
-	<script src="/js/nCalendarRange_v1.0.0.js"></script>
+	<script src="/js/nCalendarRange_v1.1.0.js"></script>
 	<script>
 		$(function(){
 			$('.inp-cal.range').nCalendarRange({
-				showType : 'both'
+				showType : 'both',
+				dualCal : false,
+				todayLimit : true,
+				limitType : 'after',
+				rangeLimit : 30
 			});
 		});
 	</script>
@@ -60,9 +64,9 @@
 					</div>
 				</div>
 <xmp><div class="inp-cal range" style="width:320px">
-	<span><input type="text" name="" placeholder="" class="cal"/></span>
+	<span><input type="text" name="" placeholder="" class="cal start"/></span>
 	<i>~</i>
-	<span><input type="text" name="" placeholder="" class="cal"/></span>
+	<span><input type="text" name="" placeholder="" class="cal end"/></span>
 </div>
 </xmp>
 			</div>

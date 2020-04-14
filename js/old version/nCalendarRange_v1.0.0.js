@@ -1,8 +1,6 @@
 // calendar
 // 서남호(namo) - for m.s.p
-// 2018-08-08 - ver1.0 - 기본 단독형
-// 2019-04-22 - ver1.1 - 일/주/월 동시 사용 관련 버그 수정
-// 2019-07-11 - ver1.2 - 수정(td 에 날짜 입력)
+// 2019-09-05 - ver1.0.0 - 기간형 최초버전
 
 
 $.fn.nCalendarRange = function(option){

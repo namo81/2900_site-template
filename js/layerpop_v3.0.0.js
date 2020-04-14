@@ -2,6 +2,7 @@
 // 2018-08-30 copyright - namo (seo nam ho) for m.s.p
 // 2019-12-11 - v2.0 - css transform 사용을 통한 중앙정렬 > 스크립트 중앙정렬 제거 // 높이 단위 vh 사용으로 높이 계산 제거
 // 2020-01-13 - v3.0.0 - jquery 제거 버전
+// 2020-04-13 - 모 페이지에서 호출 시 scroll 값 저장 -> 닫을 때 해당 scroll 이동 (버튼형일 경우만)
 
 // !! common.js 필수
 
@@ -9,7 +10,8 @@ var layer		= '.layer-pop', // 레이어 팝업 공통 클래스
 	onClass		= 'now-open', // 레이어 팝업 오픈 시킨 버튼에 지정될 임시 클래스
 	layerCnt	= '.layer-cnt', // 레이어 팝업 내 컨텐츠 영역 클래스
 	btnClose	= '.close-layer',
-	showClass	= 'showOn';
+	showClass	= 'showOn',
+	scrollT;
 
 
 // 기본 페이지 설정 함수 - tab 키 요소 제어 및 화면 높이 설정
@@ -70,6 +72,7 @@ var nLayerHide = function(closeBtn, openBtn){
 		funcRemoveClass(firstOpen, onClass);
 	}
 	nLayerPageSetOff();
+	window.scrollTo(0,scrollT); // 페이지 scroll 위치 설정
 }
 
 
@@ -91,7 +94,7 @@ var nLayerHideFunc = function(tg){
 // 레이어 팝업 열기
 var nLayerShow = function(e, pageSet, btn){
 	var target_layer	= document.getElementById(e),
-		btn_close		= target_layer.querySelector(btnClose);
+		btn_close		= target_layer.querySelectorAll(btnClose);
 
 	target_layer.style.display = 'block';
 	funcAddClass(target_layer, showClass);
@@ -99,10 +102,12 @@ var nLayerShow = function(e, pageSet, btn){
 	nLayerPageSet(pageSet);
 	target_layer.focus();
 	
-	btn_close.addEventListener('click', function(){
-		nLayerHide(btn_close, btn);
-		this.removeEventListener('click', arguments.callee);
-	});
+	for(b=0; b<btn_close.length; b++) {
+		btn_close[b].addEventListener('click', function(){
+			nLayerHide(this, btn);
+			this.removeEventListener('click', arguments.callee);
+		});
+	}
 
 	/* btn_close.addEventListener('click', function(){
 		nLayerHide(btn_close, btn, pageSet);
@@ -115,6 +120,7 @@ var nlayer = {
 	showBtnRun : function(e, pageSet){
 		tg = e.getAttribute('data-target');
 		funcAddClass(e, onClass);
+		if(!e.closest(layer)) scrollT = window.pageYOffset; // 페이지 내 버튼일 경우 현재 scroll 값 기억
 		nLayerShow(tg, pageSet, e);
 	},
 	showBtn : function(e, pageSet){

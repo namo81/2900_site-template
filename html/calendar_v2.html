@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="author" content="seonamho - SK MNS" >
+	<meta name="description" content="">
+	<meta name="keywords" content="Site Template">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Site Template">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+
+	<title>기본 가이드</title>
+	<link rel="stylesheet" href="/guide/guide.css" media="screen, print" />
+
+	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
+	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
+	<script src="/js/common.js"></script>
+	<script src="/js/jquery-3.2.1.min.js"></script>
+
+	<!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <![endif]-->	
+	<script src="/guide/guide.js"></script>
+
+	<!-- calendar 관련 설정 -->
+	<link rel="stylesheet" href="/css/nCalendar.css" media="screen, print" />
+	<script src="/js/nCalendar_v2.0.0.js"></script>
+	<script>
+		$(function(){
+			$('.cal').nCalendar({
+				showType : 'both',
+				todayLimit : true,
+				limitType : 'after'
+			});
+
+			$('.cal-mon').nCalendar({
+				showType : 'both',
+				calType : 'month',
+				todayLimit : true,
+				limitType : 'after'
+			});
+		});
+	</script>
+
+	<style type="text/css">
+		#guide-input { position:relative; }
+	</style>
+
+</head>
+<body>
+<div id="work-list">
+	<div class="guide">
+		
+
+		<!-- input ================================================================ -->
+		<section id="guide-input">
+			<h2 class="guide-sec-tit">Calendar</h2>
+
+			<div class="guide-sec">
+				<h3 class="guide-stit">기본형</h3>
+				<h4 class="guide-sstit">1개일 경우</h4>
+				<p>자체 제작 달력 플러그인 사용</p>
+				<p>width 값은 별도 지정</p>
+				<p>달력 style은 nCalendar.css 로 설정</p>
+				<p>input 및 달력 버튼 style은 layout.css 로 설정</p>
+				<div class="guide-show">
+					<div class="inp-cal" style="width:300px">
+						<input type="text" name="" placeholder="" class="cal" />
+					</div>
+					<div class="inp-cal" style="width:300px">
+						<input type="text" name="" placeholder="" class="cal-mon" value=""/>
+					</div>
+				</div>
+<xmp>$('.cal').nCalendar({
+	showType : 'button',				// 달력 호출 방식 / button - 버튼 클릭시 / input - input 에 focus / both - 버튼,input 둘다 사용	
+	calType : null,						// null: 일반 기본형 ,  month : 월간달력
+	dayType : 'kr',						// kr : 한글, en : 영문 (월~일 표기)
+	changeMon : true,					// 달력 상단 월 변경 select 표출 여부
+	changeYear : true,					// 달력 상단 연도 변경 select 표출 여부
+	yearRange : '2019:2040',				// 연도 제한 '시작연도:종료연도'
+	showBtnPanel : true,				// 하단 '오늘', '닫기' 버튼 영역 표출 여부
+	closeBtnTx : '닫기',				// 닫기 버튼 텍스트
+	todayBtnTx : '오늘',				// 오늘 버튼 텍스트
+	controls : true,					// 이전달/다음달 버튼 생성 여부
+	nextTx : '&gt;',						// 다음달 버튼 텍스트
+	prevTx : '&lt;',						// 이전달 버튼 텍스트
+	todayLimit : false,					// 오늘 기준 선택 제한
+	limitType : null					// null : 오늘 이전 날짜 선택 제한 / after : 오늘 이후 날짜 선택 제한
+});
+</xmp>
+<xmp><div class="inp-cal" style="width:300px">
+	<input type="text" name="" placeholder="" class="cal"/>
+</div>
+</xmp>
+			</div>
+		</section>
+
+	</div>
+	<a href="#work-list" class="guide-top">Top</a>	
+</div>
+</body>
+</html>

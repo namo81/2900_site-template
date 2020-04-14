@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="author" content="seonamho - SK MNS" >
+	<meta name="description" content="">
+	<meta name="keywords" content="Site Template">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Site Template">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
+
+	<title>버튼 가이드</title>
+	<link rel="stylesheet" href="/guide/guide.css" media="screen, print" />
+
+	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
+	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
+	<script src="/js/jquery-3.2.1.min.js"></script>
+	<script src="/js/common.js"></script>
+
+	<!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <![endif]-->
+	
+	<script src="/guide/guide.js"></script>
+	<script>
+		window.onload = function(){
+			nBalloon('.balloon-wrap');
+		}
+	</script>
+
+</head>
+<body>
+<div id="work-list">
+	<div class="guide">
+
+		<section id="guide-basic">
+			<h2 class="guide-sec-tit">말풍선</h2>
+			<div class="guide-sec">
+				<h3 class="guide-stit">말풍선</h3>
+				<h4 class="guide-sstit">클릭형</h4>
+				<p>스타일은 css 에서 별도 설정</p>
+				<p>기본적으로는 말풍선이 버튼 아래 및 버튼 좌측 기준에 맞추어 생성되며, data-top / data-left 를 통하여 위치 조정 가능(px단위)</p>
+				<div class="guide-show">
+				<!-- 코드 작성 -->
+					<div class="balloon-wrap">
+						<button type="button" class="btn-balloon btn small" data-top="5" data-left="20"><span>버튼</span></button>
+						<div class="cnt-balloon">
+							<div class="cnt">
+								말풍선 내용이 들어가는 영역입니다.
+							</div>
+							<button type="button" class="btn-ball-close">말풍선 닫기</button>
+						</div>
+					</div>
+				<!-- // 코드 작성 -->
+				</div>
+<xmp><div class="balloon-wrap">
+	<button type="button" class="btn-balloon" data-top="5" data-left="-5"><span>버튼</span></button>
+	<div class="cnt-balloon">
+		<div class="cnt">
+			말풍선 내용이 들어가는 영역입니다.
+		</div>
+		<button type="button" class="btn-ball-close">말풍선 닫기</button>
+	</div>
+</div>
+</xmp>
+				<h4 class="guide-sstit">마우스 오버형</h4>
+				<p>기본형에서 'hover' 클래스 추가</p>
+				<div class="guide-show">
+				<!-- 코드 작성 -->
+					<div class="balloon-wrap hover">
+						<button type="button" class="btn-balloon btn small" data-top="5" data-left="-5"><span>버튼</span></button>
+						<div class="cnt-balloon">
+							<div class="cnt">
+								말풍선 내용이 들어가는 영역입니다.
+							</div>
+						</div>
+					</div>
+				<!-- // 코드 작성 -->
+				</div>
+<xmp><<div class="balloon-wrap">
+	<button type="button" class="btn-balloon" data-top="5" data-left="-5"><span>버튼</span></button>
+	<div class="cnt-balloon">
+		<div class="cnt">
+			말풍선 내용이 들어가는 영역입니다.
+		</div>
+	</div>
+</div>
+</xmp>
+			</div>
+
+		</section>
+	</div>
+	<a href="#work-list" class="guide-top">Top</a>	
+</div>
+</body>
+</html>
