@@ -73,6 +73,24 @@ function offset(elem) {
     return { left: x, top: y };
 }
 
+// 이벤트 리스트 관련 함수 - 이벤트 추가 시 listener 를 별도 배열로 보관 - 추후 삭제 가능하도록.
+HTMLElement.prototype.onEvent = function (eventType, callBack, useCapture) {
+	this.addEventListener(eventType, callBack, useCapture);
+	if (!this.myListeners) {
+		this.myListeners = [];
+	};
+	this.myListeners.push({ eType: eventType, callBack: callBack });
+	return this;
+};
+
+HTMLElement.prototype.removeListeners = function () {
+	if (this.myListeners) {
+		for (var i = 0; i < this.myListeners.length; i++) {
+			this.removeEventListener(this.myListeners[i].eType, this.myListeners[i].callBack);
+		};
+		delete this.myListeners;
+	};
+};
 
 //tab menu 기능
 function nTab(selector){

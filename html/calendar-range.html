@@ -36,8 +36,13 @@
 				showType : 'both',
 				dualCal : false,
 				todayLimit : true,
-				limitType : 'after',
-				rangeLimit : 30
+				limitType : 'after'
+			});
+			$('.inp-cal.single-range').nCalendarRange({
+				showType : 'both',
+				inpSingle : true,
+				todayLimit : true,
+				limitType : 'after'
 			});
 		});
 	</script>
@@ -62,11 +67,18 @@
 						<i>~</i>
 						<span><input type="text" name="" placeholder="" class="cal end"/></span>
 					</div>
+					
+					<div class="inp-cal single-range" style="width:320px">
+						<input type="text" name="" placeholder="" class="cal start"/>
+					</div>
 				</div>
 <xmp><div class="inp-cal range" style="width:320px">
 	<span><input type="text" name="" placeholder="" class="cal start"/></span>
 	<i>~</i>
 	<span><input type="text" name="" placeholder="" class="cal end"/></span>
+</div>
+<div class="inp-cal single-range" style="width:320px">
+	<input type="text" name="" placeholder="" class="cal start"/>
 </div>
 </xmp>
 			</div>
