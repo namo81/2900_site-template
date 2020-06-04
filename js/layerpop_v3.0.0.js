@@ -3,6 +3,7 @@
 // 2019-12-11 - v2.0 - css transform 사용을 통한 중앙정렬 > 스크립트 중앙정렬 제거 // 높이 단위 vh 사용으로 높이 계산 제거
 // 2020-01-13 - v3.0.0 - jquery 제거 버전
 // 2020-04-13 - 모 페이지에서 호출 시 scroll 값 저장 -> 닫을 때 해당 scroll 이동 (버튼형일 경우만)
+// 2020-06-04 - cnt 높이가 홀수일 경우 짝수로 - 브라우저에서 흐리게 보이는 현상 방지
 
 // !! common.js 필수
 
@@ -94,11 +95,13 @@ var nLayerHideFunc = function(tg){
 // 레이어 팝업 열기
 var nLayerShow = function(e, pageSet, btn){
 	var target_layer	= document.getElementById(e),
+		cnt				= target_layer.querySelector(layerCnt),
 		btn_close		= target_layer.querySelectorAll(btnClose);
 
 	target_layer.style.display = 'block';
 	funcAddClass(target_layer, showClass);
-	
+	cnt.offsetHeight % 2 != 0 ? cnt.style.height = cnt.offsetHeight + 1 + 'px' : null; // cnt 높이가 홀수일 경우 짝수로.
+
 	nLayerPageSet(pageSet);
 	target_layer.focus();
 	
