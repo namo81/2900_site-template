@@ -3,6 +3,7 @@
 // 2019-09-05 - ver1.0.0 - 기간형 최초버전
 // 2020-03-11 - ver1.1.0 - 달력 2개 / 1개형 선택 기능 추가 // 선택 중 상태표기 수정
 // 2020-04-17 - rangeLimit 관련 수정 // input 이 1개 일 경우 추가(inpSingle)
+// 2020-06-04 - 오늘 제한 여유일 / 전체 기간 제한 추가
 
 $.fn.nCalendarRange = function(option){
 
@@ -20,7 +21,9 @@ $.fn.nCalendarRange = function(option){
 			prevTx : '<',
 			rangeLimit : null, // 선택 기간 제한
 			todayLimit : false, // 오늘 기준 선택 제한
-			limitType : null // null : 오늘 이전 날짜 선택 제한 / after : 오늘 이후 날짜 선택 제한
+			limitType : null, // null : 오늘 이전 날짜 선택 제한 / after : 오늘 이후 날짜 선택 제한
+			todayGap : 0, // 오늘 기준 제한 - 여유일 관련 옵션 추가 (오늘 *일 전부터 제한, *일 후부터 제한 등등 여유일 추가 시)
+			rangeGap : 0 // 선택일 제한 - 오늘부터 1년 전, 6개월 이후 등등 선택 가능 기간 설정
 		}, option);
 			
 		//초기 세팅	
@@ -60,7 +63,7 @@ $.fn.nCalendarRange = function(option){
 		}, setYoil = function( tg ){ // input 에 값이 있을 경우 해당 값으로 연/월/일 설정
 			var dateStartTx, dateEndTx, yearEnd, monthEnd, dayEnd;					
 			if(set.inpSingle == true){
-				var fullDate 	= tg.find('.cal').val(),
+				var fullDate 	= tg.find('input').val(),
 					dateStartTx = fullDate.split(' ~ ')[0],
 					dateEndTx	= fullDate.split(' ~ ')[1];
 			} else {
@@ -115,7 +118,7 @@ $.fn.nCalendarRange = function(option){
 		var startDate, endDate; // 입력용 값
 
 		if(set.inpSingle == true) {
-			$inp = $wrap.find('.cal');
+			$inp = $wrap.find('input');
 		} else {
 			$inpStart = $wrap.find('.start'),
 			$inpEnd = $wrap.find('.end');
@@ -123,7 +126,7 @@ $.fn.nCalendarRange = function(option){
 
 		// 달력 기본 영역 생성 ===========================================
 		//body 에 달력 div 생성		
-		$('body').append('<div class="cal-wrap range"><div class="left"><div class="cal-area"></div></div></div>');
+		$('body').append('<div class="cal-wrap range" tabindex="0"><div class="left"><div class="cal-area"></div></div></div>');
 		$calWrap = $('.cal-wrap').last(),
 		$left = $calWrap.children('.left'),
 		$calLeft = $left.children('.cal-area');
@@ -190,10 +193,10 @@ $.fn.nCalendarRange = function(option){
 			$calWrap.css({
 				'top':''+Top+'px',
 				'left':''+Left+'px'
-			}).focus();
+			});
 		}, calendarShow = function( tg ){ // 달력 show 함수 + input 값 체크로 연,월,일 설정함수 호출
 			var inpDate;
-			set.inpSingle == true ? inpDate = tg.find('.cal').val().length : inpDate = tg.find('.start').val().length;
+			set.inpSingle == true ? inpDate = tg.find('input').val().length : inpDate = tg.find('.start').val().length;
 			if(inpDate > 0) { // input 에 설정된 날짜가 있을 경우 해당 날짜 연/월/일 세팅
 				setYoil(tg);
 				calendarOn(); 
@@ -201,27 +204,40 @@ $.fn.nCalendarRange = function(option){
 				resetYoil(); 
 				calendarOn(); 
 			}		
-			$calWrap.addClass('on').attr('tabindex','0').focus();
+			$calWrap.css('display','block');
+			$calWrap.focus();
 			$applyBtn.prop('disabled',true).attr('disabled',true);
 		}
 
 		// show type 설정 : 버튼 / input focus / both
-		$wrap.append('<button type="button" class="btn-cal">달력보기</button>');
-		$btn = $wrap.find('.btn-cal');
-		if(set.inpSingle == true) {
-			$inp.focusin(function(){ calShow($wrap); });
-		} else {
-			$inpStart.focusin(function(){ calShow($wrap); });
-			$inpEnd.focusin(function(){ calShow($wrap); });
+		if(set.showType == 'both' || set.showType == 'button') {
+			$wrap.append('<button type="button" class="btn-cal">달력보기</button>');
+			$btn = $wrap.find('.btn-cal');
+
+			$btn.click(function(){
+				calShow($wrap);
+			});
+		}
+		if(set.showType == 'both' || set.showType == 'input') {
+			if(set.inpSingle == true) {
+				$inp.click(function(){ calShow($wrap); });
+				$inp.on('keyup', function(e){
+					var key = e.keyCode || e.which;
+					if(key == 9) calShow($wrap);
+				});
+			} else {
+				$inpStart.click(function(){ calShow($wrap); });
+				$inpEnd.click(function(){ calShow($wrap); });
+				$inpStart.on('keyup', function(e){
+					var key = e.keyCode || e.which;
+					if(key == 9) calShow($wrap);
+				});
+			}
 		}
 
-		$btn.click(function(){
-			calShow($wrap);
-		});
-
 		function calShow(e){
-			calendarShow(e);
 			calPosition(e);
+			calendarShow(e);
 		}
 
 		//	상단 연/월 설정 영역  ==========================================================================
@@ -416,32 +432,46 @@ $.fn.nCalendarRange = function(option){
 		// 기타 기능 ==========================================================================
 		function limitSet(e){ // 오늘 날짜 제한 기능 관련
 			var tg = e,
-				tgYear = changeToDate(tg.parent().data('date')).getFullYear(),
-				tgMonth = changeToDate(tg.parent().data('date')).getMonth(),
-				tgDay = tg.text();
+				tgDate = changeToDate(tg.parent().data('date'));
 			if(set.limitType == 'after') {
-				if(tgYear > thisYear || tgYear == thisYear && tgMonth > thisMonth || tgYear == thisYear && tgMonth == thisMonth && tgDay > today ) tg.attr('disabled', true);
+				// 오늘(+- gap) 이후 날짜 disabled
+				if(tgDate > new Date(thisYear, thisMonth, today + set.todayGap)) tg.attr('disabled', true);
+				if(set.rangeGap > 0) if(tgDate < new Date(thisYear, thisMonth, today - set.rangeGap)) tg.attr('disabled', true);
+				
+				// 일단위가 아니라, 1달, 1년 등등 단위로 설정할 경우 아래 기능 적용
+				//if(tgYear > thisYear || tgYear == thisYear && tgMonth > thisMonth || tgYear == thisYear && tgMonth == thisMonth && tgDay > today + set.limitGap ) tg.attr('disabled', true);
 				/* 1년전 까지만 선택 가능 - 임시 기능 (카드매출조회 용)
 				if(tgYear < thisYear - 1 || tgYear == thisYear - 1 && tgMonth < thisMonth || tgYear == thisYear-1 && tgMonth == thisMonth && tgDay < today) tg.attr('disabled', true);*/
 			} else {
-				if(tgYear < thisYear || tgYear == thisYear && tgMonth < thisMonth || tgYear == thisYear && tgMonth == thisMonth && tgDay < today ) tg.attr('disabled', true);
+				// 오늘(+- gap) 이전 날짜 disabled
+				if(tgDate < new Date(thisYear, thisMonth, today - set.todayGap)) tg.attr('disabled', true);
+				if(set.rangeGap > 0) if(tgDate > new Date(thisYear, thisMonth, today + set.rangeGap)) tg.attr('disabled', true);
+				
+				// 일단위가 아니라, 1달, 1년 등등 단위로 설정할 경우 아래 기능 적용
+				//if(tgYear < thisYear || tgYear == thisYear && tgMonth < thisMonth || tgYear == thisYear && tgMonth == thisMonth && tgDay < today + set.limitGap ) tg.attr('disabled', true);
 			}
 		}
 
-		function limitNextPrevSet(){
+		function limitNextPrevSet(){  // 2020-05-26 : 오늘 이후 제한 시 여유분 관련 추가 수정 (여유분 날짜의 월이 다를 경우)
+			var lastDay = new Date(thisYear, thisMonth, today + set.limitNum),
+				lastMon = lastDay.getMonth();
 			if(set.limitType == 'after') {
-				year > thisYear || year == thisYear && month > thisMonth -1 ? $nextM.attr('disabled',true) : $nextM.attr('disabled', false);
+				year > thisYear || year == thisYear && month > lastMon -1 ? $nextM.attr('disabled',true) : $nextM.attr('disabled', false);
+				year <= thisYear-1 && month <=thisMonth ? $prevM.attr('disabled',true) : $prevM.attr('disabled', false); // 1년전까지만 선택가능 - 임시(카드매출조회용)
 			} else {
-				year < thisYear || year == thisYear && month < thisMonth +1 ? $prevM.attr('disabled',true) : $prevM.attr('disabled', false);
+				year < thisYear || year == thisYear && month < lastMon +1 ? $prevM.attr('disabled',true) : $prevM.attr('disabled', false);
 			}
 		}
 
 		// 달력 닫기
 		function calhide(){
-			$calWrap.removeClass('on'); 
+			$calWrap.css('display','none');
 			$calLeft.empty();
 			if(set.dualCal == true) $calRight.empty();
-			$btn.focus();
+			if(set.showType == 'button') $btn.focus();
+			else {
+				set.inpSingle == true ? $inp.focus() : $inpStart.focus();
+			}
 			startDate = null;
 			endDate = null;
 			setState = false;

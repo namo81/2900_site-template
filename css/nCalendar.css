@@ -3,7 +3,7 @@
 .cal-wrap.on { display:block; }
 
 .cal-wrap button { border:none; background:#fff; font-size:12px; line-height:16px; }
-.cal-wrap select, .cal-wrap .cal-title { display:inline-block; width:auto; margin:0 2px; padding:2px 3px 4px; font-size:13px; line-height:15px; color:#151515; font-weight:bold; vertical-align:middle;}
+.cal-wrap select, .cal-wrap .cal-title { display:inline-block; width:auto; height:25px; margin:0 2px; padding:2px 3px 4px; font-size:13px; line-height:17px; color:#151515; font-weight:bold; box-sizing:border-box; vertical-align:middle;}
 .cal-wrap caption { height: 1px; overflow: hidden; line-height: 0; margin-top: -1px; color: transparent; }
 
 .cal-wrap .cal-top { position:relative; width:100%; margin-bottom:15px; overflow:hidden; text-align:center; }
