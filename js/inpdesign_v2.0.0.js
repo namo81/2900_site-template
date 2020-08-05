@@ -146,14 +146,15 @@ function nFile(selector) {
 function nFileSet(Ele){
 	var fileWrap	= Ele,
 		fileInp		= fileWrap.querySelector('input[type=file]'),
+		placeholder = fileInp.getAttribute('placeholder'),
 		btnClear	= fileWrap.querySelector('.btn-clear'),
 		urlInp		= null,
 		inpHtml		= '';	
 
 	if(fileInp.disabled == true) {
 		funcAddClass(fileWrap, 'disabled');
-		inpHtml += '<input type="text" class="inp-file-url" title="파일 경로" readonly disabled>';
-	} else inpHtml += '<input type="text" class="inp-file-url" title="파일 경로" readonly>';
+		inpHtml += '<input type="text" class="inp-file-url" title="파일 경로" placeholder="'+placeholder+'" readonly disabled>';
+	} else inpHtml += '<input type="text" class="inp-file-url" title="파일 경로" placeholder="'+placeholder+'" readonly>';
 
 	fileWrap.insertAdjacentHTML('beforeend', inpHtml);
 	urlInp = fileWrap.querySelector('.inp-file-url');

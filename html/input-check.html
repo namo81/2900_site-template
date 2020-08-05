@@ -41,6 +41,27 @@
 			$('.inp-txt.kor').on('input propertychange',function(){
 				$(this).val( $(this).val().replace(/[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,;:\"\\]/g,"") );
 			});
+
+			function inpChkLogin(wrap){
+				var wrap 	= document.querySelector(wrap),
+					inps 	= wrap.querySelectorAll('input[type=text], input[type=password]'),
+					inpNum 	= inps.length,
+					btn	 	= wrap.querySelector('button');
+				
+				function inpChk(){
+					var chkNum = new Array();
+					for(var i=0; i<inps.length; i++){
+						if(inps[i].value.length > 0) chkNum[i] = 1;
+						else chkNum[i] = 0;
+					}
+					chkNum.indexOf(0) >= 0 ? btn.disabled = true : btn.disabled = false;
+				}
+				for(var i=0; i<inps.length; i++){
+					inps[i].addEventListener('input', inpChk);
+				}
+			}
+
+			inpChkLogin('.login-inp');
 		});
 	</script>
 
@@ -63,6 +84,27 @@
 <xmp><input type="text" name="" title="" class="inp-txt num" placeholder="숫자 입력">
 <input type="text" name="" title="" class="inp-txt eng" placeholder="영문입력">
 <input type="text" name="" title="" class="inp-txt kor" placeholder="한글입력">
+</xmp>
+			</div>
+
+		</section>
+
+		<section id="guide-input">
+			<h2 class="guide-sec-tit">input 로그인</h2>
+			<div class="guide-sec">
+				<h3 class="guide-stit">아이디 / 암호 모두 값이 있을때 버튼 활성화</h3>
+				<div class="guide-show">
+					<div class="login-inp">
+						<input type="text" name="" placeholder="아이디" title="아이디">
+						<input type="password" name="" placeholder="비밀번호" title="비밀번호">	
+						<button type="submit" disabled><span>로그인</span></button>
+					</div>
+				</div>
+<xmp><div class="login-inp">
+	<input type="text" name="" placeholder="아이디" title="아이디">
+	<input type="password" name="" placeholder="비밀번호" title="비밀번호">	
+	<button type="submit" disabled><span>로그인</span></button>
+</div>
 </xmp>
 			</div>
 

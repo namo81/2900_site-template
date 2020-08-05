@@ -2,6 +2,7 @@
 // 서남호(namo) - for m.s.p
 // 2020-02-24 - fn / extend 만 jquery 활용한 버전 제작 - 추후 패턴 공부 후 fn/extend 모두 제거 예정
 // 2020-03-19 - 선택제한 기능추가에 따른 이전/다음 버튼 비활성화 기능 추가
+// 2020-08-05 - 달력 외 영역 클릭 시 달력 hide 추가
 
 $.fn.nCalendar = function(option){
 
@@ -115,6 +116,18 @@ $.fn.nCalendar = function(option){
 				wrapAll[a].style.left = '';
 				wrapAll[a].style.display = 'none';
 			}
+		}
+
+		// 달력 외 영역 클릭 시 달력 hide
+		function outSideClick(){
+			var body = document.querySelector('body');
+			body.addEventListener('mousedown', function(e){
+				var tg = e.target;
+				if( !tg.closest('.cal-wrap') ) {
+					calClose();
+					this.removeEventListener('mousedown', arguments.callee);
+				}
+			});
 		}
 	
 	/* 일간 달력 ==================================================================================================================================================================================== */
@@ -236,6 +249,8 @@ $.fn.nCalendar = function(option){
 				calDraw();
 				wrap.style.display = 'block';
 				wrap.focus();
+				
+				outSideClick(); // 달력 외 영역 클릭 시 달력 hide
 			}
 
 			/* click ------------------------------------------------------------------------ */
@@ -326,7 +341,7 @@ $.fn.nCalendar = function(option){
 
 			// input date write -----------------------
 			var dateSelect = function(e){
-				var dateBtn = e.target,
+				var dateBtn = e.target.tagName == 'BUTTON' ? e.target : e.target.closest('BUTTON'),
 					inpDate = new Date(dateBtn.getAttribute('data-year'), dateBtn.getAttribute('data-month') - 1, dateBtn.innerText);
 
 				inp.value = changeToYMD(inpDate);
@@ -490,6 +505,8 @@ $.fn.nCalendar = function(option){
 				calDraw();
 				wrap.style.display = 'block';
 				wrap.focus();
+
+				outSideClick(); // 달력 외 영역 클릭 시 달력 hide
 			}
 			
 			/* click ------------------------------------------------------------------------ */
@@ -546,7 +563,7 @@ $.fn.nCalendar = function(option){
 
 			// input date write -----------------------
 			var dateSelect = function(e){
-				var dateBtn = e.target,
+				var dateBtn = e.target.tagName == 'BUTTON' ? e.target : e.target.closest('BUTTON'),
 					inpDate = new Date(dateBtn.getAttribute('data-year'), dateBtn.getAttribute('data-month') - 1, 1);
 
 				inp.value = changeToYMD(inpDate);

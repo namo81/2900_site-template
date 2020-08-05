@@ -262,14 +262,18 @@ $.fn.nCalendarRange = function(option){
 		});
 
 		// 하단 버튼 영역 기능 설정 ==========================================================================
+		var changeEvt = document.createEvent('Event');
+		changeEvt.initEvent('change', true, false);		
 
 		$applyBtn.click(function(){
 			if(set.inpSingle == true) {
 				var val = dateAddZero(startDate) + ' ~ ' + dateAddZero(endDate);
 				$inp.val(val);
+				$inp[0].dispatchEvent(changeEvt);
 			} else {
 				$inpStart.val(dateAddZero(startDate));
 				$inpEnd.val(dateAddZero(endDate));
+				$inpEnd[0].dispatchEvent(changeEvt);
 			}
 			calhide();
 		});
