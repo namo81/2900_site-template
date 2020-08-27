@@ -4,6 +4,7 @@
 // 2020-03-11 - ver1.1.0 - 달력 2개 / 1개형 선택 기능 추가 // 선택 중 상태표기 수정
 // 2020-04-17 - rangeLimit 관련 수정 // input 이 1개 일 경우 추가(inpSingle)
 // 2020-06-04 - ver1.1.1 - 오늘 제한 여유일 / 전체 기간 제한 추가
+// 2020-08-25 - ver1.1.1 - 우측 달력 - 요일 표기 수정 / 윤달 설정 이동
 
 $.fn.nCalendarRange = function(option){
 
@@ -47,6 +48,15 @@ $.fn.nCalendarRange = function(option){
 
 		var startMonDay,startYoil,endMonDay,endYoil;
 
+		// 각 월의 요일 수
+		var nalsu = new Array(31,28,31,30,31,30,31,31,30,31,30,31);	
+		// 요일 표기
+		var weekTx = new Array("일", "월", "화", "수", "목", "금", "토");
+		//2월은 윤년 체크
+		var nalsu29 = function(){
+			year % 4 === 0 && year % 100 !== 0 || year % 400 === 0 ? nalsu[1] = 29 : nalsu[1] = 28;
+		}
+
 		var chkYoil = function(){ //월 시작일의 요일 확인
 			startMonDay = new Date(year, month, 1);
 			startYoil = startMonDay.getDay();
@@ -54,6 +64,7 @@ $.fn.nCalendarRange = function(option){
 			rightYear = endMonDay.getFullYear(),
 			rightMon = endMonDay.getMonth(),
 			endYoil = endMonDay.getDay();
+			nalsu29();
 			//alert(yoil); // 일:0, 월:1 ~ 토:6
 		}, resetYoil = function(){ // 연/월/일 변수 - 오늘 날짜로 초기화
 			now = new Date(),
@@ -83,16 +94,7 @@ $.fn.nCalendarRange = function(option){
 			activeEndYear = yearEnd,
 			activeEndMonth = monthEnd,
 			activeEndDay = dayEnd;
-		}
-		
-		// 각 월의 요일 수
-		var nalsu = new Array(31,28,31,30,31,30,31,31,30,31,30,31);	
-		// 요일 표기
-		var weekTx = new Array("일", "월", "화", "수", "목", "금", "토");
-		//2월은 윤년 체크
-		if(year % 4 === 0 && year % 100 !== 0 || year % 400 === 0 ){
-			nalsu[1] = 29;
-		}
+		}	
 
 		var $wrap = $(set.wrap),
 			$inp, // input 가 1개일 경우 input
@@ -180,7 +182,7 @@ $.fn.nCalendarRange = function(option){
 			makeCalendar(startYoil, nalsu[month],year,month + 1, $calLeft);
 			$leftTx.text(''+year+'년 '+(month +1)+'월');
 			if(set.dualCal == true) {
-				makeCalendar(endYoil, nalsu[month],rightYear,rightMon + 1, $calRight);
+				makeCalendar(endYoil, nalsu[rightMon],rightYear,rightMon + 1, $calRight);
 				$rightTx.text(''+rightYear+'년 '+(rightMon +1)+'월');
 			}
 			setState == false ? setToActiveDay() : setToSelectDay();

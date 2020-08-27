@@ -91,6 +91,25 @@ var nLayerHideFunc = function(tg){
 	nLayerPageSetOff();
 }
 
+// 레이어 팝업 전체 닫기 - 함수형 
+var nLayerAllHideFunc = function(){
+	var layers		= document.querySelectorAll(layer),
+		layerLen	= layers.length;
+		
+	for(i = 0; i<layerLen; i++){
+		layers[i].style.display = 'none';
+		funcRemoveClass(layers[i], showClass);
+	}
+	
+	var firstOpen = document.querySelector('.'+onClass);
+
+	if(firstOpen) {
+		firstOpen.focus();
+		funcRemoveClass(firstOpen, onClass);
+	}
+	nLayerPageSetOff();
+}
+
 
 // 레이어 팝업 열기
 var nLayerShow = function(e, pageSet, btn){
