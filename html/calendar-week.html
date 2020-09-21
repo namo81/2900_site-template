@@ -15,8 +15,12 @@
 	<meta property="og:url" content="">
 	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
 
-	<title>기본 가이드</title>
-	<link rel="stylesheet" href="/guide/guide.css" media="screen, print" />
+	<title>달력(주간) | 기본 가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
@@ -24,14 +28,15 @@
 
 	<!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
-    <![endif]-->	
-	<script src="/guide/guide.js"></script>
+    <![endif]-->
 
 	<!-- calendar 관련 설정 -->
 	<link rel="stylesheet" href="/css/nCalendar.css" media="screen, print" />
 	<script src="/js/nCalendarWeek_v1.1.0.js"></script>
 	<script>
 		$(function(){
+			hljs.initHighlightingOnLoad(); 
+			
 			$('.cal-week').nCalendarWeek({
 				showType : 'both',
 				showWeekNum : false,
@@ -70,10 +75,10 @@
 						<input type="text" name="" placeholder="" class="cal-week"/>
 					</div>
 				</div>
-<xmp><div class="inp-cal" style="width:300px">
-	<input type="text" name="" placeholder="" class="cal-week"/>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="inp-cal" style="width:300px"&gt;
+	&lt;input type="text" name="" placeholder="" class="cal-week"/&gt;
+&lt;/div&gt;
+</code></pre>
 				<h4 class="guide-sstit">주차 표기</h3>
 				<p>주차 표기 - showWeekNum : true</p>
 				<p>주차 입력 - inpWeekNum : true</p>
@@ -83,10 +88,10 @@
 						<input type="text" name="" placeholder="" class="cal-week2"/>
 					</div>
 				</div>
-<xmp><div class="inp-cal" style="width:300px">
-	<input type="text" name="" placeholder="" class="cal-week2"/>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="inp-cal" style="width:300px"&gt;
+	&lt;input type="text" name="" placeholder="" class="cal-week2"/&gt;
+&lt;/div&gt;
+</code></pre>
 			
 			</div>
 		</section>

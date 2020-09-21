@@ -15,8 +15,12 @@
 	<meta property="og:url" content="">
 	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
 
-	<title>버튼 가이드</title>
-	<link rel="stylesheet" href="/guide/guide.css" media="screen, print" />
+	<title>말풍선 |  가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
@@ -25,9 +29,14 @@
 
 	<!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
-    <![endif]-->
+	<![endif]-->
+
+	<script>
+		$(function(){ 
+			hljs.initHighlightingOnLoad(); 
+		});
+	</script>
 	
-	<script src="/guide/guide.js"></script>
 	<script>
 		window.onload = function(){
 			nBalloon('.balloon-wrap');
@@ -59,16 +68,16 @@
 					</div>
 				<!-- // 코드 작성 -->
 				</div>
-<xmp><div class="balloon-wrap">
-	<button type="button" class="btn-balloon" data-top="5" data-left="-5"><span>버튼</span></button>
-	<div class="cnt-balloon">
-		<div class="cnt">
+<pre><code class="html">&lt;div class="balloon-wrap"&gt;
+	&lt;button type="button" class="btn-balloon" data-top="5" data-left="-5"&gt;&lt;span&gt;버튼&lt;/span&gt;&lt;/button&gt;
+	&lt;div class="cnt-balloon"&gt;
+		&lt;div class="cnt"&gt;
 			말풍선 내용이 들어가는 영역입니다.
-		</div>
-		<button type="button" class="btn-ball-close">말풍선 닫기</button>
-	</div>
-</div>
-</xmp>
+		&lt;/div&gt;
+		&lt;button type="button" class="btn-ball-close"&gt;말풍선 닫기&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
 				<h4 class="guide-sstit">마우스 오버형</h4>
 				<p>기본형에서 'hover' 클래스 추가</p>
 				<div class="guide-show">
@@ -83,15 +92,15 @@
 					</div>
 				<!-- // 코드 작성 -->
 				</div>
-<xmp><<div class="balloon-wrap">
-	<button type="button" class="btn-balloon" data-top="5" data-left="-5"><span>버튼</span></button>
-	<div class="cnt-balloon">
-		<div class="cnt">
+<pre><code class="html">&lt;div class="balloon-wrap"&gt;
+	&lt;button type="button" class="btn-balloon" data-top="5" data-left="-5"&gt;&lt;span&gt;버튼&lt;/span&gt;&lt;/button&gt;
+	&lt;div class="cnt-balloon"&gt;
+		&lt;div class="cnt"&gt;
 			말풍선 내용이 들어가는 영역입니다.
-		</div>
-	</div>
-</div>
-</xmp>
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 
 		</section>

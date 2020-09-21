@@ -13,9 +13,14 @@
 	<meta property="og:description" content="">
 	<meta property="og:image" content="">
 	<meta property="og:url" content="">
+	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
 
-	<title>기본 가이드</title>
-	<link rel="stylesheet" href="/guide/guide.css" media="screen, print" />
+	<title>달력 | 기본 가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
@@ -25,13 +30,14 @@
 	<!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
     <![endif]-->	
-	<script src="/guide/guide.js"></script>
 
 	<!-- calendar 관련 설정 -->
 	<link rel="stylesheet" href="/css/nCalendar.css" media="screen, print" />
 	<script src="/js/nCalendar_v2.0.0.js"></script>
 	<script>
 		$(function(){
+			hljs.initHighlightingOnLoad(); 
+			
 			$('.cal').nCalendar({
 				showType : 'both',
 				todayLimit : true,
@@ -78,7 +84,7 @@
 						<input type="text" name="" placeholder="" class="cal-mon" value=""/>
 					</div>
 				</div>
-<xmp>$('.cal').nCalendar({
+<pre><code class="javascript">$('.cal').nCalendar({
 	showType : 'button',				// 달력 호출 방식 / button - 버튼 클릭시 / input - input 에 focus / both - 버튼,input 둘다 사용	
 	calType : null,						// null: 일반 기본형 ,  month : 월간달력
 	dayType : 'kr',						// kr : 한글, en : 영문 (월~일 표기)
@@ -94,11 +100,11 @@
 	todayLimit : false,					// 오늘 기준 선택 제한
 	limitType : null					// null : 오늘 이전 날짜 선택 제한 / after : 오늘 이후 날짜 선택 제한
 });
-</xmp>
-<xmp><div class="inp-cal" style="width:300px">
-	<input type="text" name="" placeholder="" class="cal"/>
-</div>
-</xmp>
+</code></pre>
+<pre><code class="html">&lt;div class="inp-cal" style="width:300px"&gt;
+	&lt;input type="text" name="" placeholder="" class="cal"/&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 		</section>
 

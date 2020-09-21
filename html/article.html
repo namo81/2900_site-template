@@ -15,8 +15,12 @@
 	<meta property="og:url" content="">
 	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
 
-	<title>약관</title>
-	<link rel="stylesheet" href="/guide/guide.css" media="screen, print" />
+	<title>약관 | 가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
@@ -24,10 +28,13 @@
 
 	<!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
-    <![endif]-->
-	
-	<script src="/guide/guide.js"></script>
+	<![endif]-->
 
+	<script>
+		$(function(){ 
+			hljs.initHighlightingOnLoad(); 
+		});
+	</script>
 </head>
 <body>
 <div id="work-list">
@@ -66,30 +73,30 @@
 					</div>
 				<!-- // 코드 작성 -->
 				</div>
-<xmp><div class="article-wrap">
-	<h1 class="aw-tit">약관 전체 타이틀</h1>
-	<div class="article-cnt">
-		<h2 class="ac-tit">약관 내 항목 타이틀</h2>
-		<p>기본 p 태그용 내용</p>
-		<ul>
-			<li>&bull; 기본 ul / li 구조 영역 입니다.</li>
-			<li>&bull; 기본 ul / li 구조 영역 입니다.</li>
-			<li>- 기본 ul / li 구조 영역 입니다.</li>
-			<li>- 기본 ul / li 구조 영역 입니다.</li>
-		</ul>
-		<ol>
-			<li>1. 기본 ol / li 구조 영역 입니다.</li>
-			<li>2. 기본 ol / li 구조 영역 입니다.</li>
-			<li>a. 기본 ol / li 구조 영역 입니다.</li>
-			<li>b. 기본 ol / li 구조 영역 입니다.</li>
-		</ol>
-	</div>
-	<div class="article-cnt">
-		<h2 class="ac-tit">약관 내 항목 타이틀</h2>
-		<p>기본 p 태그용 내용</p>
-	</div>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="article-wrap"&gt;
+	&lt;h1 class="aw-tit"&gt;약관 전체 타이틀&lt;/h1&gt;
+	&lt;div class="article-cnt"&gt;
+		&lt;h2 class="ac-tit"&gt;약관 내 항목 타이틀&lt;/h2&gt;
+		&lt;p&gt;기본 p 태그용 내용&lt;/p&gt;
+		&lt;ul&gt;
+			&lt;li&gt;&bull; 기본 ul / li 구조 영역 입니다.&lt;/li&gt;
+			&lt;li&gt;&bull; 기본 ul / li 구조 영역 입니다.&lt;/li&gt;
+			&lt;li&gt;- 기본 ul / li 구조 영역 입니다.&lt;/li&gt;
+			&lt;li&gt;- 기본 ul / li 구조 영역 입니다.&lt;/li&gt;
+		&lt;/ul&gt;
+		&lt;ol&gt;
+			&lt;li&gt;1. 기본 ol / li 구조 영역 입니다.&lt;/li&gt;
+			&lt;li&gt;2. 기본 ol / li 구조 영역 입니다.&lt;/li&gt;
+			&lt;li&gt;a. 기본 ol / li 구조 영역 입니다.&lt;/li&gt;
+			&lt;li&gt;b. 기본 ol / li 구조 영역 입니다.&lt;/li&gt;
+		&lt;/ol&gt;
+	&lt;/div&gt;
+	&lt;div class="article-cnt"&gt;
+		&lt;h2 class="ac-tit"&gt;약관 내 항목 타이틀&lt;/h2&gt;
+		&lt;p&gt;기본 p 태그용 내용&lt;/p&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 			<div class="guide-sec">
 				<h3 class="guide-stit">리스트 스타일</h3>
@@ -122,28 +129,28 @@
 					</div>
 				<!-- // 코드 작성 -->
 				</div>
-<xmp><div class="article-wrap">
-	<div class="article-cnt">
-		<p>기본 p 태그용 내용</p>
-		<ul class="star">
-			<li>※ ul - 변형구조 1</li>
-			<li>※ ul - 변형구조 1</li>
-		</ul>
-		<ol class="tx-kor">
-			<li>가. ol - 변형구조 1</li>
-			<li>나. ol - 변형구조 1</li>
-		</ol>
-		<ol class="tx-alpha">
-			<li>A. ol - 변형구조 2</li>
-			<li>B. ol - 변형구조 2</li>
-		</ol>
-		<ol class="tx-circle">
-			<li>① ol - 변형구조 3</li>
-			<li>② ol - 변형구조 3</li>
-		</ol>
-	</div>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="article-wrap"&gt;
+	&lt;div class="article-cnt"&gt;
+		&lt;p&gt;기본 p 태그용 내용&lt;/p&gt;
+		&lt;ul class="star"&gt;
+			&lt;li&gt;※ ul - 변형구조 1&lt;/li&gt;
+			&lt;li&gt;※ ul - 변형구조 1&lt;/li&gt;
+		&lt;/ul&gt;
+		&lt;ol class="tx-kor"&gt;
+			&lt;li&gt;가. ol - 변형구조 1&lt;/li&gt;
+			&lt;li&gt;나. ol - 변형구조 1&lt;/li&gt;
+		&lt;/ol&gt;
+		&lt;ol class="tx-alpha"&gt;
+			&lt;li&gt;A. ol - 변형구조 2&lt;/li&gt;
+			&lt;li&gt;B. ol - 변형구조 2&lt;/li&gt;
+		&lt;/ol&gt;
+		&lt;ol class="tx-circle"&gt;
+			&lt;li&gt;① ol - 변형구조 3&lt;/li&gt;
+			&lt;li&gt;② ol - 변형구조 3&lt;/li&gt;
+		&lt;/ol&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 			<div class="guide-sec">
 				<h3 class="guide-stit">리스트 중첩</h3>
@@ -177,32 +184,32 @@
 					</div>
 				<!-- // 코드 작성 -->
 				</div>
-<xmp><div class="article-wrap">
-	<div class="article-cnt">
-		<p>기본 p 태그용 내용</p>
-		<ul class="star">
-			<li>※ 리스트 내용 1</li>
-			<li>※ 리스트 내용 2
-				<ul>
-					<li>- 리스트 내용 2-1</li>
-					<li>- 리스트 내용 2-2</li>
-				</ul>
-			</li>
-			<li>※ 리스트 내용 3
-				<ul>
-					<li>- 리스트 내용 3-1</li>
-					<li>- 리스트 내용 3-2
-						<ul class="star">
-							<li>※ 리스트 내용 3-2-1</li>
-							<li>※ 리스트 내용 3-2-2</li>
-						</ul>
-					</li>
-				</ul>
-			</li>
-		</ul>
-	</div>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="article-wrap"&gt;
+	&lt;div class="article-cnt"&gt;
+		&lt;p&gt;기본 p 태그용 내용&lt;/p&gt;
+		&lt;ul class="star"&gt;
+			&lt;li&gt;※ 리스트 내용 1&lt;/li&gt;
+			&lt;li&gt;※ 리스트 내용 2
+				&lt;ul&gt;
+					&lt;li&gt;- 리스트 내용 2-1&lt;/li&gt;
+					&lt;li&gt;- 리스트 내용 2-2&lt;/li&gt;
+				&lt;/ul&gt;
+			&lt;/li&gt;
+			&lt;li&gt;※ 리스트 내용 3
+				&lt;ul&gt;
+					&lt;li&gt;- 리스트 내용 3-1&lt;/li&gt;
+					&lt;li&gt;- 리스트 내용 3-2
+						&lt;ul class="star"&gt;
+							&lt;li&gt;※ 리스트 내용 3-2-1&lt;/li&gt;
+							&lt;li&gt;※ 리스트 내용 3-2-2&lt;/li&gt;
+						&lt;/ul&gt;
+					&lt;/li&gt;
+				&lt;/ul&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 			
 			<div class="guide-sec">
@@ -217,8 +224,8 @@
 								<table>
 									<caption>테스트</caption>
 									<colgroup>
-										<col style="width:%"/>
-										<col style="width:%"/>
+										<col style="width:50%"/>
+										<col style="width:50%"/>
 									</colgroup>
 									<thead>
 										<tr>
@@ -239,34 +246,34 @@
 					</div>
 				<!-- // 코드 작성 -->
 				</div>
-<xmp><div class="article-wrap">
-	<div class="article-cnt">
-		<p class="tbl-desc">테이블 안내문구</p>
-		<div class="tbl">
-			<table>
-				<caption>테스트</caption>
-				<colgroup>
-					<col style="width:%"/>
-					<col style="width:%"/>
-				</colgroup>
-				<thead>
-					<tr>
-						<th scope="col">제목1</th>
-						<th scope="col">제목2</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>내용1</td>
-						<td>내용2</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<p class="tbl-desc">테이블 안내문구</p>
-	</div>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="article-wrap"&gt;
+	&lt;div class="article-cnt"&gt;
+		&lt;p class="tbl-desc"&gt;테이블 안내문구&lt;/p&gt;
+		&lt;div class="tbl"&gt;
+			&lt;table&gt;
+				&lt;caption&gt;테스트&lt;/caption&gt;
+				&lt;colgroup&gt;
+					&lt;col style="width:50%"/&gt;
+					&lt;col style="width:50%"/&gt;
+				&lt;/colgroup&gt;
+				&lt;thead&gt;
+					&lt;tr&gt;
+						&lt;th scope="col"&gt;제목1&lt;/th&gt;
+						&lt;th scope="col"&gt;제목2&lt;/th&gt;
+					&lt;/tr&gt;
+				&lt;/thead&gt;
+				&lt;tbody&gt;
+					&lt;tr&gt;
+						&lt;td&gt;내용1&lt;/td&gt;
+						&lt;td&gt;내용2&lt;/td&gt;
+					&lt;/tr&gt;
+				&lt;/tbody&gt;
+			&lt;/table&gt;
+		&lt;/div&gt;
+		&lt;p class="tbl-desc"&gt;테이블 안내문구&lt;/p&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 
 		</section>

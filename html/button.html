@@ -15,8 +15,12 @@
 	<meta property="og:url" content="">
 	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
 
-	<title>버튼 가이드</title>
-	<link rel="stylesheet" href="/guide/guide.css" media="screen, print" />
+	<title>버튼 | 가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
@@ -24,10 +28,13 @@
 
 	<!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
-    <![endif]-->
+	<![endif]-->
 	
-	<script src="/guide/guide.js"></script>
-
+	<script>
+		$(function(){ 
+			hljs.initHighlightingOnLoad(); 
+		});
+	</script>
 </head>
 <body>
 <div id="work-list">
@@ -52,12 +59,12 @@
 					<a href="#" class="btn xsmall">버튼 XS 사이즈</a>
 				<!-- // 코드 작성 -->
 				</div>
-<xmp><a href="#" class="btn xlarge">버튼 XL 사이즈</a>
-<a href="#" class="btn large">버튼 L 사이즈</a>
-<a href="#" class="btn medium">버튼 M 사이즈</a>
-<a href="#" class="btn small">버튼 S 사이즈</a>
-<a href="#" class="btn xsmall">버튼 XS 사이즈</a>
-</xmp>
+<pre><code class="html">&lt;a href="#" class="btn xlarge"&gt;버튼 XL 사이즈&lt;/a&gt;
+&lt;a href="#" class="btn large"&gt;버튼 L 사이즈&lt;/a&gt;
+&lt;a href="#" class="btn medium"&gt;버튼 M 사이즈&lt;/a&gt;
+&lt;a href="#" class="btn small"&gt;버튼 S 사이즈&lt;/a&gt;
+&lt;a href="#" class="btn xsmall"&gt;버튼 XS 사이즈&lt;/a&gt;
+</code></pre>
 
 				<h4 class="guide-sstit">button 태그 사용 시</h4>
 				<p>IE 에서 버튼 눌리는 effect 제거를 위해 button 태그 내 span 태그 추가</p>
@@ -70,12 +77,12 @@
 					<button type="button" class="btn xsmall" onclick=""><span>버튼 XS 사이즈</span></button>
 				<!-- // 코드 작성 -->
 				</div>
-<xmp><button type="button" class="btn xlarge" onclick=""><span>버튼 XL 사이즈</span></button>
-<button type="button" class="btn large" onclick=""><span>버튼 L 사이즈</span></button>
-<button type="button" class="btn medium" onclick=""><span>버튼 M 사이즈</span></button>
-<button type="button" class="btn small" onclick=""><span>버튼 S 사이즈</span></button>
-<button type="button" class="btn xsmall" onclick=""><span>버튼 XS 사이즈</span></button>
-</xmp>
+<pre><code class="html">&lt;button type="button" class="btn xlarge" onclick=""&gt;&lt;span&gt;버튼 XL 사이즈&lt;/span&gt;&lt;/button&gt;
+&lt;button type="button" class="btn large" onclick=""&gt;&lt;span&gt;버튼 L 사이즈&lt;/span&gt;&lt;/button&gt;
+&lt;button type="button" class="btn medium" onclick=""&gt;&lt;span&gt;버튼 M 사이즈&lt;/span&gt;&lt;/button&gt;
+&lt;button type="button" class="btn small" onclick=""&gt;&lt;span&gt;버튼 S 사이즈&lt;/span&gt;&lt;/button&gt;
+&lt;button type="button" class="btn xsmall" onclick=""&gt;&lt;span&gt;버튼 XS 사이즈&lt;/span&gt;&lt;/button&gt;
+</code></pre>
 			</div>
 
 			<div class="guide-sec">
@@ -88,10 +95,10 @@
 					<a href="#" class="btn medium gray">버튼 Gray</a>
 				<!-- // 코드 작성 -->
 				</div>
-<xmp><a href="#" class="btn medium red">버튼 Red</a>
-<a href="#" class="btn medium white">버튼 White</a>
-<a href="#" class="btn medium gray">버튼 Gray</a>
-</xmp>
+<pre><code class="html">&lt;a href="#" class="btn medium red"&gt;버튼 Red&lt;/a&gt;
+&lt;a href="#" class="btn medium white"&gt;버튼 White&lt;/a&gt;
+&lt;a href="#" class="btn medium gray"&gt;버튼 Gray&lt;/a&gt;
+</code></pre>
 			</div>
 
 			<div class="guide-sec">
@@ -105,10 +112,10 @@
 					<button type="button" class="btn medium white"><span><i class="ico-btn"><img src="../images/ico_list.png" alt=""></i> 버튼 Red</span></button>
 				<!-- // 코드 작성 -->
 				</div>
-<xmp><a href="#" class="btn medium white"><i class="ico-btn"><img src="../images/ico_list.png" alt=""></i> 버튼 Red</a>
-<a href="#" class="btn medium">버튼 Red <i class="ico-btn"><img src="../images/ico_file.png" alt=""></i></a>
-<button type="button" class="btn medium white"><span><i class="ico-btn"><img src="../images/ico_list.png" alt=""></i> 버튼 Red</span></button>
-</xmp>
+<pre><code class="html">&lt;a href="#" class="btn medium white"&gt;&lt;i class="ico-btn"&gt;&lt;img src="../images/ico_list.png" alt=""&gt;&lt;/i&gt; 버튼 Red&lt;/a&gt;
+&lt;a href="#" class="btn medium"&gt;버튼 Red &lt;i class="ico-btn"&gt;&lt;img src="../images/ico_file.png" alt=""&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;button type="button" class="btn medium white"&gt;&lt;span&gt;&lt;i class="ico-btn"&gt;&lt;img src="../images/ico_list.png" alt=""&gt;&lt;/i&gt; 버튼 Red&lt;/span&gt;&lt;/button&gt;
+</code></pre>
 			</div>
 		</section>
 	</div>

@@ -15,7 +15,14 @@
 	<meta property="og:url" content="">
 	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
 
-	<title></title>
+	<title>레이어팝업 | 가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
+
+	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
 	<script src="/js/common.js"></script>
 	<script src="/js/layerpop_v3.0.0.js"></script>
@@ -23,7 +30,6 @@
 	<!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
     <![endif]-->
-
 	<script>
 		window.onload = function(){
 			nlayer.showBtn('.open-layer', 'fixed'); // body fixed 설정

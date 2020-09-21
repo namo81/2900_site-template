@@ -15,8 +15,12 @@
 	<meta property="og:url" content="">
 	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
 
-	<title>기본 가이드</title>
-	<link rel="stylesheet" href="/guide/guide.css" media="screen, print" />
+	<title>달력(월간) | 가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
@@ -25,13 +29,14 @@
 	<!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
     <![endif]-->	
-	<script src="/guide/guide.js"></script>
 
 	<!-- calendar 관련 설정 -->
 	<link rel="stylesheet" href="/css/nCalendar.css" media="screen, print" />
 	<script src="/js/nCalendarMonth_v1.0.0.js"></script>
 	<script>
 		$(function(){
+			hljs.initHighlightingOnLoad(); 
+			
 			$('.cal-month').nCalendarMonth({
 				showType : 'both'
 			});
@@ -58,10 +63,10 @@
 						<input type="text" name="" placeholder="" class="cal-month"/>
 					</div>
 				</div>
-<xmp><div class="inp-cal" style="width:300px">
-	<input type="text" name="" placeholder="" class="cal-month"/>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="inp-cal" style="width:300px"&gt;
+	&lt;input type="text" name="" placeholder="" class="cal-month"/&gt;
+&lt;/div&gt;
+</code></pre>
 			
 			</div>
 		</section>

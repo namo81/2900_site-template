@@ -74,10 +74,10 @@ html, body { width:100%; height:100%; }
 #work-list .list tr.del td, #work-list .list tr.del td a { color:#aaa; text-decoration: line-through; background-image:none; }
 #work-list .list tr.del td.state.end:after { content:'삭제'; background:#ccc; }
 
-#work-list .iframe { position:fixed; display:none; width:1200px; height:1600px; top:5%; left:10%; z-index:10; background:#fff; border:2px solid #036ab3; -webkit-transform:scale(.4); -webkit-transform-origin:0 0; box-sizing:border-box; }
+#work-list .iframe { position:fixed; display:none; width:1200px; height:1600px; top:5%; left:10%; z-index:10; background:#fff; border:2px solid #036ab3; transform:scale(.4); -webkit-transform:scale(.4); transform-origin:0 0;-webkit-transform-origin:0 0; box-sizing:border-box; }
 #work-list .iframe iframe { width:100%; height:100%; }
 #work-list .iframe .btn-frame-close { display:block; width:100%; padding:16px 0; font-size:36px; background:#036ab3; color:#fff; text-align:center; }
-#work-list .iframe.mobile { width:360px; height:720px; border:1px solid #15a0d1; -webkit-transform:scale(1); box-shadow:1px 1px 7px rgba(0,0,0,.3); }
+#work-list .iframe.mobile { width:360px; height:720px; border:1px solid #15a0d1; transform:scale(1); -webkit-transform:scale(1); box-shadow:1px 1px 7px rgba(0,0,0,.3); }
 #work-list .iframe.mobile .btn-frame-close { padding:10px 0; font-size:20px; box-shadow:1px 1px 7px rgba(0,0,0,.3); }
 
 #work-list .guide-menu { max-width:1200px; margin:0 auto; padding:10px 0; overflow:hidden; }
@@ -87,9 +87,9 @@ html, body { width:100%; height:100%; }
 
 #work-list .guide > section { display:block; max-width:1180px; margin:0 auto 50px; padding:10px; font-family:roboto; font-size:12px; line-height:1.4em; }
 #work-list .guide .guide-sec-tit { padding:10px; font-size:24px; letter-spacing:-0.05em; background:#036ab3; color:#fff; text-align:center; }
-#work-list .guide .guide-sec { display:block; margin-bottom:5px; padding:10px; border:1px dotted #888; }
-#work-list .guide .guide-stit { margin-bottom:10px; font-size:18px; }
-#work-list .guide .guide-sstit { margin:15px 0 10px; padding-top:15px; font-size:14px; border-top:1px dashed #888; }
+#work-list .guide .guide-sec { display:block; margin-bottom:5px; padding:20px 10px;  }
+#work-list .guide .guide-stit { margin-bottom:10px; font-size:20px; }
+#work-list .guide .guide-sstit { margin:15px 0 10px; padding-top:15px; font-size:16px; border-top:1px dashed #888; }
 #work-list .guide-sec p { margin:5px 0; }
 #work-list .guide-sec .imp { position:relative; padding-left:15px; font-weight:bold; color:#ff0000; font-size:14px; }
 #work-list .guide-sec .imp:after { content:'▶'; position:absolute; width:15px; height:15px; top:0; left:0; }
@@ -98,9 +98,9 @@ html, body { width:100%; height:100%; }
 #work-list .guide-sec > ul > li:first-child { margin-top:0; }
 #work-list .guide-sec > ul > li ul { display:block; }
 #work-list .guide-sec > ul > li ul li { margin-left:15px; }
-#work-list .guide .guide-show { margin:15px 0; }
+#work-list .guide .guide-show { position:relative; margin:15px 0; padding:30px 10px 10px; border:1px solid #cdcdcd; }
+#work-list .guide .guide-show:before { content:'예시'; position:absolute; top:0; left:0; padding:3px 10px; background:#cdcdcd; color:#fff; }
 #work-list .guide .guide-red { color:#ff0000; }
-#work-list .guide xmp { display:block; margin:0; padding:10px; background:#222; color:#eee; }
 #work-list .guide-sec .guide-link { display:inline-block; margin:10px 0; padding:3px 5px; color:#666; font-size:13px; border-bottom:1px solid #666; }
 #work-list .guide-sec .guide-link:hover { text-decoration:none; }
 

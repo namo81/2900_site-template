@@ -16,7 +16,11 @@
 	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
 
 	<title>Layout | 기본 가이드</title>
-	<link rel="stylesheet" href="/guide/guide.css" media="screen, print" />
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
@@ -24,9 +28,13 @@
 
 	<!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
-    <![endif]-->	
-	<script src="/guide/guide.js"></script>
-
+	<![endif]-->
+	
+	<script>
+		$(function(){ 
+			hljs.initHighlightingOnLoad(); 
+		});
+	</script>
 </head>
 <body>
 <div id="work-list">
@@ -43,34 +51,34 @@
 				<p>height 100% 설정 - footer 가 항상 브라우저 하단에.</p>
 				<p>가로 100% 일 경우 #wrap 에 full 클래스 추가</p>
 				<a href="layout-ver.html" class="guide-link">예시화면</a>
-<xmp><div id="wrap">
-<!-- <div id="wrap" class="full"> 가로 100%일 경우 -->
-	<header id="top">
-		<div class="top-menu">
+<pre><code class="html">&lt;div id="wrap"&gt;
+&lt;!-- &lt;div id="wrap" class="full"&gt; 가로 100%일 경우 --&gt;
+	&lt;header id="top"&gt;
+		&lt;div class="top-menu"&gt;
 			최 상단 메뉴
-		</div>
-		<div class="gnb-wrap">
-			<h1 class="logo">LOGO</h1>
-			<div class="gnb-menu">
+		&lt;/div&gt;
+		&lt;div class="gnb-wrap"&gt;
+			&lt;h1 class="logo"&gt;LOGO&lt;/h1&gt;
+			&lt;div class="gnb-menu"&gt;
 				GNB 영역
-			</div>
-		</div>
-		<div class="all-menu">
+			&lt;/div&gt;
+		&lt;/div&gt;
+		&lt;div class="all-menu"&gt;
 			전체 메뉴 보기 영역
-		</div>
-	</header>
+		&lt;/div&gt;
+	&lt;/header&gt;
 
-	<div id="mid">
-		<div class="contents">
+	&lt;div id="mid"&gt;
+		&lt;div class="contents"&gt;
 			컨텐츠 영역
-		</div>
-	</div>
+		&lt;/div&gt;
+	&lt;/div&gt;
 
-	<div id="btm">
+	&lt;div id="btm"&gt;
 		footer 컨텐츠
-	</div>
-</div>
-</xmp>
+	&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 
 			<div class="guide-sec">
@@ -78,29 +86,29 @@
 				<p>#wrap 에 layout-hor 클래스 추가</p>
 				<p>height 100% 설정 - footer 가 항상 브라우저 하단에.</p>
 				<a href="layout-hor.html" class="guide-link">예시화면</a>
-<xmp><div id="wrap" class="layout-hor">
-	<header id="top">
-		<div class="top-menu">
+<pre><code class="html">&lt;div id="wrap" class="layout-hor"&gt;
+	&lt;header id="top"&gt;
+		&lt;div class="top-menu"&gt;
 			최 상단 메뉴
-		</div>
-	</header>
+		&lt;/div&gt;
+	&lt;/header&gt;
 
-	<div id="mid">
-		<div class="contents">
-			<aside class="side-wrap">
+	&lt;div id="mid"&gt;
+		&lt;div class="contents"&gt;
+			&lt;aside class="side-wrap"&gt;
 				사이드 메뉴 영역
-			</aside>
-			<div class="cnt-wrap">
+			&lt;/aside&gt;
+			&lt;div class="cnt-wrap"&gt;
 				컨텐츠 영역
-			</div>
-		</div>
-	</div>
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
 
-	<div id="btm">
+	&lt;div id="btm"&gt;
 		footer 컨텐츠
-	</div>
-</div>
-</xmp>
+	&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 
 			<div class="guide-sec">
@@ -109,38 +117,38 @@
 				<p>height 100% 설정 - footer 가 항상 브라우저 하단에.</p>
 				<p>가로 100% 일 경우 #wrap 에 full 클래스 추가</p>
 				<a href="layout-mix.html" class="guide-link">예시화면</a>
-<xmp><div id="wrap">
-	<header id="top">
-		<div class="top-menu">
+<pre><code class="html">&lt;div id="wrap"&gt;
+	&lt;header id="top"&gt;
+		&lt;div class="top-menu"&gt;
 			최 상단 메뉴
-		</div>
-		<div class="gnb-wrap">
-			<h1 class="logo">LOGO</h1>
-			<div class="gnb-menu">
+		&lt;/div&gt;
+		&lt;div class="gnb-wrap"&gt;
+			&lt;h1 class="logo"&gt;LOGO&lt;/h1&gt;
+			&lt;div class="gnb-menu"&gt;
 				GNB 영역
-			</div>
-		</div>
-		<div class="all-menu">
+			&lt;/div&gt;
+		&lt;/div&gt;
+		&lt;div class="all-menu"&gt;
 			전체 메뉴 보기 영역
-		</div>
-	</header>
+		&lt;/div&gt;
+	&lt;/header&gt;
 
-	<div id="mid">
-		<div class="contents">
-			<aside class="side-wrap">
+	&lt;div id="mid"&gt;
+		&lt;div class="contents"&gt;
+			&lt;aside class="side-wrap"&gt;
 				사이드 메뉴 영역
-			</aside>
-			<div class="cnt-wrap">
+			&lt;/aside&gt;
+			&lt;div class="cnt-wrap"&gt;
 				컨텐츠 영역
-			</div>
-		</div>
-	</div>
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
 
-	<div id="btm">
+	&lt;div id="btm"&gt;
 		footer 컨텐츠
-	</div>
-</div>
-</xmp>
+	&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 		</section>
 

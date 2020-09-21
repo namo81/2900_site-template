@@ -14,8 +14,12 @@
 	<meta property="og:image" content="">
 	<meta property="og:url" content="">
 
-	<title>기본 가이드</title>
-	<link rel="stylesheet" href="/guide/guide.css" media="screen, print" />
+	<title>달력 | 기본 가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
@@ -23,14 +27,15 @@
 
 	<!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
-    <![endif]-->	
-	<script src="/guide/guide.js"></script>
+    <![endif]-->
 
 	<!-- calendar 관련 설정 -->
 	<link rel="stylesheet" href="/css/nCalendar.css" media="screen, print" />
 	<script src="/js/nCalendar_v1.3.0.js"></script>
 	<script>
 		$(function(){
+			hljs.initHighlightingOnLoad(); 
+			
 			$('.cal').nCalendar({
 				showType : 'both'
 			});
@@ -67,7 +72,7 @@
 						<input type="text" name="" placeholder="" class="cal" value="2029-09-01"/>
 					</div>
 				</div>
-<xmp>$('.cal').nCalendar({
+<pre><code class="javascript">$('.cal').nCalendar({
 	showType : 'button',				// 달력 호출 방식 / button - 버튼 클릭시 / input - input 에 focus / both - 버튼,input 둘다 사용
 	changeMon : true,				// 달력 상단 월 변경 select 표출 여부
 	changeYear : true,					// 달력 상단 연도 변경 select 표출 여부
@@ -81,11 +86,11 @@
 	todayLimit : false,					// 오늘 기준 선택 제한
 	limitType : null					// null : 오늘 이전 날짜 선택 제한 / after : 오늘 이후 날짜 선택 제한
 });
-</xmp>
-<xmp><div class="inp-cal" style="width:300px">
-	<input type="text" name="" placeholder="" class="cal"/>
-</div>
-</xmp>
+</code></pre>
+<pre><code class="html">&lt;div class="inp-cal" style="width:300px"&gt;
+	&lt;input type="text" name="" placeholder="" class="cal"/&gt;
+&lt;/div&gt;
+</code></pre>
 				<h4 class="guide-sstit">2개일 경우</h3>
 				<p>range 클래스 추가</p>
 				<p>width 값은 별도 지정 / min-width 는 320px 로 지정</p>
@@ -96,12 +101,12 @@
 						<span><input type="text" name="" placeholder="" class="cal"/></span>
 					</div>
 				</div>
-<xmp><div class="inp-cal range" style="width:320px">
-	<span><input type="text" name="" placeholder="" class="cal"/></span>
-	<i>~</i>
-	<span><input type="text" name="" placeholder="" class="cal"/></span>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="inp-cal range" style="width:320px"&gt;
+	&lt;span&gt;&lt;input type="text" name="" placeholder="" class="cal"/&gt;&lt;/span&gt;
+	&lt;i&gt;~&lt;/i&gt;
+	&lt;span&gt;&lt;input type="text" name="" placeholder="" class="cal"/&gt;&lt;/span&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 			<div class="guide-sec">
 				<h3 class="guide-stit">오늘 날짜 제한</h3>
@@ -112,16 +117,16 @@
 						<input type="text" name="" placeholder="" class="cal-limit"/>
 					</div>
 				</div>
-<xmp>$('.cal-limit').nCalendar({
+<pre><code class="javascript">$('.cal-limit').nCalendar({
 	showType : 'both',
 	todayLimit : true,
 	// limitType : 'after'
 });
-</xmp>
-<xmp><div class="inp-cal" style="width:320px">
-	<input type="text" name="" placeholder="" class="cal-limit"/>
-</div>
-</xmp>
+</code></pre>
+<pre><code class="html">&lt;div class="inp-cal" style="width:320px"&gt;
+	&lt;input type="text" name="" placeholder="" class="cal-limit"/&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 		</section>
 

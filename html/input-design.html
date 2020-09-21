@@ -15,24 +15,32 @@
 	<meta property="og:url" content="">
 	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
 
-	<title>기본 가이드</title>
-	<link rel="stylesheet" href="/guide/guide.css" media="screen, print" />
+	<title>Inp 디자인 | 가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
 	<script src="/js/jquery-3.2.1.min.js"></script>
 	<script src="/js/common.js"></script>
 
-
 	<!--[if lt IE 9]>
 	<script src="/js/jquery-1.12.4.min.js"></script>
     <script src="/js/html5shiv.js"></script>
     <![endif]-->	
-	<script src="/guide/guide.js"></script>
 
 	<!-- input design js -->
 	<script src="/js/inpdesign_v2.0.0.js"></script>
 	<!-- <script src="/js/old version/inpdesign_v1.2.0.js"></script> -->
+	
+	<script>
+		$(function(){ 
+			hljs.initHighlightingOnLoad(); 
+		});
+	</script>
 </head>
 <body>
 <div id="work-list">
@@ -48,8 +56,8 @@
 				<div class="guide-show">
 					<input type="text" name="" title="" placeholder="기본형">
 				</div>
-<xmp><input type="text" name="" title="" placeholder="기본형">
-</xmp>
+<pre><code class="html">&lt;input type="text" name="" title="" placeholder="기본형"&gt;
+</code></pre>
 				<h4 class="guide-sstit">기본형 + 삭제 + 오류</h3>
 				<p>inp-label 에 'error' 클래스 추가 시 오류 메세지 표출됨</p>
 				<div class="guide-show">
@@ -62,15 +70,15 @@
 						</div>
 					</div>
 				</div>
-<xmp><div class="inp-label">
-	<label for="" class="hide">기본형 텍스트</label>
-	<input type="text" name="" placeholder="기본형">
-	<button type="button" class="btn-clear"><span>내용 삭제</span></button>
-	<div class="error-msg">
-		<span class="tx-red">내용을 입력해주세요.</span>
-	</div>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="inp-label"&gt;
+	&lt;label for="" class="hide"&gt;기본형 텍스트&lt;/label&gt;
+	&lt;input type="text" name="" placeholder="기본형"&gt;
+	&lt;button type="button" class="btn-clear"&gt;&lt;span&gt;내용 삭제&lt;/span&gt;&lt;/button&gt;
+	&lt;div class="error-msg"&gt;
+		&lt;span class="tx-red"&gt;내용을 입력해주세요.&lt;/span&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 
 			<div class="guide-sec">
@@ -94,19 +102,19 @@
 						<label for="non-tx"><span class="box">라디오버튼 - Y</span></label>
 					</div>
 				</div>
-<xmp><div class="inp-radio">
-	<input type="radio" name="radio-set" id="no" checked>
-	<label for="no"><span class="box"></span> 라디오버튼 - N</label>
-</div>
-<div class="inp-radio">
-	<input type="radio" name="radio-set" id="yes">
-	<label for="yes">라디오버튼 - Y <span class="box"></span></label>
-</div>
-<div class="inp-radio">
-	<input type="radio" name="radio-set" id="non-tx">
-	<label for="non-tx"><span class="box">라디오버튼 - Y</span></label>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="inp-radio"&gt;
+	&lt;input type="radio" name="radio-set" id="no" checked&gt;
+	&lt;label for="no"&gt;&lt;span class="box"&gt;&lt;/span&gt; 라디오버튼 - N&lt;/label&gt;
+&lt;/div&gt;
+&lt;div class="inp-radio"&gt;
+	&lt;input type="radio" name="radio-set" id="yes"&gt;
+	&lt;label for="yes"&gt;라디오버튼 - Y &lt;span class="box"&gt;&lt;/span&gt;&lt;/label&gt;
+&lt;/div&gt;
+&lt;div class="inp-radio"&gt;
+	&lt;input type="radio" name="radio-set" id="non-tx"&gt;
+	&lt;label for="non-tx"&gt;&lt;span class="box"&gt;라디오버튼 - Y&lt;/span&gt;&lt;/label&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 
 			<div class="guide-sec">
@@ -126,15 +134,15 @@
 						<label for="check1-1">체크박스 <span class="box"></span></label>
 					</div>
 				</div>
-<xmp><div class="inp-check">
-	<input type="checkbox" name="" id="check1">
-	<label for="check1"><span class="box"></span> 체크박스</label>
-</div>
-<div class="inp-check">
-	<input type="checkbox" name="" id="check1-1">
-	<label for="check1-1">체크박스 <span class="box"></span></label>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="inp-check"&gt;
+	&lt;input type="checkbox" name="" id="check1"&gt;
+	&lt;label for="check1"&gt;&lt;span class="box"&gt;&lt;/span&gt; 체크박스&lt;/label&gt;
+&lt;/div&gt;
+&lt;div class="inp-check"&gt;
+	&lt;input type="checkbox" name="" id="check1-1"&gt;
+	&lt;label for="check1-1"&gt;체크박스 &lt;span class="box"&gt;&lt;/span&gt;&lt;/label&gt;
+&lt;/div&gt;
+</code></pre>
 				<h4 class="guide-sstit">단독형 (checkbox)</h3>
 				<p>checkbox 만 보여야 할 경우 .box 안에 텍스트 입력</p>
 				<div class="guide-show">
@@ -143,11 +151,11 @@
 						<label for="check2"><span class="box">체크박스</span></label>
 					</div>
 				</div>
-<xmp><div class="inp-check">
-	<input type="checkbox" name="" id="check2">
-	<label for="check2"><span class="box">체크박스</span></label>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="inp-check"&gt;
+	&lt;input type="checkbox" name="" id="check2"&gt;
+	&lt;label for="check2"&gt;&lt;span class="box"&gt;체크박스&lt;/span&gt;&lt;/label&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 
 			<div class="guide-sec">
@@ -170,19 +178,19 @@
 						<label for="non-tx-old"><span class="box">라디오버튼 - Y</span></label>
 					</div>
 				</div>
-<xmp><div class="inp-radio old">
-	<input type="radio" name="radio-set-old" id="no-old" checked>
-	<label for="no-old"><span class="box"></span> 라디오버튼 - N</label>
-</div>
-<div class="inp-radio old">
-	<input type="radio" name="radio-set-old" id="yes-old">
-	<label for="yes-old">라디오버튼 - Y <span class="box"></span></label>
-</div>
-<div class="inp-radio old">
-	<input type="radio" name="radio-set-old" id="non-tx-old">
-	<label for="non-tx-old"><span class="box">라디오버튼 - Y</span></label>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="inp-radio old"&gt;
+	&lt;input type="radio" name="radio-set-old" id="no-old" checked&gt;
+	&lt;label for="no-old"&gt;&lt;span class="box"&gt;&lt;/span&gt; 라디오버튼 - N&lt;/label&gt;
+&lt;/div&gt;
+&lt;div class="inp-radio old"&gt;
+	&lt;input type="radio" name="radio-set-old" id="yes-old"&gt;
+	&lt;label for="yes-old"&gt;라디오버튼 - Y &lt;span class="box"&gt;&lt;/span&gt;&lt;/label&gt;
+&lt;/div&gt;
+&lt;div class="inp-radio old"&gt;
+	&lt;input type="radio" name="radio-set-old" id="non-tx-old"&gt;
+	&lt;label for="non-tx-old"&gt;&lt;span class="box"&gt;라디오버튼 - Y&lt;/span&gt;&lt;/label&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 
 			<div class="guide-sec">
@@ -197,14 +205,14 @@
 						</select>
 					</div>
 				</div>
-<xmp><div class="inp-select">
-	<select name="" title="">
-		<option value="">직접 선택</option>
-		<option value="">nate.com</option>
-		<option value="">daum.net</option>
-	</select>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="inp-select"&gt;
+	&lt;select name="" title=""&gt;
+		&lt;option value=""&gt;직접 선택&lt;/option&gt;
+		&lt;option value=""&gt;nate.com&lt;/option&gt;
+		&lt;option value=""&gt;daum.net&lt;/option&gt;
+	&lt;/select&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 
 			<div class="guide-sec">
@@ -222,12 +230,12 @@
 						<input type="file" class="" id="file2">
 					</div>
 				</div>
-<xmp><div class="inp-file">
-	<label for="file">파일첨부</label>
-	<input type="file" class="" id="file">
-	<button type="button" class="btn-clear" title="파일 경로 삭제"><span>X</span></button>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="inp-file"&gt;
+	&lt;label for="file"&gt;파일첨부&lt;/label&gt;
+	&lt;input type="file" class="" id="file"&gt;
+	&lt;button type="button" class="btn-clear" title="파일 경로 삭제"&gt;&lt;span&gt;X&lt;/span&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 		</section>
 

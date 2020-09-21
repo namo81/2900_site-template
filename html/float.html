@@ -16,7 +16,11 @@
 	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
 
 	<title>Float 가이드</title>
-	<link rel="stylesheet" href="/guide/guide.css" media="screen, print" />
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
@@ -26,8 +30,11 @@
     <script src="/js/html5shiv.js"></script>
     <![endif]-->
 	
-	<script src="/guide/guide.js"></script>
-
+	<script>
+		$(function(){ 
+			hljs.initHighlightingOnLoad(); 
+		});
+	</script>
 </head>
 <body>
 <div id="work-list">
@@ -50,11 +57,11 @@
 					</div>
 				<!-- // 코드 작성 -->
 				</div>
-<xmp><div class="float-wrap">
-	<div class="fl">Left Content</div>
-	<div class="fr">Right Content</div>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="float-wrap"&gt;
+	&lt;div class="fl"&gt;Left Content&lt;/div&gt;
+	&lt;div class="fr"&gt;Right Content&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
 
 				<h4 class="guide-sstit">Float width 지정</h4>
 				<p>css 및 inline 으로 width 지정할 경우</p>
@@ -72,16 +79,16 @@
 					</div>
 				<!-- // 코드 작성 -->
 				</div>
-<xmp><div class="float-wrap">
-	<div class="fl" style="width:50%;">Left Content</div>
-	<div class="fr" style="width:50%;">Right Content</div>
-</div>
-<div class="float-wrap">
-	<div class="fl" style="width:30%;">Left Content</div>
-	<div class="fl" style="width:30%;">Left Content</div>
-	<div class="fr" style="width:40%;">Right Content</div>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="float-wrap"&gt;
+	&lt;div class="fl" style="width:50%;"&gt;Left Content&lt;/div&gt;
+	&lt;div class="fr" style="width:50%;"&gt;Right Content&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="float-wrap"&gt;
+	&lt;div class="fl" style="width:30%;"&gt;Left Content&lt;/div&gt;
+	&lt;div class="fl" style="width:30%;"&gt;Left Content&lt;/div&gt;
+	&lt;div class="fr" style="width:40%;"&gt;Right Content&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 
 			<div class="guide-sec">
@@ -97,11 +104,11 @@
 					</div>
 				<!-- // 코드 작성 -->
 				</div>
-<xmp><div class="float-clear">
-	<div class="fl">Left Content</div>
-	<div class="fr">Right Content</div>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="float-clear"&gt;
+	&lt;div class="fl"&gt;Left Content&lt;/div&gt;
+	&lt;div class="fr"&gt;Right Content&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 
 			<div class="guide-sec">
@@ -122,15 +129,15 @@
 					</div>
 				<!-- // 코드 작성 -->
 				</div>
-<xmp><div class="float-wrap">
-	<div class="fl">Left : </div>
-	<div class="float-block">Right Content ...</div>
-</div>
-<div class="float-wrap">
-	<div class="fl">Left Content : </div>
-	<div class="float-block"> Right Content ...</div>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="float-wrap"&gt;
+	&lt;div class="fl"&gt;Left : &lt;/div&gt;
+	&lt;div class="float-block"&gt;Right Content ...&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="float-wrap"&gt;
+	&lt;div class="fl"&gt;Left Content : &lt;/div&gt;
+	&lt;div class="float-block"&gt; Right Content ...&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 		</section>
 	</div>

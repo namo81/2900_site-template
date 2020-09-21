@@ -16,7 +16,11 @@
 	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
 
 	<title>기본 가이드</title>
-	<link rel="stylesheet" href="/guide/guide.css" media="screen, print" />
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
@@ -24,10 +28,14 @@
 
 	<!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
-    <![endif]-->
+	<![endif]-->
 	
-	<script src="/guide/guide.js"></script>
-
+	<script>
+		$(function(){ 
+			hljs.initHighlightingOnLoad(); 
+		});
+	</script>
+	
 </head>
 <body>
 <div id="work-list">
@@ -42,16 +50,16 @@
 				<div class="guide-show">
 					<h2 class="title-dep1">타이틀1 <span class="desc">타이틀 옆 안내문구</span></h2>
 				</div>
-<xmp><h2 class="title-dep1">타이틀1 <span class="desc">타이틀 옆 안내문구</span></h2>
-</xmp>
+<pre><code class="html">&lt;h2 class="title-dep1"&gt;타이틀1 &lt;span class="desc"&gt;타이틀 옆 안내문구&lt;/span&gt;&lt;/h2&gt;
+</code></pre>
 			</div>
 			<div class="guide-sec">				
 				<h3 class="guide-stit">페이지 내 영역 타이틀</h3>
 				<div class="guide-show">
 					<h2 class="title-dep2">타이틀2 <span class="desc">타이틀 옆 안내문구</span></h2>
 				</div>
-<xmp><h2 class="title-dep2">타이틀2 <span class="desc">타이틀 옆 안내문구</span></h2>
-</xmp>
+<pre><code class="html">&lt;h2 class="title-dep2"&gt;타이틀2 &lt;span class="desc"&gt;타이틀 옆 안내문구&lt;/span&gt;&lt;/h2&gt;
+</code></pre>
 			</div>
 			<div class="guide-sec">	
 				<h3 class="guide-stit">영역 타이틀 내 우측 컨텐츠 있을 경우</h3>
@@ -62,11 +70,11 @@
 						<div class="fr"><a href="#" class="btn-s">우측 버튼</a></div>
 					</h2>
 				</div>
-<xmp><h2 class="title-dep2">
-	타이틀2 <span class="desc">타이틀 옆 안내문구</span>
-	<div class="fr"><a href="#" class="btn-s">우측 버튼</a></div>
-</h2>
-</xmp>
+<pre><code class="html">&lt;h2 class="title-dep2"&gt;
+	타이틀2 &lt;span class="desc"&gt;타이틀 옆 안내문구&lt;/span&gt;
+	&lt;div class="fr"&gt;&lt;a href="#" class="btn-s"&gt;우측 버튼&lt;/a&gt;&lt;/div&gt;
+&lt;/h2&gt;
+</code></pre>
 			</div>
 		</section>
 

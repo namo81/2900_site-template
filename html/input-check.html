@@ -16,8 +16,12 @@
 	<meta property="og:url" content="">
 	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
 
-	<title>기본 가이드</title>
-	<link rel="stylesheet" href="/guide/guide.css" media="screen, print" />
+	<title>input 데이터 확인 | 기본 가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
@@ -26,10 +30,11 @@
 	<!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
     <![endif]-->	
-	<script src="/guide/guide.js"></script>
 	
 	<script>
 		$(function(){
+			hljs.initHighlightingOnLoad(); 
+			
 			$('.inp-txt.num').on('input propertychange',function(){
 				$(this).val( $(this).val().replace(/[^0-9]/gi,"") );
 			});
@@ -81,10 +86,10 @@
 					<input type="text" name="" title="" class="inp-txt eng" placeholder="영문입력">
 					<input type="text" name="" title="" class="inp-txt kor" placeholder="한글입력">
 				</div>
-<xmp><input type="text" name="" title="" class="inp-txt num" placeholder="숫자 입력">
-<input type="text" name="" title="" class="inp-txt eng" placeholder="영문입력">
-<input type="text" name="" title="" class="inp-txt kor" placeholder="한글입력">
-</xmp>
+<pre><code class="html">&lt;input type="text" name="" title="" class="inp-txt num" placeholder="숫자 입력"&gt;
+&lt;input type="text" name="" title="" class="inp-txt eng" placeholder="영문입력"&gt;
+&lt;input type="text" name="" title="" class="inp-txt kor" placeholder="한글입력"&gt;
+</code></pre>
 			</div>
 
 		</section>
@@ -100,16 +105,15 @@
 						<button type="submit" disabled><span>로그인</span></button>
 					</div>
 				</div>
-<xmp><div class="login-inp">
-	<input type="text" name="" placeholder="아이디" title="아이디">
-	<input type="password" name="" placeholder="비밀번호" title="비밀번호">	
-	<button type="submit" disabled><span>로그인</span></button>
-</div>
-</xmp>
+<pre><code class="html">&lt;div class="login-inp"&gt;
+	&lt;input type="text" name="" placeholder="아이디" title="아이디"&gt;
+	&lt;input type="password" name="" placeholder="비밀번호" title="비밀번호"&gt;	
+	&lt;button type="submit" disabled&gt;&lt;span&gt;로그인&lt;/span&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
 			</div>
 
 		</section>
-
 
 	</div>
 	<a href="#work-list" class="guide-top">Top</a>	
