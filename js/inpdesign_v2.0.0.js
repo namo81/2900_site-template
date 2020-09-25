@@ -8,6 +8,15 @@
 
 // !! common.js 필수
 
+
+/* 적용 예시
+nSelect('클래스명');	
+nSelArr.selectUpdate();
+** 화면 내 select 가 1개일 경우 nSelArr.selectUpdate();
+   화면 내 select 가 다수일 경우 nSelArr[0].selectUpdate(); (업데이트가 필요한 select index 선택)
+   만약 전체 업데이트 일 경우 반목문 적용
+*/
+
 // select 설정 ------------------------------------------------------------------------
 var nSelArr;
 
@@ -116,16 +125,6 @@ function nSelectSet(Ele){
 	
 }
 
-/* 적용 예시
-nSelect('클래스명');	
-nSelArr.selectUpdate();
-** 화면 내 select 가 1개일 경우 nSelArr.
-   화면 내 select 가 다수일 경우 nSelArr[0] (업데이트가 필요한 select index 선택)
-   만약 전체 업데이트 일 경우 반목문 적용
-*/
-
-// select 설정 ------------------------------------------------------------------------
-
 
 // file 설정 ------------------------------------------------------------------------
 
@@ -146,7 +145,7 @@ function nFile(selector) {
 function nFileSet(Ele){
 	var fileWrap	= Ele,
 		fileInp		= fileWrap.querySelector('input[type=file]'),
-		placeholder = fileInp.getAttribute('placeholder'),
+		placeholder = fileInp.getAttribute('placeholder') == null ? '' : fileInp.getAttribute('placeholder'),
 		btnClear	= fileWrap.querySelector('.btn-clear'),
 		urlInp		= null,
 		inpHtml		= '';	
@@ -161,11 +160,13 @@ function nFileSet(Ele){
 
 	var valueSet = function(){
 		urlInp.value = fileInp.value;
+		btnClear.style.display = 'block';
 	}, valueClear = function(){
 		fileInp.value = '';
 		urlInp.value = '';
+		btnClear.style.display = 'none';
 	}
-	if(fileInp.value != null) valueSet();
+	if(fileInp.value.length > 0) valueSet();
 	fileInp.addEventListener('change', valueSet);
 
 	if(btnClear != null) {
@@ -211,6 +212,8 @@ function nTextSet(Ele){
 	});
 }
 
+
+// 실행문 예시 ---------------------------------------------------
 window.onload = function(){
 
 	nSelect('.inp-select');
@@ -220,20 +223,3 @@ window.onload = function(){
 
 	nText('.inp-label');
 };
-
-/*
-
-라디오버튼
-radSet(라디오 포함하는 영역);
-
-체크박스
-chkSet(체크박스 포함하는 영역);
-
-select
-selectSet(셀렉트, 부모창);
-** 부모창 설정할 경우, select 리스트 표출 시 하단 영역이 모자라면 위로 뜸
-
-파일
-fileSet(파일적용할 obj);
-
-*/

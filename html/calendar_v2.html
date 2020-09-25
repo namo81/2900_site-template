@@ -33,7 +33,7 @@
 
 	<!-- calendar 관련 설정 -->
 	<link rel="stylesheet" href="/css/nCalendar.css" media="screen, print" />
-	<script src="/js/nCalendar_v2.0.0.js"></script>
+	<script src="/js/nCalendar_v2.1.0.js"></script>
 	<script>
 		$(function(){
 			hljs.initHighlightingOnLoad(); 
@@ -41,16 +41,14 @@
 			$('.cal').nCalendar({
 				showType : 'both',
 				todayLimit : true,
-				changeYear : false,
-				changeMon : false,
-				limitType : 'after'
+				todayGap : '-6M',
+				limitGap : '9M'
 			});
 
 			$('.cal-mon').nCalendar({
 				showType : 'both',
 				calType : 'month',
-				todayLimit : true,
-				limitType : 'after'
+				todayLimit : true
 			});
 		});
 	</script>
@@ -85,25 +83,71 @@
 					</div>
 				</div>
 <pre><code class="javascript">$('.cal').nCalendar({
-	showType : 'button',				// 달력 호출 방식 / button - 버튼 클릭시 / input - input 에 focus / both - 버튼,input 둘다 사용	
+	showType : 'button',					// 달력 호출 방식 / button - 버튼 클릭시 / input - input 에 focus / both - 버튼,input 둘다 사용	
 	calType : null,						// null: 일반 기본형 ,  month : 월간달력
 	dayType : 'kr',						// kr : 한글, en : 영문 (월~일 표기)
 	changeMon : true,					// 달력 상단 월 변경 select 표출 여부
 	changeYear : true,					// 달력 상단 연도 변경 select 표출 여부
 	yearRange : '2019:2040',				// 연도 제한 '시작연도:종료연도'
-	showBtnPanel : true,				// 하단 '오늘', '닫기' 버튼 영역 표출 여부
-	closeBtnTx : '닫기',				// 닫기 버튼 텍스트
-	todayBtnTx : '오늘',				// 오늘 버튼 텍스트
+	showBtnPanel : true,					// 하단 '오늘', '닫기' 버튼 영역 표출 여부
+	closeBtnTx : '닫기',					// 닫기 버튼 텍스트
+	todayBtnTx : '오늘',					// 오늘 버튼 텍스트
 	controls : true,					// 이전달/다음달 버튼 생성 여부
 	nextTx : '&gt;',						// 다음달 버튼 텍스트
 	prevTx : '&lt;',						// 이전달 버튼 텍스트
-	todayLimit : false,					// 오늘 기준 선택 제한
-	limitType : null					// null : 오늘 이전 날짜 선택 제한 / after : 오늘 이후 날짜 선택 제한
+	todayLimit      : false,				// 오늘 기준 선택 제한
+	todayGap 		: '0D', 			// 오늘 기준일의 gap 설정 (ex. 내일부터 제한, 5일전까지 제한 등)
+	limitType       : 'before',				// 제한 방향 설정 - before : 오늘 이전 날짜 선택 제한(기본값) / after : 오늘 이후 날짜 선택 제한
+	limitGap 		: null 				// 제한 기간 설정 - null : 기한 없음 / nY : n년 / nM : n개월 / nD : n일 - 3가지 방식 중 택1
 });
 </code></pre>
 <pre><code class="html">&lt;div class="inp-cal" style="width:300px"&gt;
 	&lt;input type="text" name="" placeholder="" class="cal"/&gt;
 &lt;/div&gt;
+</code></pre>
+
+				<h4 class="guide-sstit">기간 제한 설정 예시</h4>
+				<ul style="margin-bottom:10px;">
+					<li>- 날짜 제한 없을 경우 <strong>todayLimit : false</strong></li>
+					<li>- 오늘 이전날짜 선택 제한 - limitType : 'before' / 오늘 이후날짜 선택 제한 - limitType : 'after' <br>&nbsp;&nbsp;<strong>'before' 가 기본값</strong></li>
+					<li>- <strong>todayGap - 제한 기준일 변경값</strong><br>&nbsp;&nbsp;단위는 연/월/일 각각 설정 가능 / 구분은 대문자 필수 / 3가지중 택1 하여 설정 / 설정시 string 로 설정 ('' - 필수) <br>&nbsp;&nbsp;오늘 이전날짜 선택 제한(limitType : 'before') 일때 1을 설정하면 내일부터 선택가능 <br>&nbsp;&nbsp;오늘 이후날짜 선택 제한(limitType : 'after') 일때 1을 설정하면 어제까지 선택가능</li>
+					<li>- <strong>limitGap - 달력 내 표출 기간을 제한할 경우 사용.</strong> <br>&nbsp;&nbsp;<strong>시작일 기준으로 계산됨 (오늘 or todayGap 으로 설정한 시작일 기준)</strong> <br>&nbsp;&nbsp;단위는 연/월/일 각각 설정 가능 / 구분은 대문자 필수 / 3가지중 택1 하여 설정 / 설정시 string 로 설정 ('' - 필수) <br>&nbsp;&nbsp;(ex: 2년 = '2Y' / 3개월 = '3M' / 20일 = '20D') <br>&nbsp;&nbsp;오늘 이전날짜 선택 제한(limitType : 'before') 일때 값을 설정하면 해당 기간까지 선택가능 <br>&nbsp;&nbsp;오늘 이후날짜 선택 제한(limitType : 'after') 일때 값을 설정하면 해당기간 이전부터 선택가능</li>
+				</ul>
+<pre><code class="javascript">&lt;!-- 오늘부터 선택가능 / 기간제한 없음 --&gt;
+	todayLimit : true,
+	limitType : 'before' (기본값이므로 설정하지 않아도 무관함)
+
+&lt;!-- 오늘 이후 &amp; 향후 1년까지 선택가능 --&gt;
+	todayLimit : true,
+	limitGap :  '1Y' (or '12M')
+
+&lt;!-- 내일부터 &amp; 향후 1년까지 선택가능 --&gt;
+	todayLimit : true,
+	todayGap : '1D',
+	limitGap :  '1Y' (or '12M')
+
+&lt;!-- 6개월 전부터 &amp; 오늘까지 선택가능 --&gt;
+	todayLimit : true,
+	limitType : 'after',
+	limitGap : '6M'
+
+&lt;!-- 6개월 전부터 &amp; 어제까지 선택가능 --&gt;
+	todayLimit : true,
+	todayGap : '1D',
+	limitType : 'after',
+	limitGap :  '6M'
+
+&lt;!-- 6개월 전부터 3개월 후까지 선택가능 --&gt;
+	todayLimit : true,
+	todayGap : '-3M',
+	limitType : 'after',
+	limitGap :  '9M'
+
+	or 
+
+	todayLimit : true,
+	todayGap : '-6M',
+	limitGap :  '9M'
 </code></pre>
 			</div>
 		</section>

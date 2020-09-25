@@ -299,7 +299,7 @@ $.fn.nCalendarRange = function(option){
 						startDate = $(this).parent().data('date');
 						endDate = null;
 						setState = true;
-						$(this).parent().addClass('start');						
+						$(this).parent().addClass('start');
 						if(set.rangeLimit != null) setDisabled();
 						$applyBtn.prop('disabled',true).attr('disabled',true);
 					} else if (endDate == null && startDate != null) {

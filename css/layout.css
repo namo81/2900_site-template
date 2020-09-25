@@ -196,7 +196,8 @@ input::-ms-clear {display:none; width:0; height:0;}
 .inp-file input[type=file] { position:absolute; width:1px; height:1px; padding:0; top:0; left:0; z-index:-1; opacity:0; overflow:hidden; }
 .inp-file .inp-file-url { display:inline-block; width:100%; height:inherit; padding:0 30px 0 5px; border:1px solid #aaa; font-size:inherit; line-height:inherit; box-sizing:border-box; }
 .inp-file label { position:absolute; width:80px; top:0; right:0; cursor:pointer; letter-spacing:-0.05em; }
-.inp-file .btn-clear { position:absolute; width:24px; height:24px; top:5px; right:85px; line-height:24px; }
+.inp-file .btn-clear { position:absolute; display:none; width:24px; height:24px; top:5px; right:85px; line-height:24px; }
+.inp-file input[type=file]:disabled + .btn-clear { display:none; }
 /* // file */
 
 /* 달력기능 - width 값 변경 시 별도 설정 */
