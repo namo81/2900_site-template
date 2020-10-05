@@ -72,7 +72,7 @@ $.fn.nCalendarRange = function(option){
 			month = now.getMonth(),
 			day = now.getDate();
 		}, setYoil = function( tg ){ // input 에 값이 있을 경우 해당 값으로 연/월/일 설정
-			var dateStartTx, dateEndTx, yearEnd, monthEnd, dayEnd;					
+			var dateStartTx, dateEndTx, yearEnd, monthEnd, dayEnd;
 			if(set.inpSingle == true){
 				var fullDate 	= tg.find('input').val(),
 					dateStartTx = fullDate.split(' ~ ')[0],

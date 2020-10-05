@@ -37,8 +37,8 @@
 /* 기간달력용 */
 .cal-wrap.range.dual { width:600px; overflow:hidden; }
 .cal-wrap.range .cal-top { height:30px; }
-.cal-wrap.dual .left { float:left; width:290px; margin-right:20px;}
-.cal-wrap.dual .right { float:right; width:290px; }
+.cal-wrap.dual .left, .cal-wrap.dual .cal-left { float:left; width:290px; margin-right:20px;}
+.cal-wrap.dual .right, .cal-wrap.dual .cal-right { float:right; width:290px; }
 .cal-wrap.range td.start button { border-radius:10px 0 0 10px; }
 .cal-wrap.range td.end button { border-radius:0 10px 10px 0; }
 .cal-wrap.range td.start button, .cal-wrap.range td.end button { background:#ccc; }
