@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="author" content="seonamho - SK MNS" >
+	<meta name="description" content="">
+	<meta name="keywords" content="Site Template">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Site Template">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
+
+	<title>달력 | 기본 가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
+
+	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
+	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
+	<script src="/js/common.js"></script>
+
+	<!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <![endif]-->	
+
+	<!-- calendar 관련 설정 -->
+	<script src="/js/js_plug-base.js"></script>
+	<script>
+		window.onload = function(){
+			var test1 = new PlugBasic({
+				name : 'text1',
+				date : '2020-09-01'
+			});
+			
+			var test2 = new PlugBasic({
+				name : 'text2',
+				date : '2020-09-21'
+			});
+		}
+	</script>
+
+	<style type="text/css">
+		#guide-input { position:relative; }
+	</style>
+
+</head>
+<body>
+<div id="work-list">
+	<div class="guide">
+		
+
+		<!-- input ================================================================ -->
+		<section id="guide-input">
+			<h2 class="guide-sec-tit">JS 플러그인 기본패턴 Test</h2>
+
+			<div class="guide-sec">
+				<h3 class="guide-stit">기본형</h3>
+				<div class="guide-show">
+					<div class="inp-Basic" style="width:300px">
+						<input type="text" name="" placeholder="" class="inp" />
+						<span class="tx"></span>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+</body>
+</html>

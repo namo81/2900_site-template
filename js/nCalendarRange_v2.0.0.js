@@ -222,12 +222,6 @@ $.fn.nCalendarRange = function(option){
 			day, 								// 일 (달력 2개 일 경우 좌측 달력 일)
 			rightYear, 							// 달력 2개일 경우 우측 달력 연도
 			rightMon, 							// 달력 2개일 경우 우측 달력 월
-			activeYear, 						// input 에 값이 있을 경우 시작일자 연도
-			activeMonth,  						// input 에 값이 있을 경우 시작일자 월
-			activeDay, 							// input 에 값이 있을 경우 시작일자 일
-			activeEndYear,   					// input 에 값이 있을 경우 종료일자 연도
-			activeEndMonth,    					// input 에 값이 있을 경우 종료일자 월
-			activeEndDay,   					// input 에 값이 있을 경우 종료일자 일
 			leftFirstDay,						// 좌측 달력 월의 첫째 날 
 			leftYoil,							// 좌측 달력 월 첫째날의 요일 값
 			rightFirstDay,						// 우측 달력 월의 첫째날
@@ -264,8 +258,8 @@ $.fn.nCalendarRange = function(option){
 					dateStartTx = dateTx.split(' ~ ')[0],
 					dateEndTx	= dateTx.split(' ~ ')[1];
 			} else {
-				let dateStartTx = inpStart.value,
-					dateEndTx 	= inpEnd.value;
+				dateStartTx = inpStart.value,
+				dateEndTx 	= inpEnd.value;
 			}
 			year = Number(dateStartTx.split('-')[0]),
 			month = Number(dateStartTx.split('-')[1]) -1,
@@ -274,12 +268,6 @@ $.fn.nCalendarRange = function(option){
 			monthEnd = Number(dateEndTx.split('-')[1]) -1,
 			dayEnd = Number(dateEndTx.split('-')[2]);
 
-			activeYear = year,
-			activeMonth = month,
-			activeDay = day,
-			activeEndYear = yearEnd,
-			activeEndMonth = monthEnd,
-			activeEndDay = dayEnd,
 			startDate = changeToDate(dateStartTx),
 			endDate = changeToDate(dateEndTx);
 		}
@@ -287,6 +275,7 @@ $.fn.nCalendarRange = function(option){
 		/* draw ------------------------------------------------------------------------ */
 		let calDraw = function(){
 			chkFirstYoil();
+			console.log(year, month);
 			makeCalendar(leftYoil, nalsu[month], year, month + 1, leftCal);
 			leftTx.innerText = ''+year+'년 '+(month +1)+'월';
 			if(opts.dualCal == true) {
