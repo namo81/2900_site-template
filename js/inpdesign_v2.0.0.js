@@ -10,8 +10,11 @@
 
 
 /* 적용 예시
-nSelect('클래스명');	
-nSelArr.selectUpdate();
+특정 1개 적용 				 : var 변수명 = new nSelectSet('선택자');
+특정 1개 업데이트 			 : 변수명.selectUpdate();
+
+화면내 전체 적용			 : nSelect('클래스명');	
+전체적용 시 select 업데이트  : nSelArr.selectUpdate();
 ** 화면 내 select 가 1개일 경우 nSelArr.selectUpdate();
    화면 내 select 가 다수일 경우 nSelArr[0].selectUpdate(); (업데이트가 필요한 select index 선택)
    만약 전체 업데이트 일 경우 반목문 적용
