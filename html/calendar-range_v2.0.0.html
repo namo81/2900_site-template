@@ -29,44 +29,28 @@
 	<!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
     <![endif]-->
-
+	
 	<!-- calendar 관련 설정 -->
 	<link rel="stylesheet" href="/css/nCalendar.css" media="screen, print" />
 	<script src="/js/common.js"></script>
 	<!-- <script src="/js/nCalendarRange_v1.1.1.js"></script> -->
-	<script src="/js/nCalendarRange_v2.1.0.js"></script>
+	<script src="/js/nCalendarRange_v2.0.0.js"></script>
 	<script>
 		$(function(){
 			hljs.initHighlightingOnLoad(); 
 
-			let rangeCal1 = new nCalendarRange({
-				wrap : '.inp-cal.range',
+			$('.inp-cal.range').nCalendarRange({
 				showType : 'both',
 				dualCal : false,
 				todayLimit : true,
 				limitType : 'before'
 			});
-
-			let rangeCal2 = new nCalendarRange({
-				wrap : '.inp-cal.single-range',
+			$('.inp-cal.single-range').nCalendarRange({
 				showType : 'both',
 				inpSingle : true,
 				todayLimit : true,
 				limitType : 'after'
 			});
-
-			// $('.inp-cal.range').nCalendarRange({
-			// 	showType : 'both',
-			// 	dualCal : false,
-			// 	todayLimit : true,
-			// 	limitType : 'before'
-			// });
-			// $('.inp-cal.single-range').nCalendarRange({
-			// 	showType : 'both',
-			// 	inpSingle : true,
-			// 	todayLimit : true,
-			// 	limitType : 'after'
-			// });
 		});
 	</script>
 
