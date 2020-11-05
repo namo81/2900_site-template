@@ -1,0 +1,36 @@
+@charset 'utf-8';
+
+/* -- date : 2019-06-27 -- */
+/* -- snamo(Seo nam ho) in m.s.p -- */
+
+/* z-index 설정
+기본 화면 : none / 0
+GNB / 기타 메뉴 및 header 영역이 화면 위에 위치할 경우: 100
+기타 event 적 요소 (select / calendar 등) : 500
+레이어팝업 : 1000
+*/
+
+html,body,p,h1,h2,h3,h4,h5,h6,menu,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select,hr { margin:0;padding:0; }
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+body { background-color:#fff; font-size:0.75em; font-family:'돋움',Dotum,AppleGothic,sans-serif; /* Roboto,'Droid Sans',AppleSDGothicNeo,Helvetica,sans-serif */ }
+input,textarea,select,button,table{ font-size:1em; }
+img,fieldset,button{ border:0; }
+img, input, select { vertical-align:middle; }
+ul,ol { display:inline-block; list-style:none; vertical-align:top; }
+li, dd { list-style:none; }
+em,address,i { font-style:normal; }
+a { text-decoration:none; vertical-align:middle; }
+a:hover,a:active,a:focus { text-decoration:none; }
+button { display:inline-block; overflow:hidden; border:0; background:none; cursor:pointer; }
+button > span { position:relative; }
+table{ border-collapse:collapse;border-spacing:0; width:100%; }
+.hide { position:absolute; top:0; left:0; width:100%; height:100%; opacity:0; filter:alpha(opacity=0); zoom:1; text-indent:-9999px; z-index:0; overflow:hidden; }
+caption { height: 1px; overflow: hidden; line-height: 0; margin-top: -1px; color: transparent; }
+textarea { resize:none; vertical-align:middle; }
+
+input, select { -webkit-appearance:none; -moz-appearance:none; appearance:none; }
+input::-ms-clear { display:none; }
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; -moz-appearance: none; appearance: none; }
+input[type=number] { -moz-appearance:textfield; } /* firefox 용 */
+select:-ms-expend { display:none; }

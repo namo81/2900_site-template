@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+  <meta charset='UTF-8' >
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Video.js | HTML5 Video Player</title>
+  <link href="css/vendor/video-js.css" rel="stylesheet">
+  <link href="css/layout.css" rel="stylesheet">
+  <script src="js/vendor/jquery-3.2.1.min.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/vendor/video.js"></script>
+
+  <style>
+    @charset 'utf-8';
+    
+    html, body,p,h1,h2,h3,h4,h5,h6,menu,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select,hr,div{ margin:0;padding:0; }
+    body { background-color:#fff; font-size:0.75em;line-height:1.5em;font-family:'돋움',Dotum,AppleGothic,sans-serif;  /* Roboto,'Droid Sans',AppleSDGothicNeo,Helvetica,sans-serif */ }
+    img,fieldset,button{ border:0; }
+    ul,ol{ list-style:none; }
+    input, img, select { vertical-align:middle; }
+    .hide { position:absolute; top:0; left:0; width:100%; height:100%; opacity:0; filter:alpha(opacity=0); zoom:1; text-indent:-9999px; z-index:0; overflow:hidden; }
+    caption { height: 1px; overflow: hidden; line-height: 0; margin-top: -1px; color: transparent; }
+
+    .video-wrap { position:relative; width:1280px; height:600px; margin:40px auto; }
+    .timeline { position:absolute; width:100%; height:50px; left:0; bottom:0; font-size:14px; line-height:20px; color:#fff; background:rgb(136, 201, 221); -ms-user-select: none; -webkit-user-select:none; user-select:none; }
+    .timeline:after { content:''; display:block; clear:both; }
+    .timeline .left-btns { float:left; width:20%; height:40px; }
+    .timeline .right-btns { float:right; width:20%; height:40px; text-align:right; }
+    .timeline .left-btns button, .timeline .right-btns button { padding:5px 10px; background:#333; color:#fff; }
+    .timeline .bar-wrap { position:relative; float:left; width:60%; height:65px; overflow:hidden;}
+    .timeline .bar-area { position:relative; height:100%; transition:.5s ease-in-out;}
+    .timeline .bar-wrap .pointer { position:absolute; width:2px; height:16px; top:12px; background:rgb(255, 30, 30); border-radius:6px; transition:0s linear; z-index:100; }
+    .timeline .tick-bar,
+    .timeline .tick-area,
+    .timeline .sTick-area { position:absolute; width:100%; height:50%; top:0%; left:0; z-index:0; }    
+    .timeline .bar-wrap .marks { position:absolute; width:100%; height:4px; left:0; top:14px; background:rgba(0,0,0,.5); }
+    .timeline .tick-bar { top:18px; }
+    .timeline .tick-bar.prev,
+    .timeline .marks.prev { transform:translate3d(-100%,0,0); }
+    .timeline .tick-bar.next,
+    .timeline .marks.next { transform:translate3d(100%,0,0); }
+    .timeline .tick,
+    .timeline .sTick { position:absolute; width:1px; height:10px; top:0; background:#000; }
+    .timeline .tick .time { position:absolute; width:60px; top:100%; left:-30px; font-size:12px; text-align:center; color:#000; }
+    .timeline .tick .date { position:absolute; width:50px; top:28px; left:2px; padding:1px 5px; background:rgb(0, 125, 170); font-size:12px; line-height:12px; color:#fff; text-align:left; }
+    .timeline .sTick { height:5px; background:#777; }
+    .timeline .mark-bar .marker { position:absolute; height:4px; top:0; min-width:1px; background:#ffff00; z-index:10; }
+    .timeline .mark-bar .click-area { position:absolute; width:100%; height:100%; top:0; left:0; background:rgba(0,0,0,0); z-index:50; }
+    .timeline .btns { clear:both; padding:15px 0; text-align:center; }
+    .timeline .btns button { padding:5px 10px; background:#333; color:#fff; }
+
+    .test-movie { display:block; width:1280px; margin:80px auto; font-size:40px; line-height:44px; text-align:center; }
+
+    .bar-area { width:100%; overflow:visible; }
+    .marks rect { fill:#000; shape-rendering:crispEdges; fill:#fff000;}
+    .click-area rect { fill-opacity:0; }
+    .tick line { stroke:rgba(0,0,0); stroke-width:2; shape-rendering:crispEdges; }
+    .sTick line { stroke:rgba(0,0,0); stroke-width:1; shape-rendering:crispEdges; }
+    .ticks text { font-size:12px; text-align:center;}
+    .ticks rect.date { fill:#000; shape-rendering:crispEdges;}
+    .ticks text.date { fill:#fff; }
+    .pointer line { stroke:#ff0000; stroke-width:2; shape-rendering:crispEdges; }
+    .bg rect { fill:rgba(0,0,0,.3); }
+  </style>
+</head>
+<body>
+
+  <div class="video-wrap">
+    <video id="ex_video_1" class="video-js"></video>
+
+    <div class="timeline">
+      <div class="left-btns">
+        <button type="button" class="btn-prev">이전</button>
+        <button type="button" class="btn-prev-30sec">30초 전</button>
+      </div>
+      <div class="bar-wrap">
+        <svg class="bar-area">
+          <g class="bg"><rect x="-100%" y="14" width="300%" height="4"></rect></g>
+          <g class="ticks" transform="translate(0,18)"></g>
+          <g class="mark-bar">
+            <g class="click-area">
+              <rect x="0" y="0" width="100%" height="100%"></rect>
+            </g>
+          </g>
+          <g class="pointer"><line x="0" y="0" x2="0" y2="15"></line></g>
+        </svg>
+            <!-- <div class="ticks"></div>
+            <div class="mark-bar">
+              <p class="click-area"></p>
+            </div>
+            <p class="pointer"></p> -->
+      </div>
+      <div class="right-btns">
+        <button type="button" class="btn-next-30sec">30초 뒤</button>
+        <button type="button" class="btn-next">다음</button>
+      </div>
+      <div class="btns">
+        <button type="button" class="btn-pp"><span class="ico">재생/정지</span></button>
+        <button type="button" class="btn-go-pointer">포인터위치로</button>
+        <button type="button" class="btn-set-10min">10분</button>
+        <button type="button" class="btn-set-1hour">1시간</button>
+        <button type="button" class="btn-set-1day">24시간</button>
+        <button type="button" class="btn-set-3day">3일</button>
+      </div>
+    </div>
+
+  </div>
+  <p class="test-movie">00:00:00</p>
+
+  <script src="js/nTimeline_svg.js"></script>
+  <script>
+    let cam_info = {
+			"item": {
+        "macAddress": "00:09:18:43:78:C8",
+        "timelines": [
+          [{
+            "fromDateTime": "2020-10-22T01:00:00+0900",
+            "toDateTime": "2020-10-22T01:01:30+0900"
+          },
+          {
+            "fromDateTime": "2020-10-22T01:05:40+0900",
+            "toDateTime": "2020-10-22T01:06:15+0900"
+          },
+          {
+            "fromDateTime": "2020-10-22T02:00:40+0900",
+            "toDateTime": "2020-10-22T02:51:15+0900"
+          },
+          {
+            "fromDateTime": "2020-10-22T02:55:24+0900",
+            "toDateTime": "2020-10-22T02:59:55+0900"
+          },
+          {
+            "fromDateTime": "2020-10-22T03:02:40+0900",
+            "toDateTime": "2020-10-22T03:03:15+0900"
+          },
+          {
+            "fromDateTime": "2020-10-22T07:20:43+0900",
+            "toDateTime": "2020-10-22T08:01:15+0900"
+          },
+          {
+            "fromDateTime": "2020-10-22T14:02:40+0900",
+            "toDateTime": "2020-10-22T15:02:55+0900"
+          },
+          {
+            "fromDateTime": "2020-10-22T21:05:41+0900",
+            "toDateTime": "2020-10-22T21:20:57+0900"
+          },
+          {
+            "fromDateTime": "2020-10-22T23:02:40+0900",
+            "toDateTime": "2020-10-23T00:05:43+0900"
+          },
+          {
+            "fromDateTime": "2020-10-23T03:40:40+0900",
+            "toDateTime": "2020-10-23T07:01:15+0900"
+          }, // --
+          {
+            "fromDateTime": "2020-10-23T08:00:40+0900",
+            "toDateTime": "2020-10-23T08:20:55+0900"
+          },
+          {
+            "fromDateTime": "2020-10-24T01:05:40+0900",
+            "toDateTime": "2020-10-24T01:06:15+0900"
+          },
+          {
+            "fromDateTime": "2020-10-24T02:00:40+0900",
+            "toDateTime": "2020-10-24T02:51:15+0900"
+          },
+          {
+            "fromDateTime": "2020-10-24T02:55:24+0900",
+            "toDateTime": "2020-10-24T02:59:55+0900"
+          },
+          {
+            "fromDateTime": "2020-10-24T03:02:40+0900",
+            "toDateTime": "2020-10-24T03:03:15+0900"
+          },
+          {
+            "fromDateTime": "2020-10-24T07:20:43+0900",
+            "toDateTime": "2020-10-24T08:01:15+0900"
+          },
+          {
+            "fromDateTime": "2020-10-24T14:02:40+0900",
+            "toDateTime": "2020-10-24T15:02:55+0900"
+          },
+          {
+            "fromDateTime": "2020-10-24T21:05:41+0900",
+            "toDateTime": "2020-10-24T21:20:57+0900"
+          },
+          {
+            "fromDateTime": "2020-10-24T23:02:40+0900",
+            "toDateTime": "2020-10-25T00:05:43+0900"
+          },
+          {
+            "fromDateTime": "2020-10-25T03:40:40+0900",
+            "toDateTime": "2020-10-25T07:01:15+0900"
+          },
+          {
+            "fromDateTime": "2020-10-25T08:00:40+0900",
+            "toDateTime": "2020-10-25T08:20:55+0900"
+          }]
+        ]
+      }
+		}
+    function zeroSet(num) { // 숫자가 1자리수 일 경우 앞에 0 붙이기
+      return num < 10 ? '0' + num : num;
+    }
+    // 가상 영상용 함수
+    function testMovie(){
+      let playTime = 0;
+          hour = 0,
+          min  = 0,
+          sec  = 0;
+      let playInt;
+
+      let testWrap  = document.querySelector('.test-movie');
+
+      this.setInt = function(){
+        playInt = setInterval(vPlay, 1000);
+      }
+      this.clearInt = function(){
+        clearInterval(playInt);
+      }
+      this.setTime = function(num){
+        playTime = num;
+      }
+
+      function vPlay(){
+        if(playTime < 86400) playTime++;
+
+        hour = parseInt(playTime/3600),
+        min  = parseInt((playTime%3600)/60),
+        sec  = playTime%60;
+        testWrap.innerText = zeroSet(Math.floor(hour)) + ':' + zeroSet(Math.floor(min)) + ':' + zeroSet(Math.floor(sec));
+      }
+    }
+
+    // video.js 기본 예시
+    let myVideo = videojs('ex_video_1', {
+      controls : false,
+      autoplay : false,
+      muted : 'muted',
+      poster : "http://vjs.zencdn.net/v/oceans.png",
+      width : 1280,
+      heigh : 533,
+      sources: [{src: "http://vjs.zencdn.net/v/oceans.mp4", type: "video/mp4"}]
+    });
+    
+    let tm = new testMovie();
+   // tm.setInt();
+
+    let nowPlayDate;
+
+    let newM = new timelineFunc({
+      totalSec : 3600, 
+      recData : cam_info,
+      nowTime : '2020-10-22T02:00:00',
+      timeline : '.timeline .bar-area',
+      active : function(time){
+        console.log('now : ' + time);
+        nowPlayDate = time;
+      }
+    });
+
+    /* 관련함수 안내
+    - newM.startDate();
+      : 현재 타임라인의 시작시간 호출
+    - newM.endDate();
+      : 현재 타임라인의 종료시간 호출
+
+    - newM.nextMoveTimeLine();
+      : 다음 타임라인으로 이동
+    - newM.prevMoveTimeline();
+      : 이전 타임라인으로 이동
+
+    - newM.resetTimeLine(목표시간);
+      : 목표 시간 기준으로 타임라인 전체 새로 그리기
+      : 목표 시간은 '2020-00-00T00:00:00' 형식
+      : 목표 시간을 미지정할 경우 현재 pointer 의 위치 기준으로 새로 그림.
+    
+    - newM.changeTotal(전체 시간);
+      : 타임라인 기준 시간 변경 후 새로 그리기
+      : 전체 시간은 초 시간 기입
+      : 3일 : 259200 /  24시간 : 86400 / 1시간 : 3600 / 10분 : 600
+    
+    - newM.pointJump(목표 이동 시간);
+      : 목표 이동 시간 만큼 point 이동
+      : 목표 이동 시간이 현재 타임라인을 벗어날 경우 타임라인 다시 그리기.
+      : 목표 이동 시간은 초 시간 기입
+      : ex) 이전 30초 = -30 / 다음 15초 = 15
+
+    - newM.justMovePoint(목표시간);
+      : pointer 이동 기능 (타임라인 그리기 없음)
+      : 목표 시간은 '2020-00-00T00:00:00' 형식
+
+    */
+    
+    let nextBtn = document.querySelector('.btn-next'),
+        prevBtn = document.querySelector('.btn-prev'),
+        goPointBtn = document.querySelector('.btn-go-pointer'),
+        set10min = document.querySelector('.btn-set-10min'),
+        set1hour = document.querySelector('.btn-set-1hour'),
+        set1day = document.querySelector('.btn-set-1day'),
+        set3day = document.querySelector('.btn-set-3day'),
+        prev30Sec = document.querySelector('.btn-prev-30sec'),
+        next30Sec = document.querySelector('.btn-next-30sec');
+
+    nextBtn.addEventListener('click', function(){
+      newM.nextMoveTimeline();
+    });
+    prevBtn.addEventListener('click', function(){
+      newM.prevMoveTimeline();
+    });
+
+    goPointBtn.addEventListener('click', function(){
+      newM.resetTimeLine();
+    });
+
+    set10min.addEventListener('click', function(){
+      newM.changeTotal(600);
+      console.log(newM.startDate(), newM.endDate());
+    });
+    set1hour.addEventListener('click', function(){
+      newM.changeTotal(3600);
+      console.log(newM.startDate(), newM.endDate());
+    });
+    set1day.addEventListener('click', function(){
+      newM.changeTotal(86400);
+      console.log(newM.startDate(), newM.endDate());
+    });
+    set3day.addEventListener('click', function(){
+      newM.changeTotal(259200);
+      console.log(newM.startDate(), newM.endDate());
+    });
+
+    prev30Sec.addEventListener('click', function(){
+      newM.pointJump(-30);
+    });
+    next30Sec.addEventListener('click', function(){
+      newM.pointJump(30);
+    });
+
+  </script>
+
+</body>
+
+</html>

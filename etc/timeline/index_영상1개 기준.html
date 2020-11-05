@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+  <meta charset='UTF-8' >
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Video.js | HTML5 Video Player</title>
+  <link href="css/vendor/video-js.css" rel="stylesheet">
+  <link href="css/layout.css" rel="stylesheet">
+  <script src="js/vendor/jquery-3.2.1.min.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/vendor/video.js"></script>
+
+  <style>
+    @charset 'utf-8';
+    
+    html, body,p,h1,h2,h3,h4,h5,h6,menu,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select,hr,div{ margin:0;padding:0; }
+    body { background-color:#fff; font-size:0.75em;line-height:1.5em;font-family:'돋움',Dotum,AppleGothic,sans-serif;  /* Roboto,'Droid Sans',AppleSDGothicNeo,Helvetica,sans-serif */ }
+    img,fieldset,button{ border:0; }
+    ul,ol{ list-style:none; }
+    input, img, select { vertical-align:middle; }
+    .hide { position:absolute; top:0; left:0; width:100%; height:100%; opacity:0; filter:alpha(opacity=0); zoom:1; text-indent:-9999px; z-index:0; overflow:hidden; }
+    caption { height: 1px; overflow: hidden; line-height: 0; margin-top: -1px; color: transparent; }
+
+    .video-wrap { position:relative; width:1280px; height:600px; margin:40px auto; }
+    .timeline { position:absolute; width:100%; height:40px; left:0; bottom:0; font-size:14px; line-height:20px; color:#fff; background:rgba(0,0,0,.3); -ms-user-select: none; -webkit-user-select:none; user-select:none; }
+    .timeline:after { content:''; display:block; clear:both; }
+    .timeline .left-btns { float:left; width:20%; height:40px; }
+    .timeline .right-btns { float:right; width:20%; height:40px; }
+    .timeline .bar-area { position:relative; float:left; width:60%; height:40px; }
+    .timeline .bar-area .time-bar { position:absolute; width:100%; height:4px; left:0; top:18px; background:rgba(0,0,0,.5); }
+    .timeline .bar-area .pointer { position:absolute; width:12px; height:12px; top:-4px; background:#fff; border-radius:6px; transform:translate3d(-6px,0,0); transition:0s linear; }
+    .timeline .bar-area .pointer:before { content:''; position:absolute; width:20px; height:20px; top:-4px; left:-4px; background:rgba(255,255,255,.6); border-radius:10px; transform:scale(0); transition:.3s cubic-bezier(.48,.03,.34,.98); }
+    .timeline .bar-area .pointer:hover:before { transform:scale(1); }
+    .timeline .bar-area .pointer.move { transition-duration:.1s; }
+    .timeline .time-bar .marker { position:absolute; height:4px; top:0; min-width:1px; background:yellow; }
+
+    .test-movie { display:block; width:1280px; margin:30px auto; font-size:40px; line-height:44px; text-align:center; }
+  </style>
+</head>
+<body>
+
+  <div class="video-wrap">
+    <video id="ex_video_1" class="video-js"></video>
+
+    <div class="timeline">
+      <div class="left-btns">
+        <button type="button" class="btn-pp"><span class="ico">재생/정지</span></button>
+      </div>
+      <div class="bar-area">
+        <div class="time-bar">
+          <p class="pointer"></p>
+        </div>
+      </div>
+      <div class="right-btns">
+
+      </div>
+    </div>
+
+  </div>
+  <p class="test-movie">00:00:00</p>
+
+  <script>
+    let cam_info = {
+			"item": {
+        "macAddress": "00:09:18:43:78:C8",
+        "timelines": [
+          [{
+            "fromDateTime": "2019-03-17T10:00:00+0900",
+            "toDateTime": "2019-03-17T10:00:30+0900",
+            "duration": 30
+          },
+          {
+            "fromDateTime": "2019-03-17T10:02:40+0900",
+            "toDateTime": "2019-03-17T10:02:55+0900",
+            "duration": 15
+          },
+          {
+            "fromDateTime": "2019-03-17T11:00:40+0900",
+            "toDateTime": "2019-03-17T11:20:55+0900",
+            "duration": 75
+          }]
+        ]
+      }
+		}
+    function zeroSet(num) { // 숫자가 1자리수 일 경우 앞에 0 붙이기
+      return num < 10 ? '0' + num : num;
+    }
+    // 가상 영상용 함수
+    function testMovie(){
+      let playTime = 0;
+          hour = 0,
+          min  = 0,
+          sec  = 0;
+      let playInt;
+
+      let testWrap  = document.querySelector('.test-movie');
+
+      this.setInt = function(){
+        playInt = setInterval(vPlay, 1000);
+      }
+      this.clearInt = function(){
+        clearInterval(playInt);
+      }
+      this.setTime = function(num){
+        playTime = num;
+      }
+
+      function vPlay(){
+        if(playTime < 86400) playTime++;
+
+        hour = parseInt(playTime/3600),
+        min  = parseInt((playTime%3600)/60),
+        sec  = playTime%60;
+        testWrap.innerText = zeroSet(Math.floor(hour)) + ':' + zeroSet(Math.floor(min)) + ':' + zeroSet(Math.floor(sec));
+      }
+    }
+
+    // 타임라인 전체 함수
+    function timelineFunc(option) {
+      this.totalSec = option.totalSec;
+      
+      let totalSec = this.totalSec;
+
+      let myVideo = videojs('ex_video_1', {
+        controls : false,
+        autoplay : false,
+        muted : 'muted',
+        poster : "http://vjs.zencdn.net/v/oceans.png",
+        width : 1280,
+        heigh : 533,
+        sources: [{src: "http://vjs.zencdn.net/v/oceans.mp4", type: "video/mp4"}]
+      });
+
+      let testM = new testMovie(); // 가상의 영상 시간
+      let movie = document.querySelector('.test-movie'),
+          playTime = movie.innerText; // 영상 재생 시간값 (00:00:00)
+      
+      // 함수 모음 -------------------------------------------------------------
+      let markAdd = function(start, end) { // 타임라인에 마크 생성 함수
+        let tag = '',
+            sTime = (start / totalSec) * 100,
+            eTime = (end / totalSec) * 100,
+            gap   = eTime - sTime;
+        tag += '<p class="marker" style="width:'+ gap +'%; left:'+sTime+'%;"></p>';
+        timeBar.insertAdjacentHTML('afterbegin', tag);
+      },
+      timeToSecond = function(val){ // 시간값을 초 단위로 계산
+        let hour = val.split(':')[0],
+            min  = val.split(':')[1],
+            sec  = val.split(':')[2];
+        
+        return Number(hour * 3600) + Number(min * 60) + Number(sec);
+      },
+      perToTime = function(val){ // % 값 전달 시 초로 변환
+        let second = Math.round((val/100) * totalSec);
+         return secondToTime(second);
+      },
+      secondToTime = function(val){ // 초 전달 시 시-분-초 값 반환
+        let hour = parseInt(val/3600),
+            min  = parseInt((val%3600)/60),
+            sec  = val%60;
+         return zeroSet(hour) + ':' + zeroSet(min) + ':' + zeroSet(sec);
+      },
+      zeroSet = function(num) { // 숫자가 1자리수 일 경우 앞에 0 붙이기
+        return num < 10 ? '0' + num : num;
+      },
+      pointerSet = function(val) { // 타임라인 포인터 위치 설정 함수
+        if(val < 0) val = 0;
+        else if (val > 100) val = 100;
+        pointer.style.left = val + '%';
+      }
+
+      // 타임라인 초기 생성 관련 -------------------------------------------------------------
+      let timeWrap = document.querySelector('.timeline'),
+          timeBar = timeWrap.querySelector('.time-bar'),
+          pointer = timeBar.querySelector('.pointer');
+      let marks = cam_info.item.timelines[0];
+        
+      let recArr = new Array(); // 녹화된 시작시간/종료시간 초 값 배열
+      for(let i=0; i<marks.length; i++){
+        recArr[i] = new Array();
+        recArr[i][0] = timeToSecond(marks[i].fromDateTime.split('T')[1].split('+')[0]);
+        recArr[i][1] = timeToSecond(marks[i].toDateTime.split('T')[1].split('+')[0]);
+      }
+
+      for(let r=0; r<recArr.length; r++){ // 타임라인에 마크 그리기
+        markAdd(recArr[r][0], recArr[r][1]);
+      }
+
+      // 타임라인 바 관련 기능 -----------------------------------------------------------------
+      let touchState  = false,
+          startX, 
+          endX, 
+          nowX        = 0,
+          playSec     = timeToSecond(playTime),
+          playState   = false; // 재생상태 설정
+
+      // 포인터 드래그 앤 드랍
+      pointer.addEventListener('mousedown', function(e){
+        touchState = true;
+        startX = e.pageX;
+        funcRemoveClass(pointer,'move');
+        clearInterval(timePlay);
+        testM.clearInt();
+        nowX = (playSec / totalSec) * 100;
+      });
+
+      window.addEventListener('mousemove', function(e){
+        if(touchState == true) {
+          let endX = e.pageX,
+              mouseGap = (nowX + ((endX - startX)/768 * 100)).toFixed(2);
+          pointerSet(mouseGap);
+          playSec = timeToSecond(perToTime(mouseGap));
+        }
+      });
+
+      window.addEventListener('mouseup', function(){ if(touchState == true) upFunc(); });
+      window.addEventListener('mouseleave', function(){ if(touchState == true) upFunc(); });
+
+      function upFunc(e) {
+        touchState = false;
+        funcAddClass(pointer,'move');
+        //console.log(playSec);
+        if(playSec > totalSec) playSec = totalSec;
+        if(isNaN(playSec)) playSec = 0;
+        movie.innerText = secondToTime(playSec);
+        testM.setTime(playSec);
+        if(playState == true) {
+          testM.setInt();
+          timePlay = setInterval(timelinePlay, 100);
+        }
+
+        //if(!myVideo.paused()) 
+        //myVideo.currentTime(playSec); // 드래그한 시간으로 영상 jump
+      }
+      
+      
+      // 영상제어 버튼 관련 ----------------------------------------------
+      let btnp = document.querySelector('.btn-pp'),
+          timePlay;
+
+      btnp.addEventListener('click', function(){
+        if(playSec < totalSec) {
+          if(playState == false) {
+            testM.setInt();
+            myVideo.play();
+            timePlay = setInterval(timelinePlay, 100);
+            funcAddClass(pointer,'move');
+            playState = true;
+          } else {
+            testM.clearInt();
+            myVideo.pause();
+            clearInterval(timePlay);
+            playState = false;
+          }
+        } else {
+          playSec = 0;
+          myVideo.play();
+          timePlay = setInterval(timelinePlay, 100);
+          funcRemoveClass(pointer,'move');
+        }
+      });
+
+      // 영상 재생 - 타임라인 관련 함수
+      function timelinePlay(){
+        if(playSec < (totalSec + 0.1)) {
+          playSec = timeToSecond(movie.innerText);
+          nowTime = Number((playSec / totalSec) * 100).toFixed(2);
+          pointerSet(nowTime);
+        } else {
+          clearInterval(timePlay);
+        }
+      }
+    }
+
+    
+    var tm = new testMovie();
+   // tm.setInt();
+
+    window.onload = function(){
+      // 24시간 : 86400 / 12시간 : 43200 / 6시간 : 21600 / 1시간 : 3600
+      let newM = new timelineFunc({
+				totalSec : 300
+			});
+
+    }
+  </script>
+
+</body>
+
+</html>
