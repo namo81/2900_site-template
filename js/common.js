@@ -93,14 +93,26 @@ HTMLElement.prototype.removeListeners = function () {
 };
 
 // index 반환 함수
-function getIndex(ele) {
-	var _i = 0;
-	while((ele = ele.previousSibling) != null ) {
-	  _i++;
-	}
-  
-	return _i;
+function getIndex( elm ){ 
+    var c = elm.parentNode.children, i = 0;
+    for(; i < c.length; i++ )
+        if( c[i] == elm ) return i;
 }
+
+// html node 복사 - 
+function cloneNode(node) {
+    // If the node is a text node, then re-create it rather than clone it
+    var clone = node.nodeType == 3 ? document.createTextNode(node.nodeValue) : node.cloneNode(false);
+ 
+    // Recurse     
+    var child = node.firstChild;
+    while(child) {
+        clone.appendChild(cloneNode(child));
+        child = child.nextSibling;
+	}
+    return clone;
+}
+
 
 //tab menu 기능
 function nTab(selector){

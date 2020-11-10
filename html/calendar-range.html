@@ -24,7 +24,7 @@
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
-	<script src="/js/jquery-3.2.1.min.js"></script>
+	<script src="../js/jquery-1.12.4.min.js"></script>
 
 	<!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
@@ -39,7 +39,7 @@
 		$(function(){
 			hljs.initHighlightingOnLoad(); 
 
-			let rangeCal1 = new nCalendarRange({
+			var rangeCal1 = new nCalendarRange({
 				wrap : '.inp-cal.range',
 				showType : 'both',
 				dualCal : false,
@@ -47,7 +47,7 @@
 				limitType : 'before'
 			});
 
-			let rangeCal2 = new nCalendarRange({
+			var rangeCal2 = new nCalendarRange({
 				wrap : '.inp-cal.single-range',
 				showType : 'both',
 				inpSingle : true,

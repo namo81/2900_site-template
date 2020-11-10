@@ -33,27 +33,24 @@
 
 	<!-- calendar 관련 설정 -->
 	<link rel="stylesheet" href="../css/nCalendar.css" media="screen, print" />
-	<script src="../js/nDragnDrop_v1.0.1.js"></script>
+	<script src="../js/bak/nDragnDrop_v1.0.0.js"></script>
 	<script>
 		$(function(){
 			hljs.initHighlightingOnLoad(); 
 			
 			let dragTest = new nDragnDrop({
-				wrap 		: '.drag-list',
-				obj  		: '.drag-list li',
-				func 		: 'sequence'
+				wrap : '.drag-list',
+				obj : '.drag-list li'
 			});
 		});
 	</script>
 	<style type="text/css">
 		.drag-list { width:300px; }
-		.drag-list li { position:relative; display:block; width:100%; padding:5px; border:1px solid #aaa; box-sizing:border-box; -webkit-user-select:none; user-select:none; background:#fff;}
+		.drag-list li { display:block; width:100%; padding:5px; border:1px solid #aaa; box-sizing:border-box; }
 		.drag-list li + li { margin-top:5px; }
 		.drag-list li.over { background-color:#eee; }
 		.drag-list li.ghost { opacity:.4; }
-		.drag-list li .list-title { display:block; }
-		.drag-list li .drag-item { position:absolute; top:0; right:0; width:50px; height:100%; background:#eee; }
-		.drag-list li.dummy { position:fixed; cursor:move; }
+		.drag-list li .list-title { display:block; pointer-events:none; }
 	</style>
 </head>
 <body>
@@ -70,34 +67,30 @@
 				<p>자체 제작 플러그인 사용</p>
 				<p>width 값은 별도 지정</p>
 				<p>input focus 시 dropdown 으로 시간 리스트 표출 및 선택</p>
-
+				<div class="guide-show">
 					<ul class="drag-list">
-						<li>
+						<li draggable="true">
 							<span class="list-title">드래그 아이템 1번 입니다.</span>
 							<a href="#">바로가기</a>
-							<span class="drag-item"></span>
 						</li>
-						<li>
+						<li draggable="true">
 							<span class="list-title">드래그 아이템 2번 입니다.</span>
 							<a href="#">바로가기</a>
-							<span class="drag-item"></span>
 						</li>
-						<li>
+						<li draggable="true">
 							<span class="list-title">드래그 아이템 3번 입니다.</span>
 							<a href="#">바로가기</a>
-							<span class="drag-item"></span>
 						</li>
-						<li>
+						<li draggable="true">
 							<span class="list-title">드래그 아이템 4번 입니다.</span>
 							<a href="#">바로가기</a>
-							<span class="drag-item"></span>
 						</li>
-						<li>
+						<li draggable="true">
 							<span class="list-title">드래그 아이템 5번 입니다.</span>
 							<a href="#">바로가기</a>
-							<span class="drag-item"></span>
 						</li>
 					</ul>
+				</div>
 <pre><code class="html"></div>
 		</section>
 
