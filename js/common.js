@@ -92,6 +92,16 @@ HTMLElement.prototype.removeListeners = function () {
 	};
 };
 
+// index 반환 함수
+function getIndex(ele) {
+	var _i = 0;
+	while((ele = ele.previousSibling) != null ) {
+	  _i++;
+	}
+  
+	return _i;
+}
+
 //tab menu 기능
 function nTab(selector){
 	var nTabEle = document.querySelectorAll(selector);

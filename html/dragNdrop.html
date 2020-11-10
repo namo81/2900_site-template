@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="author" content="seonamho - SK MNS" >
+	<meta name="description" content="">
+	<meta name="keywords" content="Site Template">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Site Template">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
+
+
+	<title>기본 가이드</title>
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
+
+	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
+	<link rel="stylesheet" href="../css/layout.css" media="screen, print" />
+	<script src="../js/jquery-1.12.4.min.js"></script>
+	<script src="../js/common.js"></script>
+
+	<!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <![endif]-->	
+
+	<!-- calendar 관련 설정 -->
+	<link rel="stylesheet" href="../css/nCalendar.css" media="screen, print" />
+	<script src="../js/nDragnDrop_v1.0.0.js"></script>
+	<script>
+		$(function(){
+			hljs.initHighlightingOnLoad(); 
+			
+			let dragTest = new nDragnDrop({
+				wrap : '.drag-list',
+				obj : '.drag-list li'
+			});
+		});
+	</script>
+	<style type="text/css">
+		.drag-list { width:300px; }
+		.drag-list li { display:block; width:100%; padding:5px; border:1px solid #aaa; box-sizing:border-box; }
+		.drag-list li + li { margin-top:5px; }
+		.drag-list li.over { background-color:#eee; }
+		.drag-list li.ghost { opacity:.4; }
+		.drag-list li .list-title { display:block; pointer-events:none; }
+	</style>
+</head>
+<body>
+<div id="work-list">
+	<div class="guide">
+		
+
+		<!-- input ================================================================ -->
+		<section id="guide-input">
+			<h2 class="guide-sec-tit">Time Picker</h2>
+
+			<div class="guide-sec">
+				<h3 class="guide-stit">시간 선택</h3>
+				<p>자체 제작 플러그인 사용</p>
+				<p>width 값은 별도 지정</p>
+				<p>input focus 시 dropdown 으로 시간 리스트 표출 및 선택</p>
+				<div class="guide-show">
+					<ul class="drag-list">
+						<li draggable="true">
+							<span class="list-title">드래그 아이템 1번 입니다.</span>
+							<a href="#">바로가기</a>
+						</li>
+						<li draggable="true">
+							<span class="list-title">드래그 아이템 2번 입니다.</span>
+							<a href="#">바로가기</a>
+						</li>
+						<li draggable="true">
+							<span class="list-title">드래그 아이템 3번 입니다.</span>
+							<a href="#">바로가기</a>
+						</li>
+						<li draggable="true">
+							<span class="list-title">드래그 아이템 4번 입니다.</span>
+							<a href="#">바로가기</a>
+						</li>
+						<li draggable="true">
+							<span class="list-title">드래그 아이템 5번 입니다.</span>
+							<a href="#">바로가기</a>
+						</li>
+					</ul>
+				</div>
+<pre><code class="html"></div>
+		</section>
+
+
+	</div>
+	<a href="#work-list" class="guide-top">Top</a>	
+</div>
+</body>
+</html>

@@ -121,8 +121,9 @@ function nCalendarRange(option){
 	leftArea.insertAdjacentHTML('afterbegin', '<div class="cal-top"></div>');
 	leftTop = leftArea.querySelector('.cal-top');
 
+	let cntLeft = "";
+
 	if(dualCal == false) {
-		var cntLeft = "";
 		cntLeft += '<button type="button" class="cal-btn prev">'+prevTx+'</button>';
 		cntLeft += '<p class="tx-yearMon"></p>';
 		cntLeft += '<button type="button" class="cal-btn next">'+nextTx+'</button>';
@@ -134,9 +135,8 @@ function nCalendarRange(option){
 
 		rightArea.insertAdjacentHTML('afterbegin', '<div class="cal-top"></div>');
 		rightTop = rightArea.querySelector('.cal-top');
-
-		var cntLeft = "",
-			cntRight = "";			
+				
+		let cntRight = "";
 		cntLeft += '<button type="button" class="cal-btn prev">'+prevTx+'</button>';
 		cntLeft += '<p class="tx-yearMon"></p>';
 		cntRight += '<p class="tx-yearMon"></p>';
@@ -563,3 +563,13 @@ function nCalendarRange(option){
 	}
 
 }
+
+/*
+1. 각종 option 값 내부 변수화
+2. input 에 value 유무 확인 및 그에 따른 기본일자 설정
+3. 추가 제한 사항 확인
+   - 선택 제한 기능 (오늘 이후, 이전 / 오늘부터 몇일전/몇일후부터 제한 / 최대 선택 가능 기간 설정 / 선택 가능기간 설정 )
+   - 제한 기능에 따른 비활성화 제어
+4. 달력 화면 내 요소 그리기 및 기능 설정
+
+*/
