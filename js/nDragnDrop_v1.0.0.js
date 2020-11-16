@@ -21,24 +21,14 @@ function nDragnDrop(option){
 		dummy, 				// 드래그 될 요소 복사본 (실제 마우스 따라다니는 요소)
 		targetItem,			// 드래그 될 요소
 		targetIdx, 			// 드래그 될 요소 index 값
-		gap = 5; 			// 최초 드래그 실행 전 gap (단순 클릭 일 경우 실행 방지용)
+		gap = 10; 			// 최초 드래그 실행 전 gap (단순 클릭 일 경우 실행 방지용)
 	
 	// 마우스 및 dummy 위치 관련 변수
-	var mouseX, mouseY, 		// 마우스 최초 클릭 위치 값
-		mouseEX, mouseEY,		// 마우스 최종 위치 값
-		objTouchX, objTouchY; 	// 최초 클릭 시 드래그 요소 내 마우스 위치값 (드래그 시 위치 조정용)
-
-	// dummy 생성 함수
-	var setDummy = function(obj){
-		var objW = obj.offsetWidth,
-			objH = obj.offsetHeight;
-		dummy = obj.cloneNode(true);
-		//dummy = cloneNode(obj); -- IE 구버전용 함수
-		dummy.style.width = objW + 'px';
-		dummy.style.height = objH + 'px';
-		dummy.classList.add('dummy');
-		objWrap.insertBefore(dummy, null);
-	}
+	var mouseX, mouseY, 			// 마우스 최초 클릭 위치 값
+		mouseEX, mouseEY,			// 마우스 최종 위치 값
+		objTouchX, objTouchY, 		// 최초 클릭 시 드래그 요소 내 마우스 위치값 (드래그 시 위치 조정용)
+		docScrollT, docScrollL, 	// 최초 클릭 시 document 의 scroll 값 (  )
+		wrapScrollT, wrapScrollL;	// 최초 클릭 시 wrap 의 scroll 값
 
 	// sequence 용 배열 ( 각 리스트 요소 상하좌우 값 )
 	var objArr = new Array();
@@ -55,10 +45,71 @@ function nDragnDrop(option){
 		dropArr.left = new Array();
 		dropArr.right = new Array();
 
+
+	// 리스트 obj 및 drop area 요소 관련 배열설정
+	var domUpdate = function(){
+		if(func == 'sequence') {
+			for(var o=0; o<objLen; o++){
+				objArr.top.push(offset(obj[o]).top);
+				objArr.btm.push(offset(obj[o]).top + obj[o].offsetHeight);
+				objArr.left.push(offset(obj[o]).left);
+				objArr.right.push(offset(obj[o]).left + obj[o].offsetWidth);
+			}
+		} else if(func == 'dnd') {
+			for( var d = 0; d < area.length; d++) {
+				dropArr.top.push(offset(area[d]).top);
+				dropArr.btm.push(offset(area[d]).top + area[d].offsetHeight);
+				dropArr.left.push(offset(area[d]).left);
+				dropArr.right.push(offset(area[d]).left + area[d].offsetWidth);
+			}
+		}
+	}
+
+	// dummy 생성 함수
+	var setDummy = function(obj){
+		var objW = obj.offsetWidth,
+			objH = obj.offsetHeight;
+		dummy = obj.cloneNode(true);
+		//dummy = cloneNode(obj); -- IE 구버전용 함수
+		dummy.style.width = objW + 'px';
+		dummy.style.height = objH + 'px';
+		dummy.classList.add('dummy');
+		objWrap.insertBefore(dummy, null);
+	},
+	// dummy 마지막 모션 및 삭제 관련
+	removeDummy = function(){
+		if(func == 'sequence' ) {
+			var dleft = offset(targetItem).left + 1 - docScrollL - wrapScrollL,
+				dTop  = offset(targetItem).top + 1 - docScrollT - wrapScrollT;
+				mgT   = targetItem.style.marginTop,
+				mgL   = targetItem.style.marginLeft,
+				dW    = targetItem.offsetWidth,
+				dH    = targetItem.offsetHeight,
+				pd 	  = window.getComputedStyle(targetItem, null).getPropertyValue('padding'); 
+			dummy.style.transition = '.2s';
+			dummy.style.top = dTop + 'px';
+			dummy.style.left = dleft + 'px';
+			dummy.style.width = dW + 'px';
+			dummy.style.height = dH + 'px';
+			dummy.style.marginTop = (-1) * mgT;
+			dummy.style.marginLeft = (-1) * mgL;
+			dummy.style.padding = pd;
+			dummy.addEventListener('transitionend', function(){
+				if (objWrap.querySelectorAll('.dummy').length > 0) {
+					objWrap.removeChild(objWrap.lastChild);
+				}
+			});
+		} else if(func == 'dnd') {
+			if (objWrap.querySelectorAll('.dummy').length > 0) {
+				objWrap.removeChild(objWrap.lastChild);
+			}	
+		}
+	}
+
 	// func : 'sequence' 용 기능 함수
 	var checkSeq = function(){
-		var dummyLeft   = dummy.offsetLeft + (dummy.offsetWidth / 2) + document.documentElement.scrollLeft,
-			dummyTop    = dummy.offsetTop + (dummy.offsetHeight / 2) + document.documentElement.scrollTop;
+		var dummyLeft   = dummy.offsetLeft + (dummy.offsetWidth / 2) + docScrollL + wrapScrollL,
+			dummyTop    = dummy.offsetTop + (dummy.offsetHeight / 2) + docScrollT + wrapScrollT;
 
 		for(var o=0; o<objLen; o++){
 			if(dummyTop > objArr.top[o] && dummyTop < objArr.btm[o] && dummyLeft > objArr.left[o] && dummyLeft < objArr.right[o]) {
@@ -69,26 +120,52 @@ function nDragnDrop(option){
 				}
 			}
 		}
-
-	}, 
+	},
+	// func : 'dnd' 용 서브함수 - drop 영역 전체 리셋함수 
+	areaReset = function(){
+		for(var d=0; d<area.length; d++){
+			area[d].classList.remove('drop-over');
+		}
+	},
+	// func : 'dnd' 용 실행문
+	dropFunc = function(obj) {
+		if(obj == null) {
+			dropArea = null;
+			areaReset();
+			return;
+		} else {
+			if(dropArea == obj) return;
+			dropArea = obj;
+			areaReset();
+			dropArea.classList.add('drop-over');
+		}
+	},
 	// func : 'dnd' 용 기능 함수
 	checkDrop = function(){
-		var dummyLeft   = dummy.offsetLeft + (dummy.offsetWidth / 2) + document.documentElement.scrollLeft,
-			dummyTop    = dummy.offsetTop + (dummy.offsetHeight / 2) + document.documentElement.scrollTop;
+		var dummyLeft   = dummy.offsetLeft + (dummy.offsetWidth / 2) + docScrollL,
+			dummyTop    = dummy.offsetTop + (dummy.offsetHeight / 2) + docScrollT;
 
+		var num = 0; // dropArea 
 		for(var d=0; d<area.length; d++){
 			if(dummyTop > dropArr.top[d] && dummyTop < dropArr.btm[d] && dummyLeft > dropArr.left[d] && dummyLeft < dropArr.right[d]) {
-				dropArea = area[d];
+				num ++;
+				dropFunc(area[d]);
 			}
 		}
+		if(num == 0) dropFunc(); // dropArea 외 영역에서 드래그할 경우
 	}
 
 	// drag 중 실행
 	var drag = function(e){
 		if(dragDown != true) return;
 		e.stopPropagation();
-		mouseEX = e.pageX - document.documentElement.scrollLeft,
-		mouseEY = e.pageY - document.documentElement.scrollTop;
+		e.preventDefault();
+
+		wrap.scrollTop = wrapScrollT; // wrap 에 scroll 이 있을 경우, 현재의 scroll 값 유지용
+		wrap.scrollLeft = wrapScrollL; // wrap 에 scroll 이 있을 경우, 현재의 scroll 값 유지용
+
+		mouseEX = e.pageX - docScrollL,
+		mouseEY = e.pageY - docScrollT;
 
 		if(dragMove == true) {
 			targetItem.classList.add('ghost');
@@ -96,36 +173,38 @@ function nDragnDrop(option){
 			dummy.style.top = (mouseEY - objTouchY) + 'px';
 			if(func == 'sequence') checkSeq();
 			else checkDrop();
-		} 
-		if (Math.abs(mouseEX - mouseX) > gap || Math.abs(mouseEY - mouseY) > gap) {
-			if (objWrap.querySelectorAll('.dummy').length < 1) {
-				setDummy(targetItem);
-				dummy.style.left = (mouseEX - objTouchX) + 'px';
-				dummy.style.top = (mouseEY - objTouchY) + 'px';
+		} else {
+			if(Math.abs(mouseEX - mouseX) > gap || Math.abs(mouseEY - mouseY) > gap) {
+				if (objWrap.querySelectorAll('.dummy').length < 1) {
+					setDummy(targetItem);
+					dummy.style.left = (mouseEX - objTouchX) + 'px';
+					dummy.style.top = (mouseEY - objTouchY) + 'px';
+				}
+				dragMove = true;
 			}
-			dragMove = true;
 		}
-
 	}, 
 	// drag 끝날 때
 	dragEnd = function(e){
-		if(dragDown != true) return;
+		if(!dragMove) {
+			dragMove = false;
+			dragDown = false;
+			return;
+		} 
+		removeDummy();
 		dragMove = false;
-		if (objWrap.querySelectorAll('.dummy').length > 0) {
-			objWrap.removeChild(objWrap.lastChild);
-			objWrap.removeEventListener('mousemove', drag);
-		}
 		dragDown = false;
 		targetItem.classList.remove('ghost');
+		if(func == 'dnd') areaReset();
 		obj = objWrap.querySelectorAll(option.obj); // obj 리스트 재 설정
 		if( typeof active === 'function') {
 			if(func == 'sequence') active(targetItem);
 			else active(targetItem, dropArea);
 		}
-
 	}, 
 	// drag 시작
 	dragStart = function(e){
+		e.preventDefault();		
 		if(selector) {
 			targetItem = e.target.closest(option.obj);
 			objTouchX = e.offsetX + e.target.offsetLeft;
@@ -141,44 +220,26 @@ function nDragnDrop(option){
 			}
 		}
 		targetIdx = getIndex(targetItem);
-		mouseX = e.pageX - document.documentElement.scrollLeft;
-		mouseY = e.pageY - document.documentElement.scrollTop;
+		docScrollL = document.documentElement.scrollLeft;
+		docScrollT = document.documentElement.scrollTop;
+		wrapScrollL = wrap.scrollLeft;
+		wrapScrollT = wrap.scrollTop;
+
+		mouseX = e.pageX - docScrollL;
+		mouseY = e.pageY - docScrollT;
 		dragDown = true;
+		dropArea = null;
 	} 
 
-	// drag 함수 적용 및 배열 설정
-	for(var o=0; o<objLen; o++){
-		if(option.selector) obj[o].querySelector(option.selector).addEventListener('mousedown', dragStart);
-		else obj[o].addEventListener('mousedown', dragStart);
-		if(func == 'sequence') {
-			objArr.top.push(offset(obj[o]).top);
-			objArr.btm.push(offset(obj[o]).top + obj[o].offsetHeight);
-			objArr.left.push(offset(obj[o]).left);
-			objArr.right.push(offset(obj[o]).left + obj[o].offsetWidth);
-		} 
+	// 초기 실행 함수 (드래그 요소 기능 설정 및 배열 관련 함수 실행)
+	var dragInit = function(){
+		for(var o=0; o<objLen; o++){
+			if(option.selector) obj[o].querySelector(option.selector).addEventListener('mousedown', dragStart);
+			else obj[o].addEventListener('mousedown', dragStart);
+		}	
+		domUpdate();
+		document.addEventListener('mousemove', drag);
+		document.addEventListener('mouseup', dragEnd);
 	}
-	if(func == 'dnd') {
-		for( var d = 0; d < area.length; d++) {
-			dropArr.top.push(offset(area[d]).top);
-			dropArr.btm.push(offset(area[d]).top + area[d].offsetHeight);
-			dropArr.left.push(offset(area[d]).left);
-			dropArr.right.push(offset(area[d]).left + area[d].offsetWidth);
-		}
-	}
-	document.addEventListener('mousemove', drag);
-	document.addEventListener('mouseup', dragEnd);
-	
+	dragInit();	
 }
-
-/* 타 플러그인 작동 기본
- mousedown - 기본 X / Y 참고값 설정
- mousemove
-  - 드래그 값이 특정 gap 이하일 때 : dummy 생성 / dummy 최초 위치 설정 / dummy의 원본 설정 / 드래그 상태 설정
-  - 드래그 값이 true : dummy 위치 조정 / 리스트 항목 순서 조정
-mouseup
-  - dummy 삭제 / 이벤트 제거 등
-
-드래그 앤 드롭 기능
-- 리스트 위치 변경
-- 특정 영역에 드롭하기
-*/

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="author" content="seonamho - SK MNS" >
+	<meta name="description" content="">
+	<meta name="keywords" content="Site Template">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Site Template">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
+
+	<title>Float 가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
+
+	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
+	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
+	<script src="/js/jquery-3.2.1.min.js"></script>
+
+	<!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <![endif]-->
+	
+	<script>
+		$(function(){ 
+			hljs.initHighlightingOnLoad(); 
+		});
+	</script>
+	<style>
+		.flex-wrap { height:500px; background:#efefef;  }
+		.flex-wrap ul { height:100%; 
+			display:flex; 
+			flex-direction:row; /* 하위 아이템 배치 방향 설정 */
+			align-items:flex-start; /* flex-direction 에서 설정된 방향의 반대축에 대한 하위 아이템 배치 방향 설정 : baseline - 하위요소 텍스트 기준 정렬 */
+			flex-wrap:nowrap; /* 배치 시 줄바뀜 설정 */
+			/*flex-flow:row nowrap; - direction + wrap 동시 작성 */
+
+			justify-content:space-evenly; /* 중심축 기준 아이템 정렬 및 배치 설정 */
+			align-content:center; /* 반대축 기준 아이템 정렬 및 배치 설정 */ 
+		}
+		.item { width:100px; height:100px; background:#e3f2fd; 
+			/* order:0; 각 아이템의 순서 변경 */
+			flex-grow:1; /* 각 아이템이 중심축에서 차지하는 공간 비율 */
+			flex-shrink:2; /* 각 아이템이 부모요소 공간에 따라 대응하는 수치 */
+			flex-basis:10%; /* 각 아이템의 부모요소 대비 고정 너비(or 높이) 값 설정 */
+			align-self:center; /* 각 아이템의 부모요소 대비 정렬 설정 */
+		}
+		ul li.item:nth-child(2n) { background:#b1bfca; }
+	</style>
+</head>
+<body>
+<div id="work-list">
+	<div class="guide">
+
+		<section id="guide-basic">
+			<h2 class="guide-sec-tit">Flex</h2>
+			<div class="guide-sec">
+				<h3 class="guide-stit">Flex 기본</h3>
+				<p>block 타입의 다양한 배열 시 사용 (div, p 등)</p>
+				<div class="guide-show">
+				<!-- 코드 작성 -->
+					<div class="flex-wrap">
+						<ul>
+							<li class="item item1">item-01</li>
+							<li class="item item2">item-02</li>
+							<li class="item item3">item-03</li>
+							<li class="item item4">item-04</li>
+							<li class="item item5">item-05</li>
+							<li class="item item6">item-06</li>
+							<li class="item item7">item-07</li>
+							<li class="item item8">item-08</li>
+						</ul>
+					</div>
+				<!-- // 코드 작성 -->
+				</div>
+<pre><code class="html">
+</code></pre>
+
+				<h4 class="guide-sstit">Float width 지정</h4>
+			</div>
+		</section>
+	</div>
+	<a href="#work-list" class="guide-top">Top</a>	
+</div>
+</body>
+</html>
