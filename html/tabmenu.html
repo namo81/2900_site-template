@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="author" content="seonamho - SK MNS" >
+	<meta name="description" content="">
+	<meta name="keywords" content="Site Template">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Site Template">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
+
+	<title>탭 메뉴 |  가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
+
+	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
+	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
+	<script src="/js/jquery-3.2.1.min.js"></script>
+	<script src="/js/common.js"></script>
+
+	<!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+	<![endif]-->
+
+	<script>
+		$(function(){ 
+			hljs.initHighlightingOnLoad(); 
+		});
+	</script>
+	
+	<script>
+		window.onload = function(){
+			var tab1 = new nTabMenu({
+				wrap 		: '.tab-wrap.ex1',
+				menuWrap 	: '.tab-menu',
+				tabCnt 		: '.tab-cnt'
+			});
+		}
+	</script>
+
+</head>
+<body>
+<div id="work-list">
+	<div class="guide">
+
+		<section id="guide-basic">
+			<h2 class="guide-sec-tit">탭 메뉴</h2>
+			<div class="guide-sec">
+				<h3 class="guide-stit">메뉴만</h3>
+				<p>기본형 탭 메뉴.</p>
+				<p><strong>tab-menu</strong> : 기능 클래스 / <strong>tab-type1</strong> : 스타일 클래스</p>
+				<div class="guide-show">
+					<div class="tab-menu tab-type1">
+						<ul>
+							<li class="on"><a href="#tab-cnt1">탭메뉴 1</a></li>
+							<li><a href="#tab-cnt2">탭메뉴 2</a></li>
+						</ul>
+					</div>
+					<div class="tab-menu tab-type1 count4">
+						<ul>
+							<li class="on"><a href="#tab-cnt1">탭메뉴 1</a></li>
+							<li><a href="#tab-cnt2">탭메뉴 2</a></li>
+							<li><a href="#tab-cnt2">탭메뉴 3</a></li>
+							<li><a href="#tab-cnt2">탭메뉴 4</a></li>
+						</ul>
+					</div>
+				</div>
+<pre><code class="html">&lt;div class="tab-menu tab-type1"&gt;
+	&lt;ul&gt;
+		&lt;li class="on"&gt;&lt;a href="#tab-cnt1"&gt;탭메뉴 1&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href="#tab-cnt2"&gt;탭메뉴 2&lt;/a&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="tab-menu tab-type1 count4"&gt;
+	&lt;ul&gt;
+		&lt;li class="on"&gt;&lt;a href="#tab-cnt1"&gt;탭메뉴 1&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href="#tab-cnt2"&gt;탭메뉴 2&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href="#tab-cnt2"&gt;탭메뉴 3&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href="#tab-cnt2"&gt;탭메뉴 4&lt;/a&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+</code></pre>
+			</div>
+			<div class="guide-sec">
+				<h3 class="guide-stit">컨텐츠 포함</h3>
+				<p>컨텐츠와 묶어서 사용할 경우</p>
+				<p>탭메뉴 버튼의 href 값을 통해 해당 컨텐츠 hide / show</p>
+				<p>탭메뉴의 갯수와 컨텐츠 갯수는 일치시켜야 함.</p>
+				<div class="guide-show">
+					<div class="tab-wrap ex1">
+						<div class="tab-menu tab-type1 count3">
+							<ul>
+								<li class="on"><a href="#tab-cnt1">탭메뉴 1</a></li>
+								<li><a href="#tab-cnt2">탭메뉴 2</a></li>
+								<li><a href="#tab-cnt3">탭메뉴 3</a></li>
+							</ul>
+						</div>
+
+						<!-- 탭 컨텐츠 1 -->
+						<div class="tab-cnt" id="tab-cnt1">
+							탭 컨텐츠 111
+						</div>
+
+						<!-- 탭 컨텐츠 2 -->
+						<div class="tab-cnt" id="tab-cnt2">
+							탭 컨텐츠 222
+						</div>
+
+						<!-- 탭 컨텐츠 3 -->
+						<div class="tab-cnt" id="tab-cnt3">
+							탭 컨텐츠 333
+						</div>
+					</div>
+				</div>
+<pre><code class="html">&lt;div class="tab-wrap ex1"&gt;
+	&lt;div class="tab-menu tab-type1 count3"&gt;
+		&lt;ul&gt;
+			&lt;li class="on"&gt;&lt;a href="#tab-cnt1"&gt;탭메뉴 1&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="#tab-cnt2"&gt;탭메뉴 2&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="#tab-cnt3"&gt;탭메뉴 3&lt;/a&gt;&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/div&gt;
+
+	&lt;!-- 탭 컨텐츠 1 --&gt;
+	&lt;div class="tab-cnt" id="tab-cnt1"&gt;
+		탭 컨텐츠 111
+	&lt;/div&gt;
+
+	&lt;!-- 탭 컨텐츠 2 --&gt;
+	&lt;div class="tab-cnt" id="tab-cnt2"&gt;
+		탭 컨텐츠 222
+	&lt;/div&gt;
+
+	&lt;!-- 탭 컨텐츠 3 --&gt;
+	&lt;div class="tab-cnt" id="tab-cnt3"&gt;
+		탭 컨텐츠 333
+	&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+			</div>
+
+		</section>
+	</div>
+	<a href="#work-list" class="guide-top">Top</a>	
+</div>
+</body>
+</html>

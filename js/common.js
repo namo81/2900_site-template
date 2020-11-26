@@ -14,6 +14,7 @@ if (window.Element && !Element.prototype.closest) {
         return el;
     };
 }
+// ex : object.closest(target)
 
 // parents 기능 함수 - 부모요소 배열 반환
 Element.prototype.parents = function(selector) {
@@ -29,16 +30,17 @@ Element.prototype.parents = function(selector) {
 		if (!ishaveselector || elem.matches(selector)) {
 			elements.push(elem);
 		}
-	}
- 
+	} 
 	return elements;
 };
+// ex : object.parents(selector)
 
 // hasClass 대체 - obj 가 특정 class 를 가지고 있는지 확인 - boolean 값 리턴
 function funcHasClass(obj, cls){
 	var objCls = obj.className;
 	return new RegExp('(^|\\s)'+cls+'(\\s|$)').test(objCls);
 }
+// ex : funcHasClass(object, class);
 
 // addClass 대체 - obj 에 특정 class 추가 - funcHasClass 함수 필요
 function funcAddClass(obj, cls){
@@ -48,6 +50,7 @@ function funcAddClass(obj, cls){
 		else obj.className += " "+cls;
 	}
 }
+// ex : funcAddClass(object, class);
 
 // removeClass 대체 - obj 에서 특정 class 제거 - funcHasClass 함수 필요
 function funcRemoveClass(obj, cls){
@@ -57,6 +60,20 @@ function funcRemoveClass(obj, cls){
 		
 	}
 }
+// ex : funcRemoveClass(object, class);
+
+// toggleClass 대체 - obj 에서 특정 class 토글 - funcHasClass / funcAddClass / funcRemoveClass 필요
+function funcToggleClass(obj, cls){
+	var hasChk = funcHasClass(obj, cls);
+	if(!hasChk) {
+		if(obj.className.length == 0) obj.className += cls;
+		else obj.className += " "+cls;
+	} else {
+		obj.className = obj.className.replace(new RegExp('(^|\\s)'+cls+'(\\s|$)'), '');
+	} 
+}
+// ex : funcToggleClass(object, class);
+
 
 // offset 함수.
 function offset(elem) {
@@ -72,6 +89,7 @@ function offset(elem) {
 
     return { left: x, top: y };
 }
+// ex : offset(object).top / offset(object).left
 
 // 이벤트 리스트 관련 함수 - 이벤트 추가 시 listener 를 별도 배열로 보관 - 추후 삭제 가능하도록.
 HTMLElement.prototype.onEvent = function (eventType, callBack, useCapture) {
@@ -82,6 +100,7 @@ HTMLElement.prototype.onEvent = function (eventType, callBack, useCapture) {
 	this.myListeners.push({ eType: eventType, callBack: callBack });
 	return this;
 };
+// ex : object.onEvent('', function...)
 
 HTMLElement.prototype.removeListeners = function () {
 	if (this.myListeners) {
@@ -91,6 +110,7 @@ HTMLElement.prototype.removeListeners = function () {
 		delete this.myListeners;
 	};
 };
+// ex : object.removeListeners()
 
 // index 반환 함수
 function getIndex( elm ){ 
@@ -98,10 +118,10 @@ function getIndex( elm ){
     for(; i < c.length; i++ )
         if( c[i] == elm ) return i;
 }
+// ex : getIndex(object)
 
-// html node 복사 - 
+// html node 복사 - IE 대응용
 function cloneNode(node) {
-    // If the node is a text node, then re-create it rather than clone it
     var clone = node.nodeType == 3 ? document.createTextNode(node.nodeValue) : node.cloneNode(false);
  
     // Recurse     
@@ -112,7 +132,8 @@ function cloneNode(node) {
 	}
     return clone;
 }
-
+// 크롬일 경우 기본 javascript 함수인 object.cloneNode(boolean);
+// IE일 구버전(9 이하?) 경우 ex : cloneNode(object);
 
 //tab menu 기능
 function nTab(selector){
@@ -131,6 +152,48 @@ function nTabSet(Ele){
 		tabBtn	= tabWrap.querySelectorAll('.tab-menu a'),
 		tabLi	= tabWrap.querySelectorAll('.tab-menu li'),
 		tabCnt	= tabWrap.querySelectorAll('.tab-cnt'),
+		tgCnt	= '',
+		showNum	= 0;
+
+	var tabCntHide = function(){
+		for(i=0; i<tabCnt.length; i++){
+			tabCnt[i].style.display = 'none';
+		}
+	}
+
+	// 화면 로드 시 활성화된 버튼에 맞는 컨텐츠 show
+	for(i=0; i<tabLi.length; i++){
+		if(funcHasClass(tabLi[i], 'on')) showNum = i;
+	}
+	tabCntHide();
+	tabCnt[showNum].style.display = 'block';
+
+	// tab menu 클릭 기능
+	var tabClick = function(event){
+		var btn;
+		event.target.tagName != 'A' ? btn = event.target.parentElement : btn = event.target;
+		// 클릭 시 a 태그 내부에 있는 태그 클릭 시 btn 을 a 태그로 설정
+
+		tgCnt = btn.getAttribute('href');
+		for(i=0; i<tabLi.length; i++){
+			funcRemoveClass(tabLi[i], 'on');
+		}
+		funcAddClass(btn.parentElement, 'on');
+		tabCntHide();
+		tabWrap.querySelector(tgCnt).style.display = 'block';
+	}
+
+	for(i=0; i<tabBtn.length; i++){
+		tabBtn[i].addEventListener('click', tabClick);
+	}	
+}
+
+// tab 메뉴 개별 설정형
+function nTabMenu(option){
+	var tabWrap	= document.querySelector(option.wrap),
+		tabLi	= tabWrap.querySelectorAll(option.menuWrap + ' li'),
+		tabBtn	= tabWrap.querySelectorAll(option.menuWrap + ' a'),
+		tabCnt	= tabWrap.querySelectorAll(option.tabCnt),
 		tgCnt	= '',
 		showNum	= 0;
 
@@ -187,8 +250,8 @@ function nBalloonSet(Ele){
 		btn			= ballWrap.querySelector('.btn-balloon'),
 		cnt			= ballWrap.querySelector('.cnt-balloon'),
 		btnClose	= ballWrap.querySelector('.btn-ball-close'),
-		wrapTop		= Number(offset(ballWrap).top + btn.height),
-		wrapLeft	= Number(offset(ballWrap).left),
+		wrapTop		= Number(ballWrap.offsetTop + btn.offsetHeight),
+		wrapLeft	= Number(ballWrap.offsetLeft),
 		setTop		= Number(btn.getAttribute('data-top')),
 		setLeft		= Number(btn.getAttribute('data-left'));
 

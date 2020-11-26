@@ -15,7 +15,7 @@
 	<meta property="og:url" content="">
 	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
 
-	<title>JS 플러그인 기본 | 기본 가이드</title>
+	<title>localStorage | 기본 가이드</title>
 
 	<!-- 가이드 관련 -->
 	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
@@ -30,25 +30,46 @@
     <script src="/js/html5shiv.js"></script>
     <![endif]-->	
 
-	<!-- calendar 관련 설정 -->
+
 	<script src="/js/js_plug-base.js"></script>
 	<script>
 		window.onload = function(){
-			var test1 = new PlugBasic({
-				name : 'text1',
-				date : '2020-09-01'
-			});
+			var inp 	= document.querySelector('.inp'),
+				result  = document.querySelector('.result'),
+				btn_set = document.querySelector('.btn.set'),
+				btn_get = document.querySelector('.btn.get'),
+				btn_del = document.querySelector('.btn.del');
 			
-			var test2 = new PlugBasic({
-				name : 'text2',
-				date : '2020-09-21'
+			var dataArr = new Array();
+			
+			var localData = JSON.parse(localStorage.getItem('testValue'));
+				result.innerText = localData;
+				if(localData != null) dataArr = localData;
+
+			btn_set.addEventListener('click', function(){
+				if(inp.value.length > 0) {
+					var today = new Date(),
+						date  = 'date:' + today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate();
+					var newObj = new Object;
+					newObj.date = date;
+					newObj.val  = inp.value;
+					dataArr.push(newObj);
+					inpData = JSON.stringify(dataArr);
+					localStorage.setItem('testValue', inpData);
+					console.log(localStorage)
+				}
+			});
+
+			btn_get.addEventListener('click', function(){
+				result.innerText = localData;
+			});
+
+			btn_del.addEventListener('click', function(){
+				localStorage.clear();
+				dataArr = '';
 			});
 		}
 	</script>
-
-	<style type="text/css">
-		#guide-input { position:relative; }
-	</style>
 
 </head>
 <body>
@@ -58,15 +79,16 @@
 
 		<!-- input ================================================================ -->
 		<section id="guide-input">
-			<h2 class="guide-sec-tit">JS 플러그인 기본패턴 Test</h2>
+			<h2 class="guide-sec-tit">localStorage Test</h2>
 
 			<div class="guide-sec">
 				<h3 class="guide-stit">기본형</h3>
 				<div class="guide-show">
-					<div class="inp-Basic" style="width:300px">
-						<input type="text" name="" placeholder="" class="inp" />
-						<span class="tx"></span>
-					</div>
+					<input type="text" name="" placeholder="" class="inp"/>
+					<span class="result"></span>
+					<button type="button" class="btn medium red set">입력</button>
+					<button type="button" class="btn medium get">출력</button>
+					<button type="button" class="btn medium white del">삭제</button>
 				</div>
 			</div>
 		</section>
