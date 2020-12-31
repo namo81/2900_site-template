@@ -1,6 +1,7 @@
 // calendar
 // 서남호(namo) - for m.s.p
 // 2020-11-10 - ver1.0.0 - 1차 완성 (Chrome / IE10 이상)
+// 2020-12-11 - update 관련 수정 (리스트에 새 요소 추가 시 배열 초기화 및 obj 변수 재설정)
 
 // IE10 까지 정상작동 // IE9 는 classList.add, remove 가 지원 안됨.
 
@@ -47,8 +48,24 @@ function nDragnDrop(option){
 
 
 	// 리스트 obj 및 drop area 요소 관련 배열설정
-	var domUpdate = function(){
+	var arrResetSeq = function(){
+		objArr = [];
+		objArr.top = [];
+		objArr.btm = [];
+		objArr.left = [];
+		objArr.right = [];
+	},
+	arrResetDnd = function(){
+		dropArr = [];
+		dropArr.top = [];
+		dropArr.btm = [];
+		dropArr.left = [];
+		dropArr.right = [];
+	},
+	domUpdate = function(){
+		
 		if(func == 'sequence') {
+			arrResetSeq();
 			for(var o=0; o<objLen; o++){
 				objArr.top.push(offset(obj[o]).top);
 				objArr.btm.push(offset(obj[o]).top + obj[o].offsetHeight);
@@ -56,6 +73,7 @@ function nDragnDrop(option){
 				objArr.right.push(offset(obj[o]).left + obj[o].offsetWidth);
 			}
 		} else if(func == 'dnd') {
+			arrResetDnd();
 			for( var d = 0; d < area.length; d++) {
 				dropArr.top.push(offset(area[d]).top);
 				dropArr.btm.push(offset(area[d]).top + area[d].offsetHeight);
@@ -236,10 +254,34 @@ function nDragnDrop(option){
 		for(var o=0; o<objLen; o++){
 			if(option.selector) obj[o].querySelector(option.selector).addEventListener('mousedown', dragStart);
 			else obj[o].addEventListener('mousedown', dragStart);
-		}	
+		}
 		domUpdate();
 		document.addEventListener('mousemove', drag);
 		document.addEventListener('mouseup', dragEnd);
+		
+		console.log(objArr);
 	}
 	dragInit();	
+
+	// 기능 제거
+	this.removeDrag = function(){
+		for(var o=0; o<objLen; o++){
+			if(option.selector) obj[o].querySelector(option.selector).removeEventListener('mousedown', dragStart);
+			else obj[o].removeEventListener('mousedown', dragStart);
+		}
+		domUpdate();
+		document.removeEventListener('mousemove', drag);
+		document.removeEventListener('mouseup', dragEnd);
+	}
+
+	this.dragUpdate = function(){
+		this.removeDrag();
+		obj 		= objWrap.querySelectorAll(option.obj),
+		objLen		= obj.length;
+		dragInit();
+	}
+
+	this.reStart = function(){
+		dragInit();
+	}
 }

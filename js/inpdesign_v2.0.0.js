@@ -9,7 +9,7 @@
 // !! common.js 필수
 
 
-/* 적용 예시
+/* 적용 예시 - file 및 input 동일
 특정 1개 적용 				 : var 변수명 = new nSelectSet('선택자');
 특정 1개 업데이트 			 : 변수명.selectUpdate();
 
@@ -23,7 +23,7 @@
 // select 설정 ------------------------------------------------------------------------
 var nSelArr;
 
-// 적용을 위한 실행 함수
+// 화면내 동일 선택자 전체 적용 시
 function nSelect(selector) {
 	var nSelectEle = document.querySelectorAll(selector);
 	
@@ -39,7 +39,7 @@ function nSelect(selector) {
 
 // 실제 select 관련 기능 함수
 function nSelectSet(Ele){
-	var selWrap		= Ele,
+	var selWrap		= typeof Ele === 'string' ? document.querySelector(Ele) : Ele,
 		sel			= selWrap.querySelector('select'),
 		opts		= sel.querySelectorAll('option'),
 		selTitle	= sel.getAttribute('title'),
@@ -58,11 +58,13 @@ function nSelectSet(Ele){
 			if(opts[i].disabled == true) optHtml += '<li><button type="button" class="btn-sel" disabled>'+opts[i].text+'</button></li>'; 
 			else {
 				if(opts[i].hidden == true) optHtml += '<li class="hidden"></li>'; 
-				else optHtml += '<li><button type="button" class="btn-sel">'+opts[i].text+'</button></li>';
+				else {
+					if(opts[i].className) optHtml += '<li><button type="button" class="btn-sel '+ opts[i].className +'">'+opts[i].text+'</button></li>';
+					else optHtml += '<li><button type="button" class="btn-sel">'+opts[i].text+'</button></li>';
+				}
 			}
 
 			if(opts[i].selected == true) firstOp = opts[i].text;
-			else firstOp = opts[0].text;
 		}
 	}, selectCreate = function(){
 		if(sel.disabled == true) {
@@ -122,6 +124,7 @@ function nSelectSet(Ele){
 			while ( selUl.hasChildNodes() ) { selUl.removeChild( selUl.firstChild ); }
 			
 			optionCreate();
+			selBtnTx.innerText = firstOp;
 			selUl.insertAdjacentHTML('beforeend', optHtml);
 		}
 	}
@@ -131,7 +134,7 @@ function nSelectSet(Ele){
 
 // file 설정 ------------------------------------------------------------------------
 
-// 적용을 위한 실행 함수
+// 화면내 동일 선택자 전체 적용 시
 function nFile(selector) {
 	var nFileEle = document.querySelectorAll(selector);
 
@@ -146,7 +149,7 @@ function nFile(selector) {
 
 // 실제 file 관련 기능 함수
 function nFileSet(Ele){
-	var fileWrap	= Ele,
+	var fileWrap	= typeof Ele === 'string' ? document.querySelector(Ele) : Ele,
 		fileInp		= fileWrap.querySelector('input[type=file]'),
 		placeholder = fileInp.getAttribute('placeholder') == null ? '' : fileInp.getAttribute('placeholder'),
 		btnClear	= fileWrap.querySelector('.btn-clear'),
@@ -181,9 +184,9 @@ function nFileSet(Ele){
 	nFile('클래스명');
  */
 
-// file 설정 ------------------------------------------------------------------------
+// 텍스트 입력형 input ------------------------------------------------------------------------
 
-// 텍스트 입력형 input - 내용 삭제버튼 기능
+// 화면내 동일 선택자 전체 적용 시
 function nText(selector){
 	var nTextEle = document.querySelectorAll(selector);
 	if(nTextEle.length > 1) {
@@ -195,8 +198,9 @@ function nText(selector){
 	else null;
 }
 
+// 실제 input 관련 기능 함수 - 개별 적용 시 
 function nTextSet(Ele){
-	var textWrap	= Ele,
+	var textWrap	= typeof Ele === 'string' ? document.querySelector(Ele) : Ele,
 		inp 		= textWrap.querySelector('input'),
 		btnClear	= textWrap.querySelector('.btn-clear');
 	
@@ -216,7 +220,7 @@ function nTextSet(Ele){
 }
 
 
-// 실행문 예시 ---------------------------------------------------
+/* 실행문 예시 ---------------------------------------------------
 window.onload = function(){
 
 	nSelect('.inp-select');
@@ -226,3 +230,4 @@ window.onload = function(){
 
 	nText('.inp-label');
 };
+*/

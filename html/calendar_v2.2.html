@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="author" content="seonamho - SK MNS" >
+	<meta name="description" content="">
+	<meta name="keywords" content="Site Template">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Site Template">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
+
+	<title>달력 | 기본 가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
+
+	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
+	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
+	<script src="/js/common.js"></script>
+	<script src="/js/jquery-3.2.1.min.js"></script>
+
+	<!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <![endif]-->	
+
+	<!-- calendar 관련 설정 -->
+	<link rel="stylesheet" href="/css/nCalendar.css" media="screen, print" />
+	<script src="/js/nCalendar_v2.2.0.js"></script>
+	<script>
+		$(function(){
+			hljs.initHighlightingOnLoad(); 
+			
+			var calDay = new nCalendar({
+				calInp : '.cal',
+				todayLimit : true,
+				todayGap : '-6M',
+				limitGap : '9M'
+			});
+
+			var calMon = new nCalendar({
+				calInp : '.cal-mon',
+				calType : 'month',
+				todayLimit : true
+			});
+		});
+	</script>
+
+	<style type="text/css">
+		#guide-input { position:relative; }
+	</style>
+
+</head>
+<body>
+<div id="work-list">
+	<div class="guide">
+		
+
+		<!-- input ================================================================ -->
+		<section id="guide-input">
+			<h2 class="guide-sec-tit">Calendar</h2>
+
+			<div class="guide-sec">
+				<h3 class="guide-stit">기본형</h3>
+				<h4 class="guide-sstit">1개일 경우</h4>
+				<p>자체 제작 달력 플러그인 사용</p>
+				<p>width 값은 별도 지정</p>
+				<p>달력 style은 nCalendar.css 로 설정</p>
+				<p>input 및 달력 버튼 style은 layout.css 로 설정</p>
+				<div class="guide-show">
+					<div class="inp-cal" style="width:300px">
+						<input type="text" name="" placeholder="" class="cal" />
+					</div>
+					<div class="inp-cal" style="width:300px">
+						<input type="text" name="" placeholder="" class="cal-mon"/>
+					</div>
+				</div>
+<pre><code class="javascript">var 변수명 = new nCalendar({
+	calInp : '.cal'						// 달력 기능 적용할 input 선택자
+	showType : 'button',					// 달력 호출 방식 / button - 버튼 클릭시 / input - input 에 focus / both - 버튼,input 둘다 사용	
+	calType : null,						// null: 일반 기본형 ,  month : 월간달력
+	dayType : 'kr',						// kr : 한글, en : 영문 (월~일 표기)
+	changeMon : true,					// 달력 상단 월 변경 select 표출 여부
+	changeYear : true,					// 달력 상단 연도 변경 select 표출 여부
+	yearRange : '2019:2040',				// 연도 제한 '시작연도:종료연도'
+	showBtnPanel : true,					// 하단 '오늘', '닫기' 버튼 영역 표출 여부
+	closeBtnTx : '닫기',					// 닫기 버튼 텍스트
+	todayBtnTx : '오늘',					// 오늘 버튼 텍스트
+	controls : true,					// 이전달/다음달 버튼 생성 여부
+	nextTx : '&gt;',						// 다음달 버튼 텍스트
+	prevTx : '&lt;',						// 이전달 버튼 텍스트
+	todayLimit      : false,				// 오늘 기준 선택 제한
+	todayGap 		: '0D', 			// 오늘 기준일의 gap 설정 (ex. 내일부터 제한, 5일전까지 제한 등)
+	limitType       : 'before',				// 제한 방향 설정 - before : 오늘 이전 날짜 선택 제한(기본값) / after : 오늘 이후 날짜 선택 제한
+	limitGap 		: null 				// 제한 기간 설정 - null : 기한 없음 / nY : n년 / nM : n개월 / nD : n일 - 3가지 방식 중 택1
+});
+</code></pre>
+<pre><code class="html">&lt;div class="inp-cal" style="width:300px"&gt;
+	&lt;input type="text" name="" placeholder="" class="cal"/&gt;
+&lt;/div&gt;
+</code></pre>
+
+				<h4 class="guide-sstit">기간 제한 설정 예시</h4>
+				<ul style="margin-bottom:10px;">
+					<li>- 날짜 제한 없을 경우 <strong>todayLimit : false</strong></li>
+					<li>- 오늘 이전날짜 선택 제한 - limitType : 'before' / 오늘 이후날짜 선택 제한 - limitType : 'after' <br>&nbsp;&nbsp;<strong>'before' 가 기본값</strong></li>
+					<li>- <strong>todayGap - 제한 기준일 변경값</strong><br>&nbsp;&nbsp;단위는 연/월/일 각각 설정 가능 / 구분은 대문자 필수 / 3가지중 택1 하여 설정 / 설정시 string 로 설정 ('' - 필수) <br>&nbsp;&nbsp;오늘 이전날짜 선택 제한(limitType : 'before') 일때 1을 설정하면 내일부터 선택가능 <br>&nbsp;&nbsp;오늘 이후날짜 선택 제한(limitType : 'after') 일때 1을 설정하면 어제까지 선택가능</li>
+					<li>- <strong>limitGap - 달력 내 표출 기간을 제한할 경우 사용.</strong> <br>&nbsp;&nbsp;<strong>시작일 기준으로 계산됨 (오늘 or todayGap 으로 설정한 시작일 기준)</strong> <br>&nbsp;&nbsp;단위는 연/월/일 각각 설정 가능 / 구분은 대문자 필수 / 3가지중 택1 하여 설정 / 설정시 string 로 설정 ('' - 필수) <br>&nbsp;&nbsp;(ex: 2년 = '2Y' / 3개월 = '3M' / 20일 = '20D') <br>&nbsp;&nbsp;오늘 이전날짜 선택 제한(limitType : 'before') 일때 값을 설정하면 해당 기간까지 선택가능 <br>&nbsp;&nbsp;오늘 이후날짜 선택 제한(limitType : 'after') 일때 값을 설정하면 해당기간 이전부터 선택가능</li>
+				</ul>
+<pre><code class="javascript">&lt;!-- 오늘부터 선택가능 / 기간제한 없음 --&gt;
+	todayLimit : true,
+	limitType : 'before' (기본값이므로 설정하지 않아도 무관함)
+
+&lt;!-- 오늘 이후 &amp; 향후 1년까지 선택가능 --&gt;
+	todayLimit : true,
+	limitGap :  '1Y' (or '12M')
+
+&lt;!-- 내일부터 &amp; 향후 1년까지 선택가능 --&gt;
+	todayLimit : true,
+	todayGap : '1D',
+	limitGap :  '1Y' (or '12M')
+
+&lt;!-- 6개월 전부터 &amp; 오늘까지 선택가능 --&gt;
+	todayLimit : true,
+	limitType : 'after',
+	limitGap : '6M'
+
+&lt;!-- 6개월 전부터 &amp; 어제까지 선택가능 --&gt;
+	todayLimit : true,
+	todayGap : '1D',
+	limitType : 'after',
+	limitGap :  '6M'
+
+&lt;!-- 6개월 전부터 3개월 후까지 선택가능 --&gt;
+	todayLimit : true,
+	todayGap : '-3M',
+	limitType : 'after',
+	limitGap :  '9M'
+
+	or 
+
+	todayLimit : true,
+	todayGap : '-6M',
+	limitGap :  '9M'
+</code></pre>
+			</div>
+		</section>
+
+	</div>
+	<a href="#work-list" class="guide-top">Top</a>	
+</div>
+</body>
+</html>

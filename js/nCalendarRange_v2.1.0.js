@@ -2,27 +2,28 @@
 // 서남호(namo) - for m.s.p
 // 2020-09-29 - ver2.0.0 - 기본달력 base 로 기간 달력 재 작업
 // 2020-11-04 - ver2.1.0 - jquery 완전 제거
+// 2020-12-03 - ver2.1.0 - 오늘 선택 가능 (오늘 2번 클릭 시 시작일/종료일 모두 오늘)
 
 function nCalendarRange(option){
 
 	var wrap            = document.querySelector(option.wrap),
-		showType        = option.showType ? option.showType : 'button',			// both / button / input
-		inpSingle 		= option.inpSingle ? option.inpSingle : false, 			// true : input 1개에 기간 입력 / false : input 시작일,종료일 각각 일 경우
-		dualCal         = option.dualCal ? option.dualCal : true,				// true: 표출달력 2개 / false : 표출달력 1개
-		dayType			= option.dayType ? option.dayType : 'kr',				// kr : 한글, en : 영문 (월~일 표기)
-		yearRange       = option.yearRange ? option.yearRange : '2019:2040',	// 연도 제한
-		showBtnPanel    = option.showBtnPanel ? option.showBtnPanel : true,		// 하단 버튼 영역 show/hide 선택 - 오늘/닫기 버튼
-		closeBtnTx      = option.closeBtnTx ? option.closeBtnTx : '닫기',		// 닫기 버튼 텍스트
-		todayBtnTx      = option.todayBtnTx ? option.todayBtnTx : '오늘',		// 오늘 버튼 텍스트
-		applyBtnTx      = option.applyBtnTx ? option.applyBtnTx : '확인',		// 확인(날짜 결정) 버튼 텍스트
-		controls        = option.controls ? option.controls : true,				// 이전달/다음달 버튼 show/hide 선택
-		nextTx          = option.nextTx ? option.nextTx : '>',					// 다음달 버튼 텍스트
-		prevTx          = option.prevTx ? option.prevTx : '<',					// 이전달 버튼 텍스트
-		rangeLimit      = option.rangeLimit ? option.rangeLimit : null,			// 시작일-종료일 설정가능 최대 기간 제한 : Number 형식
-		todayLimit      = option.todayLimit ? option.todayLimit : false,		// 오늘 기준 선택 제한
-		todayGap 		= option.todayGap ? option.todayGap : '0D', 			// 오늘 기준일의 gap 설정 (ex. 내일부터 제한, 5일전까지 제한 등)
-		limitType       = option.limitType ? option.limitType : 'before',		// 제한 방향 설정 - before : 오늘 이전 날짜 선택 제한 / after : 오늘 이후 날짜 선택 제한
-		limitGap 		= option.limitGap ? option.limitGap : null; 			// 제한 기간 설정 - null : 기한 없음 / nY : n년 / nM : n개월 / nD : n일
+		showType        = option.showType ? option.showType : 'button',				// both / button / input
+		inpSingle 		= option.inpSingle ? option.inpSingle : false, 				// true : input 1개에 기간 입력 / false : input 시작일,종료일 각각 일 경우
+		dualCal         = option.dualCal != null ? option.dualCal : true,			// true: 표출달력 2개 / false : 표출달력 1개
+		dayType			= option.dayType ? option.dayType : 'kr',					// kr : 한글, en : 영문 (월~일 표기)
+		yearRange       = option.yearRange ? option.yearRange : '2019:2040',		// 연도 제한
+		showBtnPanel    = option.showBtnPanel != null ? option.showBtnPanel : true,	// 하단 버튼 영역 show/hide 선택 - 오늘/닫기 버튼
+		closeBtnTx      = option.closeBtnTx ? option.closeBtnTx : '닫기',			// 닫기 버튼 텍스트
+		todayBtnTx      = option.todayBtnTx ? option.todayBtnTx : '오늘',			// 오늘 버튼 텍스트
+		applyBtnTx      = option.applyBtnTx ? option.applyBtnTx : '확인',			// 확인(날짜 결정) 버튼 텍스트
+		controls        = option.controls != null ? option.controls : true,			// 이전달/다음달 버튼 show/hide 선택
+		nextTx          = option.nextTx ? option.nextTx : '>',						// 다음달 버튼 텍스트
+		prevTx          = option.prevTx ? option.prevTx : '<',						// 이전달 버튼 텍스트
+		rangeLimit      = option.rangeLimit ? option.rangeLimit : null,				// 시작일-종료일 설정가능 최대 기간 제한 : Number 형식
+		todayLimit      = option.todayLimit ? option.todayLimit : false,			// 오늘 기준 선택 제한
+		todayGap 		= option.todayGap ? option.todayGap : '0D', 				// 오늘 기준일의 gap 설정 (ex. 내일부터 제한, 5일전까지 제한 등)
+		limitType       = option.limitType ? option.limitType : 'before',			// 제한 방향 설정 - before : 오늘 이전 날짜 선택 제한 / after : 오늘 이후 날짜 선택 제한
+		limitGap 		= option.limitGap ? option.limitGap : null; 				// 제한 기간 설정 - null : 기한 없음 / nY : n년 / nM : n개월 / nD : n일
 		
 	// 날짜 제한 관련 ----------------------------------------------------------------------------
 	var now = new Date(),
@@ -369,7 +370,7 @@ function nCalendarRange(option){
 			applyBtn.disabled = true;
 		} else if(startDate != null && endDate == null ){
 			if(rangeLimit == null) {
-				if( tdDate > startDate ) {
+				if( tdDate >= startDate ) {
 					endDate = changeToDate(dateBtn.getAttribute('data-date'));
 					funcAddClass(dateBtn.parentNode, 'end');
 					applyBtn.disabled = false;
@@ -380,7 +381,7 @@ function nCalendarRange(option){
 					funcAddClass(dateBtn.parentNode, 'start');
 				}
 			} else {
-				if( tdDate > startDate && tdDate < startDate.valueOf() + (60 * 60 * 24 * 1000 * rangeLimit)){
+				if( tdDate >= startDate && tdDate < startDate.valueOf() + (60 * 60 * 24 * 1000 * rangeLimit)){
 					endDate = changeToDate(dateBtn.getAttribute('data-date'));						
 					funcAddClass(dateBtn.parentNode, 'end');
 					applyBtn.disabled = false;
@@ -450,8 +451,8 @@ function nCalendarRange(option){
 					if(rangeLimit != null) setRnageDisabled();
 				} else {
 					if(btnDate == startDate.valueOf()) funcAddClass(chkTds[i], 'start');
-					else if(btnDate == endDate.valueOf()) funcAddClass(chkTds[i], 'end');
-					else if(btnDate > startDate.valueOf() && btnDate < endDate.valueOf()) funcAddClass(chkTds[i],'in-range');
+					if(btnDate == endDate.valueOf()) funcAddClass(chkTds[i], 'end');
+					if(btnDate > startDate.valueOf() && btnDate < endDate.valueOf()) funcAddClass(chkTds[i],'in-range');
 					if(rangeLimit != null) setRnageEnabled();
 				} 
 			}

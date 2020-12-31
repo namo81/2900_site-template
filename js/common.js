@@ -135,7 +135,7 @@ function cloneNode(node) {
 // 크롬일 경우 기본 javascript 함수인 object.cloneNode(boolean);
 // IE일 구버전(9 이하?) 경우 ex : cloneNode(object);
 
-//tab menu 기능
+//tab menu 기능 - 페이지 전체 동일 기능 적용(탭 안의 탭 등 depth 구조일 경우 사용불가)
 function nTab(selector){
 	var nTabEle = document.querySelectorAll(selector);
 	if(nTabEle.length > 1) {
@@ -189,6 +189,13 @@ function nTabSet(Ele){
 }
 
 // tab 메뉴 개별 설정형
+/* tab 메뉴 개별 설정형
+	var 변수명 = new nTabMenu({
+       wrap         : '.tab-wrap', - 탭 메뉴 및 컨텐츠를 포함하는 영역 선택자
+       menuWrap     : '.tab-menu', - 탭 메뉴 선택자
+       tabCnt       : '.tab-cnt'   - 탭 컨텐츠 선택자
+    });
+*/
 function nTabMenu(option){
 	var tabWrap	= document.querySelector(option.wrap),
 		tabLi	= tabWrap.querySelectorAll(option.menuWrap + ' li'),
