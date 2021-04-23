@@ -181,8 +181,10 @@ pageSet은 위와 동일.
 hideFunc // 팝업 닫기 함수형
 */
 
-// 알럿 기능
-function nlayerAlert(title, ment, btn) {
+/* 알럿 기능 
+nlayerAlert(타이틀, 내용, 버튼 텍스트, 확인 후 실행할 함수);
+*/
+function nlayerAlert(title, ment, btn, active) {
 	var body = document.querySelector('body');
 
 	var btnTx = btn == '' ? '확인' : btn;
@@ -205,12 +207,18 @@ function nlayerAlert(title, ment, btn) {
 	nlayer.showFunc('nAlert');	
 
 	close.addEventListener('click', function(){
+		nLayerHideFunc('#nAlert');
 		alert.parentNode.removeChild(alert);
+		if(typeof active === 'function') {
+			active();
+		}
 	});
 }
 
-// 컨펌 기능
-function nlayerConfirm(active, title, ment, btn1, btn2) {
+/* 컨펌 기능 
+nlayerAlert(타이틀, 내용, 취소버튼 텍스트, 확인버튼 텍스트, 확인 시 실행할 함수);
+*/
+function nlayerConfirm(title, ment, btn1, btn2, active) {
 	var body = document.querySelector('body');
 
 	var btnCancel = btn1 == null ? '취소' : btn1,
@@ -236,7 +244,8 @@ function nlayerConfirm(active, title, ment, btn1, btn2) {
 
 	nlayer.showFunc('nConfirm');
 
-	cancel.addEventListener('click', function(){
+	cancel.addEventListener('click', function(){		
+		nLayerHideFunc('#nConfirm');
 		confirm.parentNode.removeChild(confirm);
 	});
 	ok.addEventListener('click', function(){
