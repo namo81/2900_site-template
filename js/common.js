@@ -135,6 +135,24 @@ function cloneNode(node) {
 // 크롬일 경우 기본 javascript 함수인 object.cloneNode(boolean);
 // IE일 구버전(9 이하?) 경우 ex : cloneNode(object);
 
+//콤마 넣기
+function comma(str) {
+	str = String(str);
+	return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+
+//콤마 풀기
+function uncomma(str) {
+	str = String(str);
+	return str.replace(/[^\d]+/g, '');
+}
+
+// replace all 기능
+function replaceAll(str, searchStr, replaceStr) {
+	return str.split(searchStr).join(replaceStr);
+}
+// ex : replaceAll(변경할 문구, 지워질 글자, 대체할 글자);
+
 //tab menu 기능 - 페이지 전체 동일 기능 적용(탭 안의 탭 등 depth 구조일 경우 사용불가)
 function nTab(selector){
 	var nTabEle = document.querySelectorAll(selector);
