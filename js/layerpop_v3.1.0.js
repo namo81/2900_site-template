@@ -182,23 +182,21 @@ hideFunc // 팝업 닫기 함수형
 */
 
 /* 알럿 기능 
-nlayerAlert(타이틀, 내용, 버튼 텍스트, 확인 후 실행할 함수);
+nlayerAlert('내용', '타이틀', 확인 후 실행할 함수, '버튼 텍스트');
+- 내용은 필수
 */
-function nlayerAlert(title, ment, btn, active) {
+function nlayerAlert(ment, title, active, btn) {
 	var body = document.querySelector('body');
 
-	var btnTx = btn == '' ? '확인' : btn;
+	var btnTx = btn == null ? '확인' : btn;
 	var layerCnt = '<div class="layer-pop alert" id="nAlert">';
 		layerCnt += '<div class="layer-cnt">';
-		layerCnt += '<div class="layer-top">'+ title +'</div>';
+		if(title != undefined && title.length > 0) layerCnt += '<div class="layer-top">'+ title +'</div>';
 		layerCnt += '<div class="layer-mid">';
 		layerCnt += '<p class="ment">'+ment+'</p>';
 		layerCnt += '<div class="btn-group">';
 		layerCnt += '<button type="button" class="btn close-layer"><span>'+btnTx+'</span></button>';
-		layerCnt += '</div>';
-		layerCnt += '</div>';
-		layerCnt += '</div>';
-		layerCnt += '</div>';
+		layerCnt += '</div></div></div></div>';
 
 	body.insertAdjacentHTML('beforeend', layerCnt);
 	var alert = document.querySelector('#nAlert'),
@@ -207,7 +205,6 @@ function nlayerAlert(title, ment, btn, active) {
 	nlayer.showFunc('nAlert');	
 
 	close.addEventListener('click', function(){
-		nLayerHideFunc('#nAlert');
 		alert.parentNode.removeChild(alert);
 		if(typeof active === 'function') {
 			active();
@@ -216,9 +213,10 @@ function nlayerAlert(title, ment, btn, active) {
 }
 
 /* 컨펌 기능 
-nlayerAlert(타이틀, 내용, 취소버튼 텍스트, 확인버튼 텍스트, 확인 시 실행할 함수);
+nlayerAlert('내용', 확인 시 실행할 함수, '타이틀', '취소버튼 텍스트', '확인버튼 텍스트');
+- 내용은 필수
 */
-function nlayerConfirm(title, ment, btn1, btn2, active) {
+function nlayerConfirm(ment, active, title, btn1, btn2) {
 	var body = document.querySelector('body');
 
 	var btnCancel = btn1 == null ? '취소' : btn1,
@@ -226,26 +224,22 @@ function nlayerConfirm(title, ment, btn1, btn2, active) {
 
 	var layerCnt = '<div class="layer-pop confirm" id="nConfirm">';
 		layerCnt += '<div class="layer-cnt">';
-		layerCnt += '<div class="layer-top">'+ title +'</div>';
+		if(title != undefined && title.length > 0) layerCnt += '<div class="layer-top">'+ title +'</div>';
 		layerCnt += '<div class="layer-mid">';
 		layerCnt += '<p class="ment">'+ment+'</p>';
 		layerCnt += '<div class="btn-group">';
 		layerCnt += '<button type="button" class="btn close-layer"><span>'+ btnCancel +'</span></button>';
 		layerCnt += '<button type="button" class="btn close-layer btn-ok"><span>'+ btnOk +'</span></button>';
-		layerCnt += '</div>';
-		layerCnt += '</div>';
-		layerCnt += '</div>';
-		layerCnt += '</div>';
+		layerCnt += '</div></div></div></div>';
 
 	body.insertAdjacentHTML('beforeend', layerCnt);
-	var confirm  = document.querySelector('#nConfirm'),
-		cancel = confirm.querySelector('#nConfirm .close-layer'),
-		ok 	   = confirm.querySelector('#nConfirm .btn-ok');
+	var confirm	= document.querySelector('#nConfirm'),
+		cancel	= confirm.querySelector('#nConfirm .close-layer'),
+		ok		= confirm.querySelector('#nConfirm .btn-ok');
 
 	nlayer.showFunc('nConfirm');
 
-	cancel.addEventListener('click', function(){		
-		nLayerHideFunc('#nConfirm');
+	cancel.addEventListener('click', function(){
 		confirm.parentNode.removeChild(confirm);
 	});
 	ok.addEventListener('click', function(){

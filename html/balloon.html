@@ -24,24 +24,6 @@
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
-	<script src="/js/jquery-3.2.1.min.js"></script>
-	<script src="/js/common.js"></script>
-
-	<!--[if lt IE 9]>
-    <script src="/js/html5shiv.js"></script>
-	<![endif]-->
-
-	<script>
-		$(function(){ 
-			hljs.initHighlightingOnLoad(); 
-		});
-	</script>
-	
-	<script>
-		window.onload = function(){
-			nBalloon('.balloon-wrap');
-		}
-	</script>
 
 </head>
 <body>
@@ -52,52 +34,99 @@
 			<h2 class="guide-sec-tit">말풍선</h2>
 			<div class="guide-sec">
 				<h3 class="guide-stit">말풍선</h3>
-				<h4 class="guide-sstit">클릭형</h4>
+				<h4 class="guide-sstit">기본형</h4>
 				<p>스타일은 css 에서 별도 설정</p>
-				<p>기본적으로는 말풍선이 버튼 아래 및 버튼 좌측 기준에 맞추어 생성되며, data-top / data-left 를 통하여 위치 조정 가능(px단위)</p>
+				<p>기본 - 버튼 좌측 기준 하단으로 정렬되어 표출</p>
+				<p>balloon 에 추가클래스 (top / center / left / right) 추가로 위치 변경 가능<br> (* center 와 top 은 중복사용 가능)</p>
+				<p>기타 위치의 경우 css 로 직접 제어</p>
+				<p>** 버튼영역은 반드시 a / button 태그일 필요는 없음. p, div, span 등 기타 클래스 가능 <br>단, 'btn-bln' 클래스 필수</p>
 				<div class="guide-show">
 				<!-- 코드 작성 -->
 					<div class="balloon-wrap">
-						<button type="button" class="btn-balloon btn small" data-top="5" data-left="20"><span>버튼</span></button>
-						<div class="cnt-balloon">
+						<button type="button" class="btn-bln btn small"><span>버튼_기본</span></button>
+						<div class="balloon">
 							<div class="cnt">
 								말풍선 내용이 들어가는 영역입니다.
 							</div>
-							<button type="button" class="btn-ball-close">말풍선 닫기</button>
+						</div>
+					</div>
+					<div class="balloon-wrap">
+						<button type="button" class="btn-bln btn small"><span>버튼_center</span></button>
+						<div class="balloon center">
+							<div class="cnt">
+								말풍선 내용이 들어가는 영역입니다.
+							</div>
+						</div>
+					</div>
+					<div class="balloon-wrap">
+						<button type="button" class="btn-bln btn small"><span>버튼_top</span></button>
+						<div class="balloon top">
+							<div class="cnt">
+								말풍선 내용이 들어가는 영역입니다.
+							</div>
+						</div>
+					</div>					
+					<div class="balloon-wrap">
+						<button type="button" class="btn-bln btn small"><span>버튼_top + center</span></button>
+						<div class="balloon center top">
+							<div class="cnt">
+								말풍선 내용이 들어가는 영역입니다.
+							</div>
+						</div>
+					</div>
+
+					<div class="balloon-wrap">
+						<button type="button" class="btn-bln btn small"><span>버튼_right</span></button>
+						<div class="balloon right">
+							<div class="cnt">
+								말풍선 내용이 들어가는 영역입니다.
+							</div>
+						</div>
+					</div>
+					<div class="balloon-wrap">
+						<button type="button" class="btn-bln btn small"><span>버튼_left</span></button>
+						<div class="balloon left">
+							<div class="cnt">
+								말풍선 내용이 들어가는 영역입니다.
+							</div>
 						</div>
 					</div>
 				<!-- // 코드 작성 -->
 				</div>
 <pre><code class="html">&lt;div class="balloon-wrap"&gt;
-	&lt;button type="button" class="btn-balloon" data-top="5" data-left="-5"&gt;&lt;span&gt;버튼&lt;/span&gt;&lt;/button&gt;
-	&lt;div class="cnt-balloon"&gt;
+	&lt;button type="button" class="btn-bln"&gt;&lt;span&gt;버튼&lt;/span&gt;&lt;/button&gt;
+	&lt;div class="balloon"&gt; &lt;!-- center / top / left / right 클래스 지정 영역 --&gt;
 		&lt;div class="cnt"&gt;
 			말풍선 내용이 들어가는 영역입니다.
 		&lt;/div&gt;
-		&lt;button type="button" class="btn-ball-close"&gt;말풍선 닫기&lt;/button&gt;
 	&lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
-				<h4 class="guide-sstit">마우스 오버형</h4>
-				<p>기본형에서 'hover' 클래스 추가</p>
+				<h4 class="guide-sstit">클릭형</h4>
+				<p>기본형에 'click' 클래스 추가 ( hover 기능 작동 X )</p>
+				<p>balloon 에 추가클래스 (top / center / left / right) 추가로 위치 변경 가능<br> (* center 와 top 은 중복사용 가능)</p>
+				<p>btn-bln 클릭 시 'balloon-wrap 에 'on' 클래스 토글 기능이 common.js 에 포함되어 있음. (nBalloonTgl 함수)</p>
+				<p>btn-bln-close 버튼은 닫기 기능용 - 추가옵션으로 없어도 무관함</p>
 				<div class="guide-show">
 				<!-- 코드 작성 -->
-					<div class="balloon-wrap hover">
-						<button type="button" class="btn-balloon btn small" data-top="5" data-left="-5"><span>버튼</span></button>
-						<div class="cnt-balloon">
+					<div class="balloon-wrap click">
+						<button type="button" class="btn-bln btn small"><span>버튼</span></button>
+						<div class="balloon">
 							<div class="cnt">
 								말풍선 내용이 들어가는 영역입니다.
 							</div>
+							<button type="button" class="btn-bln-close">말풍선 닫기</button>
 						</div>
 					</div>
 				<!-- // 코드 작성 -->
 				</div>
-<pre><code class="html">&lt;div class="balloon-wrap"&gt;
-	&lt;button type="button" class="btn-balloon" data-top="5" data-left="-5"&gt;&lt;span&gt;버튼&lt;/span&gt;&lt;/button&gt;
-	&lt;div class="cnt-balloon"&gt;
+<pre><code class="html">&lt;div class="balloon-wrap click"&gt;
+	&lt;button type="button" class="btn-bln"&gt;&lt;span&gt;버튼&lt;/span&gt;&lt;/button&gt;
+	&lt;div class="balloon"&gt;
 		&lt;div class="cnt"&gt;
 			말풍선 내용이 들어가는 영역입니다.
 		&lt;/div&gt;
+		&lt;button type="button" class="btn-bln-close"&gt;말풍선 닫기&lt;/button&gt;
 	&lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
@@ -107,5 +136,13 @@
 	</div>
 	<a href="#work-list" class="guide-top">Top</a>	
 </div>
+
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/common.js"></script>
+<script>
+	hljs.initHighlightingOnLoad(); 
+	
+	//nBalloon('.balloon-wrap.js'); // 말풍선 여러개 동시 적용
+</script>
 </body>
 </html>

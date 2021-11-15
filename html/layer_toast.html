@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="author" content="seonamho - SK MNS" >
+	<meta name="description" content="">
+	<meta name="keywords" content="Site Template">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Site Template">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
+
+	<title>Toast Bar | 가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
+
+	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
+	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
+
+</head>
+<body>
+	
+	
+	<div id="work-list">
+		<div class="guide">
+			<section id="guide-basic">
+				<h2 class="guide-sec-tit">Toast Bar</h2>
+				<div class="guide-sec">
+					<h3 class="guide-stit">Toast Bar</h3>
+					<p>스타일 및 show 모션은 css 에서 별도 설정</p>
+					<p>nToast 함수에 문구를 파라미터로 전달하여 실행</p>
+					<p>CSS 에서 animation 시간 설정에 따라 전체 시간 조정됨<br>
+					전체 시간에서 <strong>show 모션 20% / show 상태 유지 60% / hide 모션 20% 로 설정</strong>되어 있음<br>
+					ex) 전체 5초일 경우 show 모션 1초 / show 상태유지 3초 / hide모션 1초</p>
+					<p>CSS 에서 toastShow 부분 조정 시 각 시간 조정 가능</p>
+					<div class="guide-show">
+					<!-- 코드 작성 -->
+						<button type="button" class="btn medium test">토스트 테스트</button>
+					<!-- // 코드 작성 -->
+					</div>
+					
+<pre><code class="html ">&lt;button type="button" class="btn medium test"&gt;토스트 테스트&lt;/button&gt;
+</code></pre>
+<pre><code class="js">var btn = document.querySelector('.btn.test');
+	
+btn.addEventListener('click', function(){
+	nToast('토스트 테스트 중 입니다. 음하하하');
+});
+</code></pre>
+				</div>
+
+				<div class="guide-sec">
+					<h3 class="guide-stit">Toast Bar - 클래스 추가</h3>
+					<p>nToast 함수에 2번째 파라미터로 클래스 전달 시 toast 팝업에 클래스 추가 가능</p>
+					<p>ex) nToast('문구', 'bottom') 설정 시 &lt;div class="toast bottom"&gt; 으로 설정</p>
+					<p>** bottom 추가 시 toast 가 하단에서 표출됨</p>
+					<p>그 외 기타 class 추가 후 CSS 로 스타일 제어 가능</p>
+					<div class="guide-show">
+					<!-- 코드 작성 -->
+						<button type="button" class="btn medium test2">토스트 테스트</button>
+					<!-- // 코드 작성 -->
+					</div>
+<pre><code class="js">var btn2 = document.querySelector('.btn.test2');
+	
+btn2.addEventListener('click', function(){
+	nToast('토스트 테스트 중 입니다. 음하하하', 'bottom');
+});
+</code></pre>
+				</div>
+			</section>
+		</div>
+	</div>
+
+	<script src="/js/common.js"></script>
+	<script src="/js/layerpop_v4.0.0.js"></script>
+	<script>
+		hljs.initHighlightingOnLoad(); 
+
+		var btn 	= document.querySelector('.btn.test');
+		
+		btn.addEventListener('click', function(){
+			nToast('토스트 테스트 중 입니다. 음하하하');
+		});
+
+		var btn2 = document.querySelector('.btn.test2');
+	
+		btn2.addEventListener('click', function(){
+			nToast('토스트 테스트 중 입니다. 음하하하', 'bottom');
+		});
+
+	</script>
+</body>
+</html>

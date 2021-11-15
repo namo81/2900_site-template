@@ -15,7 +15,7 @@
 	<meta property="og:url" content="">
 	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
 
-	<title>레이어팝업 | 가이드</title>
+	<title>알럿 / 컨펌 | 가이드</title>
 
 	<!-- 가이드 관련 -->
 	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
@@ -24,161 +24,85 @@
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
-	<script src="/js/common.js"></script>
-	<script src="/js/layerpop_v3.1.0.js"></script>
 
-	<!--[if lt IE 9]>
-    <script src="/js/html5shiv.js"></script>
-    <![endif]-->
-	<script>
-		window.onload = function(){
-			var btnAlert = document.querySelector('.alert');
-			btnAlert.addEventListener('click', function(){
-				nlayerAlert('확인', '내용을 확인하셨습니까?');
-			});
-
-			var btnConfirm = document.querySelector('.confirm');
-			btnConfirm.addEventListener('click', function(){
-				var funcRun = function(){
-					console.log('YES');
-				}
-				nlayerConfirm(funcRun, '확인', '내용을 확인하셨습니까?');
-			});
-		}
-	</script>
 </head>
 <body>
-	<div id="skip-navi">
-		<a href="#">skip-btn1</a>
-		<a href="#">skip-btn2</a>
-		<a href="#">skip-btn3</a>
-	</div>
-	<div id="wrap" class="full">
-		<!-- header -->
-		<header id="top">
-			<!-- top-menu -->
-			<div class="top-menu">
-				<div class="inbox">
-					<ul>
-						<li><a href="#">top-btn1</a></li>
-						<li><a href="#">top-btn2</a></li>
-						<li><button type="button">top-btn3</button></li>
-					</ul>
-				</div>
-			</div>
-			
-			<!-- gnb -->
-			<div class="gnb-wrap">
-				<h1 class="logo">LOGO</h1>
-				<div class="gnb-menu">
-					<ul class="depth1">
-						<li>
-							<a href="#">menu1</a>
-							<ul class="depth2">
-								<li><a href="#">menu1-1</a></li>
-								<li><a href="#">menu1-2</a></li>
-								<li><a href="#">menu1-3</a></li>
-								<li><a href="#">menu1-4</a></li>
-								<li><a href="#">menu1-5</a></li>
-								<li><a href="#">menu1-6</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="#">menu2</a>
-							<ul class="depth2">
-								<li><a href="#">menu2-1</a></li>
-								<li><a href="#">menu2-2</a></li>
-								<li><a href="#">menu2-3</a></li>
-								<li><a href="#">menu2-4</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="#">menu3</a>
-							<ul class="depth2">
-								<li><a href="#">menu3-1</a></li>
-								<li><a href="#">menu3-2</a></li>
-								<li><a href="#">menu3-3</a></li>
-								<li><a href="#">menu3-4</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="#">menu4</a>
-							<ul class="depth2">
-								<li><a href="#">menu4-1</a></li>
-								<li><a href="#">menu4-2</a></li>
-								<li><a href="#">menu4-3</a></li>
-								<li><a href="#">menu4-4</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="#">menu5</a>
-							<ul class="depth2">
-								<li><a href="#">menu5-1</a></li>
-								<li><a href="#">menu5-2</a></li>
-								<li><a href="#">menu5-3</a></li>
-								<li><a href="#">menu5-4</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-				<button type="button" class="btn-all-menu">전체보기</button>
-			</div>
-
-			<!-- 전체메뉴 -->
-			<div class="all-menu same-gnb"> <!-- same-gnb 클래스가 있을 경우 gnb-menu 를 그대로 가져옴. 레이아웃 구조가 다를 경우 클래스 삭제 후 직접 코드 작성. -->
-				<div class="inbox">
-					<!-- 메뉴 로딩될 영역 -->
-					<button type="button" class="btn-all-close">메뉴닫기</button>
-				</div>
-			</div>
-		</header>
-		
-		<!-- mid -->
-		<div id="mid">			
-			<div class="contents">
-				<!-- side 메뉴 -->
-				<aside class="side-wrap">
-					<ul class="depth1">
-						<li><a href="#">서브메뉴 depth1</a></li>
-						<li>
-							<a href="#">서브메뉴 depth2</a>
-							<ul class="depth2"> 
-								<li><a href="#">서브메뉴 depth2-1</a></li>
-								<li><a href="#">서브메뉴 depth2-2</a></li>
-								<li><a href="#">서브메뉴 depth2-3</a></li>
-							</ul>
-						</li>
-						<li><a href="#">서브메뉴 depth3</a></li>
-						<li><a href="#">서브메뉴 depth4</a></li>
-					</ul>
-				</aside>
-
-				<!-- 컨텐츠 영역 -->
-				<div class="cnt-wrap">
-
-					<div class="location">
-						<span><a href="#">Home</a> &gt;</span>
-						<span><a href="#">상위페이지</a> &gt;</span>
-						<span>현재페이지</span>
+	
+	
+	<div id="work-list">
+		<div class="guide">
+			<section id="guide-basic">
+				<h2 class="guide-sec-tit">알럿 / 컨펌</h2>
+				<div class="guide-sec">
+					<h3 class="guide-stit">알럿</h3>
+					<p>스타일은 버튼 관련 css 에서 별도 설정</p>
+					<p>알럿 관련 클래스 추가 후 javascript 에서 기능 설정 (ex : alert 등..)</p>
+					<p>알럿 함수 파라미터 : nlayerAlert('내용', '타이틀', 확인 후 실행할 함수, '버튼 텍스트');</p>
+					<p>첫번째 '내용' 텍스트는 필수항목임</p>
+					<p>실제 팝업 관련 html 은 자동생성되므로 별도 하드코딩 X</p>
+					<p>팝업 style은 css 로 설정 / 특정 클래스 필요 시 layerpop-v4.0.0.js 파일 내 항목 수정</p>
+					<div class="guide-show">
+					<!-- 코드 작성 -->
+						<button type="button" class="btn small alert">알럿 호출</button>
+					<!-- // 코드 작성 -->
 					</div>
+	<pre><code class="html ">&lt;button type="button" class="btn01 alert"&gt;알럿 호출&lt;/button&gt;
+	</code></pre>
 
-					<h2 class="title-dep1">레이어 팝업</h2>
-					
-					<div class="cnt-area">
-						<button type="button" data-target="layer1" class="btn01 alert" >알럿 호출</button>
-						<button type="button" data-target="layer1" class="btn01 confirm" >컨펌 호출</button>
-					</div>
-
+	<pre><code class="js">var btnAlert = document.querySelector('.alert');
+btnAlert.addEventListener('click', function(){
+	nlayerAlert('내용을 확인하셨습니까?');
+});
+	</code></pre>
 				</div>
-			</div>
-		</div>
-		
-		<!-- btm -->
-		<div id="btm">
-			<footer>COPYRIGHT &copy; 2017 msp admin template. All right reserved.</footer>
+
+				<div class="guide-sec">
+					<h3 class="guide-stit">컨펌</h3>
+					<p>스타일은 버튼 관련 css 에서 별도 설정</p>
+					<p>컨펌 관련 클래스 추가 후 javascript 에서 기능 설정 (ex : confirm 등..)</p>
+					<p>컨펌 함수 파라미터 : nlayerAlert('내용', 확인 시 실행할 함수, '타이틀', '취소버튼 텍스트', '확인버튼 텍스트');</p>
+					<p>첫번째 '내용' 텍스트는 필수항목임</p>
+					<p>'확인' 시 실행할 함수는 별도 생성 후 함수명 기입</p>
+					<p>실제 팝업 관련 html 은 자동생성되므로 별도 하드코딩 X</p>
+					<p>팝업 style은 css 로 설정 / 특정 클래스 필요 시 layerpop-v4.0.0.js 파일 내 항목 수정</p>
+					<div class="guide-show">
+					<!-- 코드 작성 -->
+						<button type="button" class="btn small confirm">컨펌 호출</button>
+					<!-- // 코드 작성 -->
+					</div>
+	<pre><code class="html ">&lt;button type="button" class="btn01 confirm"&gt;컨펌 호출&lt;/button&gt;
+	</code></pre>
+
+	<pre><code class="js">var btnConfirm = document.querySelector('.confirm');
+btnConfirm.addEventListener('click', function(){
+	var funcRun = function(){
+		console.log('YES');
+	}
+	nlayerConfirm('내용을 확인하셨습니까?', funcRun)
+});
+	</code></pre>
+				</div>
+			</section>
 		</div>
 	</div>
 
+	<script src="/js/common.js"></script>
+	<script src="/js/layerpop_v4.0.0.js"></script>
+	<script>
+		hljs.initHighlightingOnLoad(); 
 
+		var btnAlert = document.querySelector('.alert');
+		btnAlert.addEventListener('click', function(){
+			nlayerAlert('내용을 확인하셨습니까?');
+		});
+
+		var btnConfirm = document.querySelector('.confirm');
+		btnConfirm.addEventListener('click', function(){
+			var funcRun = function(){
+				console.log('YES');
+			}
+			nlayerConfirm('내용을 확인하셨습니까?', funcRun)
+		});
+	</script>
 </body>
 </html>

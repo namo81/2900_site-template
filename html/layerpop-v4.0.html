@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="author" content="seonamho - SK MNS" >
+	<meta name="description" content="">
+	<meta name="keywords" content="Site Template">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Site Template">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
+
+	<title>레이어팝업 | 가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	<script src="../guide/vendor/highlight.pack.js"></script>
+
+	<!-- 프로젝트 관련 CSS 파일 로드 -->
+	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
+
+</head>
+<body>
+	
+	<div id="work-list">
+		<div class="guide">
+			<section id="guide-basic">
+				<h2 class="guide-sec-tit">레이어팝업</h2>
+				<div class="guide-sec">
+					<h3 class="guide-stit">레이어팝업</h3>
+					<h4 class="guide-sstit">호출버튼</h4>
+					<p>스타일은 버튼 관련 css 에서 별도 설정</p>
+					<p>기능용 클래스 지정 후 script 에서 설정 (ex : open-layer 클래스)</p>
+					<p>data-target 에 호출할 레이어 팝업 ID 기입</p>
+					<p>동일 클래스가 다수일 경우 공통 적용</p>
+					<div class="guide-show">
+					<!-- 코드 작성 -->
+						<button type="button" data-target="layer1" class="btn small open-layer">레이어팝업1</button>
+					<!-- // 코드 작성 -->
+					</div>
+	<pre><code class="html ">&lt;button type="button" data-target="layer1" class="btn small open-layer"&gt;레이어팝업1&lt;/button&gt;
+	</code></pre>
+
+	<pre><code class="js">nlayer.showBtn('호출버튼 클래스'); // 버튼 클릭 호출형
+	nlayer.showFunc('호출할 레이어 ID'); // 함수형 호출 - 대상 팝업 id 값 설정
+	</code></pre>
+					<h4 class="guide-sstit">레이어팝업 컨텐츠</h4>
+					<p>디테일한 스타일은 css 로 설정</p>
+					<p>기본형 : 컨텐츠 중앙정렬 / 컨텐츠가 길 경우 화면 전체 scroll</p>
+					<p>내부스크롤형 : inbox 에 'in-scroll' 클래스 추가 시 'layer-mid' 내부 스크롤 생성</p>
+					<p>닫기버튼 클래스 'close-layer' 사용</p>
+					<p>show 된 레이어가 여러개일 경우 - 모두 닫고자 할 때 close-layer 에 'all' 클래스 추가</p>
+	<pre><code class="html">&lt;div class="layer" id="layer2"&gt;
+		&lt;div class="inbox"&gt; &lt;!-- in-scroll 추가 시 내부 스크롤 --&gt;
+			&lt;div class="layer-cnt"&gt;
+				&lt;div class="layer-top"&gt;test&lt;/div&gt;
+				&lt;div class="layer-mid"&gt;
+					&lt;button type="button" class="close-layer all"&gt;전체닫기&lt;/button&gt;
+					&lt;button type="button" class="close-layer"&gt;닫기&lt;/button&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre>
+				</div>
+
+			</section>
+		</div>
+	</div>
+
+<!-- 레이어팝업 영역 ----------------------------------------------------------- -->
+<!-- layerPop - 1 -->
+<div class="layer" id="layer1">
+	<div class="inbox">
+		<div class="layer-cnt">
+			<div class="layer-top">test</div>
+			<div class="layer-mid">
+				<p>tx</p>
+				<p style="border-bottom:1px solid #eee;">tx</p><br>
+				<button type="button" data-target="layer2" class="btn01 open-layer2">레이어팝업</button><br>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<p>tx</p>
+				<button type="button" class="close-layer">닫기</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- layerPop - 2 -->
+<div class="layer" id="layer2">
+	<div class="inbox">
+		<div class="layer-cnt">
+			<button type="button" class="close-layer all">전체닫기</button>
+			<button type="button" class="close-layer">닫기</button>
+		</div>
+	</div>
+</div>
+
+<script src="/js/common.js"></script>
+<script src="/js/layerpop_v4.0.0.js"></script>
+
+<script>
+	hljs.initHighlightingOnLoad(); 
+
+	window.onload = function(){
+		nlayer.showBtn('.open-layer'); // body fixed 설정
+		nlayer.showBtn('.open-layer2'); // body overflow:hidden 설정
+		nlayer.showFunc('layer1'); // 함수형 호출 - 대상 팝업 id 값 설정
+	}
+</script>
+
+
+</body>
+</html>

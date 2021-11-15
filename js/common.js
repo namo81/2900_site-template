@@ -1,5 +1,16 @@
 // javascript 함수 =====================================================
 
+var clickEvt, changeEvt;
+try {
+	clickEvt = new Event('click', { bubbles: true, cancelable: true });
+	changeEvt = new Event('change', { bubbles: true, cancelable: true });
+} catch (error) {
+    clickEvt = document.createEvent('Event');
+    clickEvt.initEvent('click', true, true);
+    changeEvt = document.createEvent('Event');
+    changeEvt.initEvent('change', true, true);
+}
+
 // closest 기능 함수 설정
 if (window.Element && !Element.prototype.closest) {
     Element.prototype.closest =
@@ -256,7 +267,8 @@ function nTabMenu(option){
 }
 
 
-// 말풍선 요소
+// 말풍선 요소 = 구버전 - 사용X / 참고용
+/*
 function nBalloon(selector) {
 	var nBallEle = document.querySelectorAll(selector);
 
@@ -300,8 +312,27 @@ function nBalloonSet(Ele){
 	}
 
 	if(btnClose != null) btnClose.addEventListener('click', cntHide);
-}
+}*/
 
+// 말풍선 요소 - 단순토글형(2021-11-10)
+function nBalloonTgl() {
+	var nBlns = document.querySelectorAll('.balloon-wrap.click');
+	
+	if(nBlns.legnth < 1) return;
+
+	Array.prototype.forEach.call(nBlns, function(bln){
+		var btn = bln.querySelector('.btn-bln');
+		btn.addEventListener('click', function(){
+			bln.classList.toggle('on');
+		});
+		var clsBtn = bln.querySelector('.btn-bln-close');
+		if(!clsBtn) return;
+		clsBtn.addEventListener('click', function(){
+			bln.classList.remove('on');
+		});
+	});	
+}
+nBalloonTgl();
 
 /* scroll animation */
 function animateScroll(scrollObj, targetVal, duration, gap){
