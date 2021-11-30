@@ -15,7 +15,6 @@
 	<meta property="og:url" content="">
 	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
 
-
 	<title>기본 가이드</title>
 	<!-- 가이드 관련 -->
 	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
@@ -24,27 +23,7 @@
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
-	<script src="/js/jquery-1.12.4.min.js"></script>
 
-	<!--[if lt IE 9]>
-    <script src="/js/html5shiv.js"></script>
-    <![endif]-->	
-
-	<!-- calendar 관련 설정 -->
-	<link rel="stylesheet" href="/css/nCalendar.css" media="screen, print" />
-	<script src="/js/calendarMonth_namo.js"></script>
-	<script>
-		$(function(){
-			hljs.initHighlightingOnLoad(); 
-			
-			$('.inp-time').nTime({
-				format : ''
-			});
-		});
-	</script>
-	<style type="text/css">
-		input.inp-time { width:200px; }
-	</style>
 </head>
 <body>
 <div id="work-list">
@@ -61,9 +40,13 @@
 				<p>width 값은 별도 지정</p>
 				<p>input focus 시 dropdown 으로 시간 리스트 표출 및 선택</p>
 				<div class="guide-show">
-					<input type="text" name="" placeholder="" class="inp-time" value="00:00"/>
+					<div class="inp-time" style="width:300px;">
+						<input type="text" name="" class="inp-1" value="00:00"/>
+					</div>
 				</div>
-<pre><code class="html">&lt;input type="text" name="" placeholder="" class="inp-time"/&gt;
+<pre><code class="html">&lt;div class="inp-time"&gt;
+	&lt;input type="text" name="" class="inp-1" value="00:00"/&gt;
+&lt;/div&gt;
 </code></pre>
 			
 			</div>
@@ -73,5 +56,15 @@
 	</div>
 	<a href="#work-list" class="guide-top">Top</a>	
 </div>
+
+<script src="/js/common.js"></script>
+<script src="/js/nTimePicker_v1.0.0.js"></script>
+<script>
+	hljs.initHighlightingOnLoad(); 
+
+	var calDay = new nTimeSet({
+		area : '.inp-time'
+	});
+</script>
 </body>
 </html>

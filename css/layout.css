@@ -375,3 +375,18 @@ ul.under-desc li { margin:3px 0; font-size:12px; line-height:1.4em; color:#666; 
 .article-wrap th { background:#f2f2f2; text-align:center;}
 .article-wrap .tbl-desc + .tbl { margin-top:5px; }
 .article-wrap .tbl + .tbl-desc { margin:-10px 0 10px; }
+
+/* timepicker ======================================================== */
+.inp-time { position:relative; }
+.time-wrap { position:absolute; display:none; top:100%; left:0; width:calc(100% - 2px); background:#fff; border:1px solid #aaa; border-radius:3px;; z-index:200; }
+.time-wrap.show { display:block; }
+.time-wrap .result-tx { margin:0; padding:5px; font-size:16px; line-height:24px; text-align:center; }
+.time-wrap .roll-wrap { position:relative; display:flex; justify-content:flex-start; height:210px; border-top:1px solid #aaa; border-bottom:1px solid #aaa; }
+.time-wrap .roll-wrap:after { content:''; position:absolute; width:100%; height:30px; top:50%; left:0; margin-top:-15px; background:rgba(0,0,0,.1); }
+.time-wrap .roll-wrap > div { position:relative; flex:1; max-height:100%; padding:90px 0; overflow-y:auto; z-index:1; -ms-overflow-style: none; scrollbar-width: none;}
+.time-wrap .roll-wrap > div + div { border-left:1px solid #aaa; }
+.time-wrap .roll-wrap > div::-webkit-scrollbar { display:none; }
+.time-wrap .roll-wrap li button { display:block; width:100%; font-size:16px; line-height:30px; text-align:center; }
+.time-wrap .roll-wrap li button.on { font-weight:bold; }
+.time-wrap .btns { display:flex; }
+.time-wrap .btns > button { flex:1; padding:7px 3px; border-radius:0; }

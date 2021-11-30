@@ -46,6 +46,27 @@ Element.prototype.parents = function(selector) {
 };
 // ex : object.parents(selector)
 
+// 이벤트 리스트 관련 함수 - 이벤트 추가 시 listener 를 별도 배열로 보관 - 추후 삭제 가능하도록.
+HTMLElement.prototype.onEvent = function (eventType, callBack, useCapture) {
+	this.addEventListener(eventType, callBack, useCapture);
+	if (!this.myListeners) {
+		this.myListeners = [];
+	};
+	this.myListeners.push({ eType: eventType, callBack: callBack });
+	return this;
+};
+// ex : object.onEvent('', function...)
+
+HTMLElement.prototype.removeListeners = function () {
+	if (this.myListeners) {
+		for (var i = 0; i < this.myListeners.length; i++) {
+			this.removeEventListener(this.myListeners[i].eType, this.myListeners[i].callBack);
+		};
+		delete this.myListeners;
+	};
+};
+// ex : object.removeListeners()
+
 // hasClass 대체 - obj 가 특정 class 를 가지고 있는지 확인 - boolean 값 리턴
 function funcHasClass(obj, cls){
 	var objCls = obj.className;
@@ -85,7 +106,6 @@ function funcToggleClass(obj, cls){
 }
 // ex : funcToggleClass(object, class);
 
-
 // offset 함수.
 function offset(elem) {
     if(!elem) elem = this;
@@ -101,27 +121,6 @@ function offset(elem) {
     return { left: x, top: y };
 }
 // ex : offset(object).top / offset(object).left
-
-// 이벤트 리스트 관련 함수 - 이벤트 추가 시 listener 를 별도 배열로 보관 - 추후 삭제 가능하도록.
-HTMLElement.prototype.onEvent = function (eventType, callBack, useCapture) {
-	this.addEventListener(eventType, callBack, useCapture);
-	if (!this.myListeners) {
-		this.myListeners = [];
-	};
-	this.myListeners.push({ eType: eventType, callBack: callBack });
-	return this;
-};
-// ex : object.onEvent('', function...)
-
-HTMLElement.prototype.removeListeners = function () {
-	if (this.myListeners) {
-		for (var i = 0; i < this.myListeners.length; i++) {
-			this.removeEventListener(this.myListeners[i].eType, this.myListeners[i].callBack);
-		};
-		delete this.myListeners;
-	};
-};
-// ex : object.removeListeners()
 
 // index 반환 함수
 function getIndex( elm ){ 
@@ -163,6 +162,48 @@ function replaceAll(str, searchStr, replaceStr) {
 	return str.split(searchStr).join(replaceStr);
 }
 // ex : replaceAll(변경할 문구, 지워질 글자, 대체할 글자);
+
+// 숫자가 10 이하일 경우 앞에 '0' 붙이기
+function setZero(num){
+	return num < 10 ? '0' + num : num;
+}
+
+// yyyy-mm-dd 형식을 date 값으로 변환
+function convertToDate(e, sType){
+	var thisY = e.split(sType)[0],
+	thisM = e.split(sType)[1] - 1,
+	thisD = e.split(sType)[2],
+	nowDate = new Date(thisY, thisM, thisD);
+	return nowDate;
+}
+// date 값을 yyyy-mm-dd 형식으로 변환
+function convertToYMD(e, sType){
+	var thisY = e.getFullYear(),
+	thisM = e.getMonth() + 1,
+	thisD = e.getDate(),
+	nowDate;
+	if(thisM < 10) thisM = '0'+thisM;
+	if(thisD < 10) thisD = '0'+thisD;
+	nowDate = ''+thisY + sType + thisM + sType + thisD+'';
+	return nowDate;
+}
+
+// 공통 함수 : 특정 영역 외 클릭 감지
+function outSideClick(area, target, cls){
+	var body = document.querySelector('body');
+	body.addEventListener('mousedown', function(e){
+		var tg = e.target;
+		if( !tg.closest(area)) {
+			funcRemoveClass(target, cls);
+			this.removeEventListener('mousedown', arguments.callee);
+		}
+	});
+}
+// area : 부모요소 검색용 css selector
+// target : 제어될 html dom 요소
+// 삭제할 class
+// ex : var wrapArea = document.querySelector('.chk-area');
+// ex : outSideClick('.chk-area', wrapArea, 'show');
 
 //tab menu 기능 - 페이지 전체 동일 기능 적용(탭 안의 탭 등 depth 구조일 경우 사용불가)
 function nTab(selector){
@@ -335,18 +376,17 @@ function nBalloonTgl() {
 nBalloonTgl();
 
 /* scroll animation */
-function animateScroll(scrollObj, targetVal, duration, gap){
+function animateScroll(scrollObj, targetVal, direction, duration, gap){
 	var scrollEle 	= typeof scrollObj === 'string' ? document.querySelector(scrollObj) : scrollObj,
 		gapPos 		= gap ? gap : 0,
 		dur			= duration ? duration : 500;
 	
-	var currentPos = scrollEle.scrollLeft,
+	var currentPos = direction == 'x' ? scrollEle.scrollLeft : scrollEle.scrollTop,
 		targetPos  = targetVal - gapPos;
 	
 	animateScrollTo();
 
 	function animateScrollTo() {
-		var unit = (targetPos - currentPos) / dur;
 		var startTime = new Date().getTime();
 		var endTime = new Date().getTime() + dur;
 
@@ -355,7 +395,8 @@ function animateScroll(scrollObj, targetVal, duration, gap){
 				passed = now - startTime,
 				ease = easeInOutQuad(passed / dur);
 			if (now <= endTime) {
-				scrollEle.scrollLeft = currentPos + (targetPos - currentPos) * ease;
+				if(direction == 'x') scrollEle.scrollLeft = currentPos + (targetPos - currentPos) * ease;
+				else scrollEle.scrollTop = currentPos + (targetPos - currentPos) * ease;
 				requestAnimationFrame(scrollTo);
 			}
 		};
