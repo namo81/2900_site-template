@@ -1,17 +1,17 @@
 // javascript 함수 =====================================================
 
 var clickEvt, changeEvt;
-try {
+try { // chrome / edge 용
 	clickEvt = new Event('click', { bubbles: true, cancelable: true });
 	changeEvt = new Event('change', { bubbles: true, cancelable: true });
-} catch (error) {
+} catch (error) { // IE 용
     clickEvt = document.createEvent('Event');
     clickEvt.initEvent('click', true, true);
     changeEvt = document.createEvent('Event');
     changeEvt.initEvent('change', true, true);
 }
 
-// closest 기능 함수 설정
+// closest 기능 함수 설정 // IE 용
 if (window.Element && !Element.prototype.closest) {
     Element.prototype.closest =
     function(s) {
@@ -34,13 +34,8 @@ Element.prototype.parents = function(selector) {
 	var ishaveselector = selector !== undefined;
  
 	while ((elem = elem.parentElement) !== null) {
-		if (elem.nodeType !== Node.ELEMENT_NODE) {
-			continue;
-		}
- 
-		if (!ishaveselector || elem.matches(selector)) {
-			elements.push(elem);
-		}
+		if (elem.nodeType !== Node.ELEMENT_NODE) continue;  
+		if (!ishaveselector || elem.matches(selector)) elements.push(elem);
 	} 
 	return elements;
 };
@@ -67,6 +62,7 @@ HTMLElement.prototype.removeListeners = function () {
 };
 // ex : object.removeListeners()
 
+// class 관련 (IE9 이하 대응)
 // hasClass 대체 - obj 가 특정 class 를 가지고 있는지 확인 - boolean 값 리턴
 function funcHasClass(obj, cls){
 	var objCls = obj.className;
@@ -94,7 +90,7 @@ function funcRemoveClass(obj, cls){
 }
 // ex : funcRemoveClass(object, class);
 
-// toggleClass 대체 - obj 에서 특정 class 토글 - funcHasClass / funcAddClass / funcRemoveClass 필요
+// toggleClass 대체 - obj 에서 특정 class 토글 - funcHasClass 필요 (IE 용)
 function funcToggleClass(obj, cls){
 	var hasChk = funcHasClass(obj, cls);
 	if(!hasChk) {
@@ -194,7 +190,7 @@ function outSideClick(area, target, cls){
 	body.addEventListener('mousedown', function(e){
 		var tg = e.target;
 		if( !tg.closest(area)) {
-			funcRemoveClass(target, cls);
+			target.classList ? target.classList.remove(cls) : funcRemoveClass(target, cls);
 			this.removeEventListener('mousedown', arguments.callee);
 		}
 	});
@@ -308,7 +304,7 @@ function nTabMenu(option){
 }
 
 
-// 말풍선 요소 = 구버전 - 사용X / 참고용
+// 말풍선 요소 = 구버전 - 사용X / 참고용 -- 말풍선 1개 / 버튼 다수일 경우 case 개발 참고
 /*
 function nBalloon(selector) {
 	var nBallEle = document.querySelectorAll(selector);
@@ -355,28 +351,35 @@ function nBalloonSet(Ele){
 	if(btnClose != null) btnClose.addEventListener('click', cntHide);
 }*/
 
-// 말풍선 요소 - 단순토글형(2021-11-10)
-function nBalloonTgl() {
-	var nBlns = document.querySelectorAll('.balloon-wrap.click');
-	
-	if(nBlns.legnth < 1) return;
 
-	Array.prototype.forEach.call(nBlns, function(bln){
-		var btn = bln.querySelector('.btn-bln');
-		btn.addEventListener('click', function(){
-			bln.classList.toggle('on');
-		});
-		var clsBtn = bln.querySelector('.btn-bln-close');
+// 말풍선 요소 - 단일 사용
+function nBalloonTgl(area) {
+	var wrap = typeof area === 'string' ? document.querySelector(area) : area,
+		btn  = wrap.querySelector('.btn-bln'),
+		clsBtn = bln.querySelector('.btn-bln-close');
+		
+		btn.addEventListener('click', function(){ bln.classList.toggle('on'); });
 		if(!clsBtn) return;
-		clsBtn.addEventListener('click', function(){
-			bln.classList.remove('on');
-		});
-	});	
+		clsBtn.addEventListener('click', function(){ bln.classList.remove('on'); });
 }
-nBalloonTgl();
+
+// 말풍선 요소 - 다수 적용
+function nBalloonTgls(selector) {
+	var nBallEle = document.querySelectorAll(selector);
+
+	if(nBallEle.length > 1) {
+		Array.prototype.forEach.call(nBallEle, function(el, index, array){
+			nBalloonTgl(el);
+		});
+	} 
+	else if (nBallEle.length == 1) nBalloonTgl(nBallEle[0]);
+	else null;
+}
+// ex 단독 : nBalloonTgl('css 선택자' or element);
+// ex 다수 : nBalloonTgls('css 선택자');
 
 /* scroll animation */
-function animateScroll(scrollObj, targetVal, direction, duration, gap){
+function animateScroll(scrollObj, targetVal, duration, direction, gap){
 	var scrollEle 	= typeof scrollObj === 'string' ? document.querySelector(scrollObj) : scrollObj,
 		gapPos 		= gap ? gap : 0,
 		dur			= duration ? duration : 500;
@@ -403,6 +406,7 @@ function animateScroll(scrollObj, targetVal, direction, duration, gap){
 		requestAnimationFrame(scrollTo);
 	};
 }
+// ex : animateScroll(스크롤될 영역, 목표 스크롤값, 애니메이션 시간, 방향, 목표 스크롤값에 적용된 gap);
 
 /* ease func */
 function easeInSine(x) {

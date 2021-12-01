@@ -5,6 +5,7 @@
 	<meta charset="UTF-8" >
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="format-detection" content="telephone=no">
 	<meta name="author" content="seonamho - SK MNS" >
 	<meta name="description" content="퍼블리싱 템플릿 사이트">
 	<meta name="keywords" content="html css javascript jquery 퍼블리셔 퍼블리싱">
@@ -93,8 +94,11 @@
 			<div class="guide-sec">
 				<h3 class="guide-stit">메타태그</h3>
 				<p>하단 favicon 관련 링크 포함 (현재 값은 별도 icon 이미지 없을 경우)</p>
+				<p>PC Web 일 경우 viewport / format-detection 제외 가능</p>
+				<p><strong>og:</strong> 로 시작하는 부분은 '오픈그래프' meta 로 SNS 공유 및 게시용 정보 표출영역임</p>
 <pre><code class="html">&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
 &lt;meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"&gt;
+&lt;meta name="format-detection" content="telephone=no"&gt;
 &lt;meta name="author" content=" - SK MNS" &gt;
 &lt;meta name="description" content="사이트 안내 문구"&gt;
 &lt;meta name="keywords" content="사이트 검색 관련 키워드"&gt;
@@ -113,7 +117,7 @@
 				<ul>
 					<li>- 크롬 : 최신버전</li>
 					<li>- 파이어폭스 : 최신버전</li>
-					<li>- IE9 이상</li>
+					<li>- IE11 이상 (요청 시 IE9 까지 가능)</li>
 				</ul>
 			</div>
 
@@ -133,18 +137,19 @@
 				<h4 class="guide-sstit">자체 제작 Plug-in</h4>
 				<ul>
 					<li>- <strong>gnbmenu_v1.0.js</strong> - gnb 및 lnb 기능</li>
-					<li>- <strong>layerpop_v1.0.js</strong> - 레이어 팝업 기능</li>
-					<li>- <strong>inpdesign_v1.0.js</strong> - checkbox / radio / select / file - 디자인 적용</li>
-					<li>- <strong>nCalendar_v1.3.js</strong> - 달력 - 기본형</li>
-					<li>- <strong>nCalendarWeek_v1.1.js</strong> - 달력 - 주간</li>
-					<li>- <strong>nCalendarMonth_v1.0.js</strong> - 달력 - 월간</li>
-					<li>- <strong>nCalendarPage_v1.0.js</strong> - 달력 - 페이지 고정형</li>
-					<li>- <strong>nCalendarRange_v1.0.js</strong> - 달력 - 기간설정</li>
+					<li>- <strong>layerpop_v4.0.0.js</strong> - 레이어 팝업 기능</li>
+					<li>- <strong>inpdesign_v2.0.0.js</strong> - checkbox / radio / select / file - 디자인 적용</li>
+					<li>- <strong>nCalendar_v2.2.0.js</strong> - 달력 - 기본형</li>
+					<li>- <strong>nCalendarWeek_v2.0.0.js</strong> - 달력 - 주간</li>
+					<li>- <strong>nCalendarPage_v2.0.0.js</strong> - 달력 - 페이지 고정형</li>
+					<li>- <strong>nCalendarRange_v2.1.0.js</strong> - 달력 - 기간설정</li>
+					<li>- <strong>nDragnDrop_v1.0.0.js</strong> - Drag N Drop 기능</li>
+					<li>- <strong>nTimePicker_v1.0.0.js</strong> - 시간 - timepicker</li>
 					<li>- <strong>common.js</strong> - 공통 js ( gnb 및 lnb 적용 / tabmenu 기능 / toggle 기능 / 말풍선 기능 )</li>
 				</ul>				
 				<h4 class="guide-sstit">외부 Plug-in</h4>
 				<ul>
-					<li>- <strong>html5shiv.js</strong> - IE 호환성</li>
+					<li>- <strong>html5shiv.js</strong> - IE 호환성(IE9 이하 지원시)</li>
 					<li>- <strong>placeholder.js</strong> - placeholder - ie7 까지 지원</li>
 				</ul>
 			</div>

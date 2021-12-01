@@ -126,8 +126,8 @@ function nTimeSet(option){
         var onBtns = roll_wrap.querySelectorAll('button.on');
         Array.prototype.forEach.call(onBtns, function(btn){
             var areaWrap = btn.parentNode.parentNode.parentNode,
-                 scrollVal = btn.offsetTop - (areaWrap.offsetHeight / 2) + (btn.offsetHeight / 2);
-            areaWrap.scrollTo(0, scrollVal);
+                scrollVal = btn.offsetTop - (areaWrap.offsetHeight / 2) + (btn.offsetHeight / 2);
+            areaWrap.scrollTop = scrollVal;
         });
     }, btnOnSet = function(){
         Array.prototype.forEach.call(hourBtns, function(btn){

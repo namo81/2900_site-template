@@ -2,7 +2,7 @@
 // 서남호(namo) - for m.s.p
 // 2020-09-29 - ver2.0.0 - 기본달력 base 로 기간 달력 재 작업
 // 2020-11-04 - ver2.1.0 - jquery 완전 제거
-// 2020-12-03 - ver2.1.0 - 오늘 선택 가능 (오늘 2번 클릭 시 시작일/종료일 모두 오늘)
+// 2020-12-03 - ver2.1.0 - 동일날짜 선택 가능 (동일날짜 2번 클릭 시 시작일/종료일 모두 해당일자로 설정)
 
 function nCalendarRange(option){
 
@@ -101,18 +101,12 @@ function nCalendarRange(option){
 
 	var startDate, endDate; // 입력용 값
 
-	// 최종 입력 시 input 에 change 발생용
-	// var changeEvt = new Event('change');  - chrome
-	var changeEvt = document.createEvent('Event');
-		changeEvt.initEvent('change', true, false);
-
 	if(inpSingle == true) {
 		inp 		= wrap.querySelector('input');
 	} else {
 		inpStart 	= wrap.querySelector('.start');
 		inpEnd 		= wrap.querySelector('.end');
 	}
-
 
 	// 달력 기본 영역 그리기 (calWrap, 좌,우 영역, 상단버튼영역, 이전-다음 버튼 등) --------------------------------------------
 	document.querySelector('body').insertAdjacentHTML('beforeend', '<div class="cal-wrap range" tabindex="0"><div class="cal-left"><div class="cal-area"></div></div></div>');

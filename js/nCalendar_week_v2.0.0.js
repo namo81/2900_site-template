@@ -1,12 +1,9 @@
 // calendar
 // 서남호(namo) - for m.s.p
-// 2020-02-24 - fn / extend 만 jquery 활용한 버전 제작 - 추후 패턴 공부 후 fn/extend 모두 제거 예정
-// 2020-03-19 - 선택제한 기능추가에 따른 이전/다음 버튼 비활성화 기능 추가
-// 2020-08-05 - 달력 외 영역 클릭 시 달력 hide 추가
-// 2020-09-24 - v2.1.0 : 기간 제한 관련 기능 정리
-// 2020-12-24 - v2.2.0 : jquery 제거
+// 2021-12-01 - Week 달력 추가 (adt_ai 프로젝트 사용분 활용 및 정리)
 
-function nCalendar(option){
+
+function nCalendarWeek(option){
 
 	var calInp          = document.querySelector(option.calInp),
 		showType        = option.showType ? option.showType : 'button',				// both / button / input
@@ -14,8 +11,7 @@ function nCalendar(option){
 		mobileDevice	= option.mobileDevice ? true : false,						// true : 모바일일 경우 left 값 0 고정 / false : input 위치값 적용
 		gapTop			= option.gapTop ? option.gapTop : 0,						// 달력 top 위치 gap
 		gapLeft			= option.gapLeft ? option.gapLeft : 0,						// 달력 left 위치 gap
-		calType         = option.calType ? option.calType : null,					// null: 일반 기본형 ,  month : 월간달력
-		langType		= option.langType ? option.langType : 'kr',					// kr : 한글, en : 영문 (월~일 표기)
+		dayType			= option.dayType ? option.dayType : 'kr',					// kr : 한글, en : 영문 (월~일 표기)
 		changeMon       = option.changeMon != null ? option.changeMon : true,		// 월 선택 select 활성 여부
 		changeYear      = option.changeYear != null ? option.changeYear : true,		// 연도 선택 select 활성 여부
 		yearRange       = option.yearRange ? option.yearRange : '2019:2040',		// 연도 제한
@@ -26,40 +22,50 @@ function nCalendar(option){
 		nextTx          = option.nextTx ? option.nextTx : '>',						// 다음달 버튼 텍스트
 		prevTx          = option.prevTx ? option.prevTx : '<',						// 이전달 버튼 텍스트
 		todayLimit      = option.todayLimit ? option.todayLimit : false,			// 오늘 기준 선택 제한
-		todayGap 		= option.todayGap ? option.todayGap : '0D', 				// 오늘 기준일의 gap 설정 (ex. 내일부터 제한, 5일전까지 제한 등)
+		todayGap 		= option.todayGap ? option.todayGap : '0W', 				// 오늘 기준일의 gap 설정 (ex. 내일부터 제한, 5일전까지 제한 등)
 		limitType       = option.limitType ? option.limitType : 'before',			// 제한 방향 설정 - before : 오늘 이전 날짜 선택 제한 / after : 오늘 이후 날짜 선택 제한
 		limitGap 		= option.limitGap ? option.limitGap : null 					// 제한 기간 설정 - null : 기한 없음 / nY : n년 / nM : n개월 / nD : n일
 	
 	//초기 날짜 관련 세팅 및 변수	
 	var now         = new Date(),
-		thisYear    = now.getFullYear(), 	// 오늘 날짜 포함된 연도 - today 설정용
-		thisMonth   = now.getMonth(),		// 오늘 날짜 포함된 월
-		today       = now.getDate(),		// 오늘 날짜
-		activeYear, activeMonth, activeDay, // 선택된 날짜용 변수
-		year, month, day;					// 달력 생성용 변수
-		//alert(year + "." + month + 1 + "." + day); // month는 0부터 시작하기 때문에 +1을 해야됨
+		thisYear    = now.getFullYear(), 				// 오늘 날짜 포함된 연도 - today 설정용
+		thisMonth   = now.getMonth(),					// 오늘 날짜 포함된 월
+		today       = now.getDate(),					// 오늘 날짜
+		activeYear, activeMonth, activeDay, 			// 선택된 날짜용 변수
+		activeEndYear, activeEndMonth, activeEndDay, 	// 선택된 날짜용 변수
+		year, month, day;								// 달력 생성용 변수
+		//alert(year + "." + month + 1 + "." + day); 	// month는 0부터 시작하기 때문에 +1을 해야됨
 	
 	// 날짜 제한 관련 (v2.1.0) ----------------------------------------------------------------------------
 	var limitDay, // 오늘 or todayGap 적용된 날짜
 		limitY, limitM, limitD, 
-		limitGapDay, // 최종 제한일 (ex : 오늘이전 1년까지 제한일 경우 1년전 오늘)		
+		limitGapDay, // 최종 제한일 (ex : 오늘이전 1년까지 제한일 경우 1년전 오늘)
 		limitGapY, limitGapM, limitGapD;
 
 	// limit 관련 최종 제한일 계산 함수
 	var calcGapDay = function(dayVal, gapVal) {
 		var val, 
 			gapY = 0,
-			gapM = 0, 
-			gapD = 0;
+			gapM = 0,
+			gapD = 0,
+			gapW,
+			gapTx;
 		if(gapVal != null) {
 			if(typeof(gapVal) === 'string') {
-				var gapTx  = gapVal.substr(-1,1);
+				gapTx  = gapVal.substr(-1,1);
 				if(gapTx == 'Y') gapY = Number(gapVal.replace('Y',''));
 				else if(gapTx == 'M') gapM = Number(gapVal.replace('M',''));
+				else if(gapTx == 'W') gapW = Number(gapVal.replace('W',''));
 				else gapD = Number(gapVal.replace('D',''));
 			} else gapD = gapVal;
 		}
-		limitType == 'before' ? val = new Date(dayVal.getFullYear() + gapY,  dayVal.getMonth() + gapM,  dayVal.getDate() + gapD) : val = new Date(dayVal.getFullYear() - gapY,  dayVal.getMonth() - gapM,  dayVal.getDate() - gapD);
+		if(gapTx == 'W') {
+			var monGap 	= dayVal.getDay() == 0 ? 7 : dayVal.getDay() - 0,
+				weekGap = 7 * gapW;
+				limitType == 'before' ? val = new Date(dayVal.getFullYear(), dayVal.getMonth(), dayVal.getDate() - (monGap - weekGap)) :  val = new Date(dayVal.getFullYear(), dayVal.getMonth(), dayVal.getDate() - (monGap + weekGap));
+		} else {
+			limitType == 'before' ? val = new Date(dayVal.getFullYear() + gapY,  dayVal.getMonth() + gapM,  dayVal.getDate() + gapD) : val = new Date(dayVal.getFullYear() - gapY,  dayVal.getMonth() - gapM,  dayVal.getDate() - gapD);
+		}
 		return val;
 	}
 
@@ -96,6 +102,7 @@ function nCalendar(option){
 	
 	/* 기본요소 그리기 (wrap/버튼 등) ------------------------------------------------------------------------ */
 	var inp	= calInp, 	// input
+		cals,				// 페이지 내 달력 전체
 		wrap,               // 달력 영역 전체
 		cal,                // 달력 테이블 영역
 		control,			// 달력 상단 제어영역
@@ -103,14 +110,10 @@ function nCalendar(option){
 		monthObj,			// 월 선택 select
 		btn;				// shiwType 가 both 나 button 일 경우 버튼
 
-
 	// 달력 영역 변수 설정
-	var newCal = document.createElement('div');
-	document.querySelector('body').appendChild(newCal);
-	wrap = newCal;
-	wrap.classList.add('cal-wrap');
-	wrap.setAttribute('tabindex', '0');
-	wrap.insertAdjacentHTML('beforeend', '<div class="cal-top"></div><div class="cal-area"></div>');
+	document.querySelector('body').insertAdjacentHTML('beforeend', '<div class="cal-wrap" tabindex="0"><div class="cal-top"></div><div class="cal-area"></div></div>');
+	cals = document.querySelectorAll('.cal-wrap');
+	wrap = cals[cals.length - 1];
 	cal = wrap.querySelector('.cal-area');
 	control = wrap.querySelector('.cal-top');
 
@@ -145,7 +148,7 @@ function nCalendar(option){
 		nowDate;
 		if(thisM < 10) thisM = '0'+thisM;
 		if(thisD < 10) thisD = '0'+thisD;
-		nowDate = calType == 'month' ? ''+thisY+splitType+thisM+'' : ''+thisY+splitType+thisM+splitType+thisD+'';
+		nowDate = ''+thisY + splitType + thisM + splitType + thisD+'';
 		return nowDate;
 	}
 
@@ -154,7 +157,7 @@ function nCalendar(option){
 		wrap.style.top = '';
 		wrap.style.left = '';
 		wrap.style.display = 'none';
-		inp.focus();
+		if(device == false) inp.focus();
 	},
 	calCloseAll = function(){
 		var wrapAll = document.querySelectorAll('.cal-wrap');
@@ -177,12 +180,12 @@ function nCalendar(option){
 	}
 
 /* 일간 달력 ==================================================================================================================================================================================== */
-	var calSetDay = function(){
+	var calSetWeek = function(){
 		// 각 월의 요일 수
 		var nalsu = new Array(31,28,31,30,31,30,31,31,30,31,30,31);	
 		// 요일 표기
 		var weekTx;
-		langType == 'kr' ? weekTx = new Array("일", "월", "화", "수", "목", "금", "토") : weekTx = new Array("Sun","Mon","Tue","Wed","Thu","Fri","Sat");
+		dayType == 'kr' ? weekTx = new Array("일", "월", "화", "수", "목", "금", "토") : weekTx = new Array("Sun","Mon","Tue","Wed","Thu","Fri","Sat");
 		//2월은 윤년 체크
 		var nalsu29 = function(){
 			year % 4 === 0 && year % 100 !== 0 || year % 400 === 0 ? nalsu[1] = 29 : nalsu[1] = 28;
@@ -195,7 +198,7 @@ function nCalendar(option){
 			var cntstr = "";
 			cntstr += '<select title="연도 선택" class="sel-year">';
 			for(var i = minYear; i < maxYear + 1; i++){
-				cntstr += '<option value="'+i+'">'+i+'</option>';
+				cntstr += '<option value="'+i+'">'+i+'년</option>';
 			}
 			cntstr +='</select>';	
 			control.insertAdjacentHTML('beforeend', cntstr);
@@ -203,17 +206,17 @@ function nCalendar(option){
 			yearObj.addEventListener('change',yearChange);
 		} else {
 			var cntstr = "";
-			cntstr += '<span class="cal-title year"><i></i></span>';
+			cntstr += '<span class="cal-title year"><i></i>년</span>';
 			control.insertAdjacentHTML('beforeend', cntstr);
 			yearObj = wrap.querySelector('.cal-title.year');
 		}
 
 		// 상단 - 월 타이틀 생성
-		if(changeMon == true && calType != 'month'){
+		if(changeMon == true){
 			var cntstr = "";
 			cntstr += '<select title="월 선택" class="sel-month">'
 			for( var m = 1; m < 13; m++){
-				cntstr += '<option value="'+m+'">'+m+'</option>';
+				cntstr += '<option value="'+m+'">'+m+'월</option>';
 			}
 			cntstr +='</select>';
 			control.insertAdjacentHTML('beforeend', cntstr);
@@ -221,7 +224,7 @@ function nCalendar(option){
 			monthObj.addEventListener('change',monthChange);
 		} else {
 			var cntstr = "";
-			cntstr += '<span class="cal-title month"><i></i></span>';
+			cntstr += '<span class="cal-title month"><i></i>월</span>';
 			control.insertAdjacentHTML('beforeend', cntstr);
 			monthObj = wrap.querySelector('.cal-title.month');
 		}
@@ -240,24 +243,21 @@ function nCalendar(option){
 		if(showBtnPanel == true) {
 			wrap.insertAdjacentHTML('beforeend', '<div class="cal-btns"></div>');
 			btnArea = wrap.querySelector('.cal-btns');
-			if(todayBtnTx != null){
-				btnArea.insertAdjacentHTML('beforeend', '<button type="button" class="btn-cal-today">'+todayBtnTx+'</button>');
-				todayBtn = wrap.querySelector('.btn-cal-today');
-			}
-			if(closeBtnTx != null){
-				btnArea.insertAdjacentHTML('beforeend', '<button type="button" class="btn-cal-close">'+closeBtnTx+'</button>');
-				closeBtn = wrap.querySelector('.btn-cal-close');
-			}
-
-			todayBtn.addEventListener('click',goToday);
+			btnArea.insertAdjacentHTML('beforeend', '<button type="button" class="btn-cal-close">'+closeBtnTx+'</button>');
+			closeBtn = wrap.querySelector('.btn-cal-close');
 			closeBtn.addEventListener('click',calClose);
 		}
+
+		control.insertAdjacentHTML('beforeend', '<button type="button" class="btn-cal-today">'+todayBtnTx+'</button>');
+		todayBtn = wrap.querySelector('.btn-cal-today');
+		todayBtn.addEventListener('click',sellastDay);
 
 
 		/* year, month, day 설정 ------------------------------------------------------------------------ */
 		var firstDay,		// 해당 월의 첫째 날 
-			firstYoil;		// 해당 월 첫째날의 요일 값
-			
+			firstYoil,		// 해당 월 첫째날의 요일 값
+			weekMonDay,		// 선택 주의 월요일 날짜
+			weekSunDay;		// 선택 주의 일요일 날짜
 		var chkFirstYoil = function(){
 			firstDay	= new Date(year, month, 1);
 			firstYoil	= firstDay.getDay();			
@@ -267,7 +267,8 @@ function nCalendar(option){
 			month	= thisMonth,
 			day		= today;
 		}, dateSetToInp = function( tg ){ // input 에 값이 있을 경우 해당 값으로 연/월/일 설정
-			var dateTx = tg.value;
+			var dateTx 		= tg.value.split('~')[0],
+				dateTxEnd	= tg.value.split('~')[1];
 			year = Number(dateTx.split(splitType)[0]),
 			month = Number(dateTx.split(splitType)[1]) -1,
 			day = Number(dateTx.split(splitType)[2]);
@@ -275,6 +276,12 @@ function nCalendar(option){
 			activeYear = year;
 			activeMonth = month;
 			activeDay = day;
+			activeEndYear = Number(dateTxEnd.split(splitType)[0]),
+			activeEndMonth = Number(dateTxEnd.split(splitType)[1]) -1,
+			activeEndDay = Number(dateTxEnd.split(splitType)[2]);
+
+			weekMonDay = changeToDate(dateTx),
+			weekSunDay = changeToDate(dateTxEnd);
 		}
 
 		/* draw ------------------------------------------------------------------------ */
@@ -309,11 +316,11 @@ function nCalendar(option){
 				if(key == 9) calShow(inp);
 			});
 		} else if (showType == 'button'){
-			inp.insertAdjacentHTML('afterend', '<button type="button" class="btn-cal">달력보기</button>');
+			inp.insertAdjacentHTML('afterend', '<button type="button" class="btn-cal">달력선택</button>');
 			btn = inp.nextSibling;
 			btn.addEventListener('click', calShowCheck);
 		} else {
-			inp.insertAdjacentHTML('afterend', '<button type="button" class="btn-cal">달력보기</button>');
+			inp.insertAdjacentHTML('afterend', '<button type="button" class="btn-cal">달력선택</button>');
 			btn = inp.nextSibling;
 			btn.addEventListener('click', calShowCheck);
 			inp.addEventListener('click', calShowCheck);
@@ -408,17 +415,41 @@ function nCalendar(option){
 			}
 		}
 
+		// 오늘일자 달력화면 이동 -- adt-ai 에선 미사용
 		function goToday(){
 			resetDate();
 			calDraw();
 		}
 
+		function sellastDay(){
+			var lastMon = new Date(limitDay.getFullYear(), limitDay.getMonth(), limitDay.getDate() - 6);
+			inp.value = changeToYMD(lastMon) + '~' + changeToYMD(limitDay);
+			calClose();
+			inp.dispatchEvent(changeEvt);
+		}
+
+		function calcWeekMonDay(date){
+			var monGap 	= date.getDay() == 0 ? 6 : date.getDay() - 1;
+			return new Date(date.getFullYear(), date.getMonth(), date.getDate() - monGap);
+		}
+		// 2021-11-29 : 일요일 계산 수정 -- 오늘이 포함된 주일 경우 오늘까지 설정
+		function calcWeekSunDay(date){
+			var monGap 	= date.getDay() == 0 ? 6 : date.getDay() - 1,
+				yester  = new Date(thisYear, thisMonth, today - 1),
+				calcDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - monGap + 6);
+
+			if(calcDate.valueOf() > yester.valueOf()) return yester;
+			else return calcDate;
+		}
+
 		// input date write -----------------------
 		var dateSelect = function(e){
-			var dateBtn = e.target.tagName == 'BUTTON' ? e.target : e.target.closest('BUTTON'),
-				inpDate = new Date(dateBtn.getAttribute('data-year'), dateBtn.getAttribute('data-month') - 1, dateBtn.innerText);
+			var dateBtn 	= e.target.tagName == 'BUTTON' ? e.target : e.target.closest('BUTTON'),
+				curDate 	= changeToDate(dateBtn.getAttribute('data-date')),
+				inpDate 	= calcWeekMonDay(curDate),
+				inpEndDate  = calcWeekSunDay(curDate);
 
-			inp.value = changeToYMD(inpDate);
+			inp.value = changeToYMD(inpDate) + '~' + changeToYMD(inpEndDate);
 			calClose();
 			inp.dispatchEvent(changeEvt);
 		}, dateBtnSet = function(){
@@ -427,21 +458,18 @@ function nCalendar(option){
 				btnDate[b].addEventListener('click', dateSelect);
 				if(todayLimit == true) limitSet(btnDate[b]);
 			}
-
 		}
 
 		/* 기타 기능 ------------------------------------------------------------------------ */
 		function limitSet(e){ // 오늘 날짜 제한 기능 관련
 			var tg = e,
-				tgYear = tg.getAttribute('data-year'),
-				tgMonth = tg.getAttribute('data-month'),
-				tgDay = tg.innerText;
+			tgDate = tg.getAttribute('data-date');
 			if(limitType == 'after') {
-				if(tgYear > limitY || tgYear == limitY && tgMonth > limitM + 1 || tgYear == limitY && tgMonth == limitM + 1 && tgDay > limitD ) tg.disabled = true;
-				if(limitGap != null && tgYear < limitGapY || tgYear == limitGapY && tgMonth < limitGapM + 1 || tgYear == limitGapY && tgMonth == limitGapM + 1 && tgDay < limitGapD ) tg.disabled = true;
+				if(changeToDate(tgDate) > limitDay) tg.disabled = true;
+				if(limitGap != null) if(changeToDate(tgDate) < limitGapDay) tg.disabled = true;
 			} else {
-				if(tgYear < limitY || tgYear == limitY && tgMonth < limitM + 1 || tgYear == limitY && tgMonth == limitM + 1 && tgDay < limitD ) tg.disabled = true;
-				if(limitGap != null && tgYear > limitGapY || tgYear == limitGapY && tgMonth > limitGapM + 1 || tgYear == limitGapY && tgMonth == limitGapM + 1 && tgDay > limitGapD ) tg.disabled = true;
+				if(changeToDate(tgDate) < limitDay) tg.disabled = true;
+				if(limitGap != null) if(changeToDate(tgDate) > limitGapDay) tg.disabled = true;
 			}
 		}
 
@@ -458,17 +486,28 @@ function nCalendar(option){
 
 		// 오늘 및 선택된 날짜 표기
 		var setDateMark = function(){
-			var chkBtn = cal.querySelectorAll('button');
-			for(i=0; i<chkBtn.length; i++){
-				if( chkBtn[i].getAttribute('data-year') == thisYear && chkBtn[i].getAttribute('data-month') == thisMonth + 1 && chkBtn[i].innerText == today ) funcAddClass(chkBtn[i], 'today');
-				else if ( chkBtn[i].getAttribute('data-year') == activeYear && chkBtn[i].getAttribute('data-month') == activeMonth + 1 && chkBtn[i].innerText == activeDay ) funcAddClass(chkBtn[i], 'select-day');
+			if(weekMonDay == null) return;
+			var chkTds = cal.querySelectorAll('td');
+			for(i=0; i<chkTds.length; i++){
+				var btn = chkTds[i].querySelector('button');
+				if(btn != null) {
+					var btnDate = changeToDate(btn.getAttribute('data-date')).valueOf();
+					if(weekSunDay == null) {
+						if(btnDate == weekMonDay.valueOf()) funcAddClass(chkTds[i], 'start');
+					} else {
+						if(btnDate == weekMonDay.valueOf()) funcAddClass(chkTds[i], 'start');
+						if(btnDate == weekSunDay.valueOf()) funcAddClass(chkTds[i], 'end');
+						if(btnDate > weekMonDay.valueOf() && btnDate < weekSunDay.valueOf()) funcAddClass(chkTds[i],'in-range');
+					} 
+				}
 			}
 		}, dateMark = function(){
-			if( year == thisYear && month == thisMonth || year == activeYear && month == activeMonth) setDateMark();
+			if( year == thisYear && month == thisMonth || year == activeYear && month == activeMonth || year == activeEndYear && month == activeEndMonth ) setDateMark();
 		}
 
 		// 달력 날짜 그리기 함수
 		function makeCalendar(firstYoil, nalsu, year, month, day) {
+			if(month < 10) month = '0' + month;
 			var str= "";
 			str = "<table border ='0'>";
 			str += "<caption>" + year + "년" + month + "월 달력</caption><thead>";
@@ -492,7 +531,8 @@ function nCalendar(option){
 						str += "<td>&nbsp;</td>";
 						currentCell++;
 					} else {
-						str += "<td><button type='button' data-year='"+ year +"' data-month='"+ month +"'>" + no + "</button></td>";
+						var dayNum = no < 10 ? '0'+ no : no;
+						str += "<td><button type='button' data-date='"+ year + splitType + month + splitType + dayNum +"'>" + no + "</button></td>";
 						no++;
 					}
 					
@@ -508,216 +548,6 @@ function nCalendar(option){
 		}
 	}
 
-/* 월간 달력 ==================================================================================================================================================================================== */
-	var calSetMonth = function(){
+	calSetWeek();
 
-		var monTx;
-		monTx = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
-
-		var nextM, prevM;
-
-		// 상단 - 연도 타이틀 생성
-		if(changeYear == true){
-			var cntstr = "";
-			cntstr += '<select title="연도 선택" class="sel-year">';
-			for(var i = minYear; i < maxYear + 1; i++){
-				cntstr += '<option value="'+i+'">'+i+'</option>';
-			}
-			cntstr +='</select>';	
-			control.insertAdjacentHTML('beforeend', cntstr);
-			yearObj = wrap.querySelector('.sel-year');
-			yearObj.addEventListener('change',yearChange);
-		} else {
-			var cntstr = "";
-			cntstr += '<span class="cal-title year"><i></i></span>';
-			control.insertAdjacentHTML('beforeend', cntstr);
-			yearObj = wrap.querySelector('.cal-title.year');
-		}
-
-		// 이전년도 / 다음년도 버튼 생성
-		if(controls == true) {
-			control.insertAdjacentHTML('afterbegin', '<button type="button" class="cal-btn prev">'+prevTx+'</button>');
-			control.insertAdjacentHTML('beforeend', '<button type="button" class="cal-btn next">'+nextTx+'</button>');
-			prevM = wrap.querySelector('.cal-btn.prev'),
-			nextM = wrap.querySelector('.cal-btn.next');
-			prevM.addEventListener('click', prevYear);
-			nextM.addEventListener('click', nextYear);
-		}
-
-		// 하단 오늘/닫기 버튼 영역
-		if(showBtnPanel == true) {
-			wrap.insertAdjacentHTML('beforeend', '<div class="cal-btns"></div>');
-			btnArea = wrap.querySelector('.cal-btns');
-			if(closeBtnTx != null){
-				btnArea.insertAdjacentHTML('beforeend', '<button type="button" class="btn-cal-close">'+closeBtnTx+'</button>');
-				closeBtn = wrap.querySelector('.btn-cal-close');
-			}
-			closeBtn.addEventListener('click',calClose);
-		}
-
-
-		/* year, month 설정 ------------------------------------------------------------------------ */
-		var resetDate = function(){
-			year	= thisYear,
-			month	= thisMonth;
-		}, dateSetToInp = function( tg ){ // input 에 값이 있을 경우 해당 값으로 연/월/일 설정
-			var dateTx = tg.value;
-			year = Number(dateTx.split(splitType)[0]),
-			month = Number(dateTx.split(splitType)[1]) -1;
-			// 선택된 날짜용 변수 설정
-			activeYear = year;
-			activeMonth = month;
-		}
-
-		/* draw ------------------------------------------------------------------------ */
-		var calDraw = function(){
-			yearSet();
-			makeCalendar(year, month + 1);
-			if(todayLimit == true) limitPNSet();
-		}, calShowCheck = function(event){
-			var tg;
-			event.target.tagName == 'INPUT' ? tg = event.target : tg = event.target.previousSibling;				
-			calShow(tg);
-		}, calShow = function(tg){
-			calCloseAll();
-			tg.value.length > 0 ? dateSetToInp(tg) : resetDate();
-			calPosition();
-			calDraw();
-			wrap.style.display = 'block';
-			wrap.focus();
-
-			outSideClick(); // 달력 외 영역 클릭 시 달력 hide
-		}
-		
-		/* click ------------------------------------------------------------------------ */
-		// cal showType ------------------------------
-
-		if(showType == 'input'){
-			inp.addEventListener('click', calShowCheck);			
-			inp.addEventListener('keyup', function(e){
-				var key = e.keyCode || e.which;
-				if(key == 9) calShow(inp);
-			});
-		} else if (showType == 'button'){
-			inp.insertAdjacentHTML('afterend', '<button type="button" class="btn-cal">달력보기</button>');
-			btn = inp.nextSibling;
-			btn.addEventListener('click', calShowCheck);
-		} else {
-			inp.insertAdjacentHTML('afterend', '<button type="button" class="btn-cal">달력보기</button>');
-			btn = inp.nextSibling;
-			btn.addEventListener('click', calShowCheck);
-			inp.addEventListener('click', calShowCheck);
-			inp.addEventListener('keyup', function(e){
-				var key = e.keyCode || e.which;
-				if(key == 9) calShow(inp);
-			});
-		}
-
-		if(inp.disabled == true) btn.disabled = true;
-
-		// cal reDraw ------------------------------
-		function prevYear(){
-			if(year > minYear) year--;
-			calDraw();
-		}
-		function nextYear(){
-			if(year < maxYear) year++;
-			calDraw();
-		}
-
-		function yearChange(e){
-			year = e.target.value;
-			calDraw();
-		}
-
-		var yearSet = function(){
-			if(changeYear == true){
-				var yearOpts = yearObj.querySelectorAll('option');
-				for(o=0; o< yearOpts.length; o++){
-					if(yearOpts[o].value == year) yearOpts[o].selected = true;
-				}
-			} else {
-				yearObj.querySelector('i').innerText = year;
-			}
-		}
-
-		// input date write -----------------------
-		var dateSelect = function(e){
-			var dateBtn = e.target.tagName == 'BUTTON' ? e.target : e.target.closest('BUTTON'),
-				inpDate = new Date(dateBtn.getAttribute('data-year'), dateBtn.getAttribute('data-month') - 1, 1);
-
-			inp.value = changeToYMD(inpDate);
-			calClose();
-			inp.dispatchEvent(changeEvt);
-		}, dateBtnSet = function(){
-			var btnDate = wrap.querySelectorAll('li button');
-			for(b=0; b<btnDate.length; b++){
-				btnDate[b].addEventListener('click', dateSelect);
-				if(todayLimit == true) limitSet(btnDate[b]);
-			}
-		}
-				
-
-		/* 기타 기능 ------------------------------------------------------------------------ */
-		function limitSet(e){ // 오늘 날짜 제한 기능 관련
-			var tg = e,
-				tgYear = tg.getAttribute('data-year'),
-				tgMonth = tg.getAttribute('data-month');
-			if(limitType == 'after') {
-				if(tgYear > limitY || tgYear == limitY && tgMonth > limitM + 1) tg.disabled = true;
-				if(limitGap != null && tgYear < limitGapY || tgYear == limitGapY && tgMonth < limitGapM + 1) tg.disabled = true;
-			} else {
-				if(tgYear < limitY || tgYear == limitY && tgMonth < limitM + 1) tg.disabled = true;
-				if(limitGap != null && tgYear > limitGapY || tgYear == limitGapY && tgMonth > limitGapM + 1) tg.disabled = true;
-			}
-		}
-
-		// 오늘 날짜 제한 시 - 이전/다음 버튼 비활성화
-		function limitPNSet(){
-			if(limitType == 'after') {
-				year >= limitY ? nextM.disabled = true : nextM.disabled = false;
-				if(limitGap != null) year <= limitGapY ? prevM.disabled = true : prevM.disabled = false;
-			} else {
-				year <= limitY ? prevM.disabled = true : prevM.disabled = false;
-				if(limitGap != null) year >= limitGapY ? nextM.disabled = true : nextM.disabled = false;							
-			}
-		}
-
-
-		// 오늘 및 선택된 날짜 표기
-		var setDateMark = function(){
-			var chkBtn = cal.querySelectorAll('button');
-			for(i=0; i<chkBtn.length; i++){
-				if( chkBtn[i].getAttribute('data-year') == thisYear && chkBtn[i].getAttribute('data-month') == thisMonth + 1 ) funcAddClass(chkBtn[i], 'thisMonth');
-				else if ( chkBtn[i].getAttribute('data-year') == activeYear && chkBtn[i].getAttribute('data-month') == activeMonth + 1 ) funcAddClass(chkBtn[i], 'select-mon');
-			}
-		}, dateMark = function(){
-			if( year == thisYear || year == activeYear) setDateMark();
-		}
-
-		// 달력 날짜 그리기 함수
-		function makeCalendar(year, month) {
-			str = "<ul class='cal-month-list'>";		
-					
-			//alert("이번달은 " + ju + " 주 동안 계속됩니다");
-			for(var r=1; r < 13; r++){
-				if(langType == 'kr') str += "<li><button type='button' data-year='"+ year +"' data-month='"+ r +"'>" + r + "월</button></li>";
-				else str += "<li><button type='button' data-year='"+ year +"' data-month='"+ r +"'>" + monTx[r - 1] + "</button></li>";
-			}
-			
-			str += "</ul>";
-			while (cal.firstChild) cal.removeChild(cal.firstChild); // 기존 달력 내용 지우기
-			cal.insertAdjacentHTML('beforeend', str);
-			dateBtnSet();
-			dateMark();
-		}
-	}
-	
-
-	// 일간 - 월간 달력 표출 구분
-	if(calType == 'month') {
-		calSetMonth();
-	} else {
-		calSetDay();
-	}
 }

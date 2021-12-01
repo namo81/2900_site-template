@@ -39,10 +39,10 @@
 .cal-wrap.range .cal-top { height:30px; }
 .cal-wrap.dual .left, .cal-wrap.dual .cal-left { float:left; width:290px; margin-right:20px;}
 .cal-wrap.dual .right, .cal-wrap.dual .cal-right { float:right; width:290px; }
-.cal-wrap.range td.start button { border-radius:10px 0 0 10px; }
-.cal-wrap.range td.end button { border-radius:0 10px 10px 0; }
-.cal-wrap.range td.start button, .cal-wrap.range td.end button { background:#ccc; }
-.cal-wrap.range td.in-range, .cal-wrap.range td.in-range button { background:#eee; transition:.2s ease-in-out;}
+.cal-wrap td.start button { border-radius:10px 0 0 10px; }
+.cal-wrap td.end button { border-radius:0 10px 10px 0; }
+.cal-wrap td.start button, .cal-wrap td.end button { background:#ccc; }
+.cal-wrap td.in-range, .cal-wrap td.in-range button { background:#eee; transition:.2s ease-in-out;}
 
 /* 달력 외부 클릭 시 닫기용 bg */
 .cal-bg { position:fixed; width:100%; height:100%; top:0; left:0; background:rgba(0,0,0,0); opacity:0; z-index:999; }

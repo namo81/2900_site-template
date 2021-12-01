@@ -1,6 +1,6 @@
 // layer pop system
 // 2018-08-30 copyright - namo (seo nam ho) for m.s.p
-// 2021-10-19 - v.4.0.0 : IE11 이상만 지원
+// 2021-10-19 - v.4.0.0 : IE11 이상만 지원 // style : display:flex 방식으로 CSS 변경됨.
 
 // !! common.js 필수
 
@@ -15,7 +15,6 @@ var nlayer = {
 	pageSet : function(set) {
 		var tabEle		= document.querySelectorAll('a, button, input'),
 			tabEleLen	= tabEle.length,
-			bodySet		= set,
 			bodyStyle	= document.querySelector('body').style;
 
 		Array.prototype.forEach.call(tabEleLen, function(ele){
@@ -94,15 +93,7 @@ var nlayer = {
 	showFunc : function(e){
 		nlayer.layerShow(e);
 		nlayer.closeBtnSet(e, true);
-	},
-
-	heightEven : function(tg){ // 외부호출용 - 특정 팝업 내 높이 변동 시 높이 조정(화면 흐려짐 개선)
-		var tg_layer	= document.querySelector(tg),
-			tg_cnt		= tg_layer.querySelector(clslayerCnt);
-		
-		tg_cnt.offsetHeight % 2 != 0 ? tg_cnt.style.height = tg_cnt.offsetHeight + 1 + 'px' : null; // tg_cnt 높이가 홀수일 경우 짝수로.
 	}
-
 }
 
 
@@ -179,7 +170,7 @@ function nlayerConfirm(ment, active, title, btn1, btn2) {
 
 
 /* Toast 기능 =========================================================================================================
-nToast('내용)
+nToast('내용', '추가 클래스')
 */
 function nToast(ment, addCls) {
 	var body = document.querySelector('body');
