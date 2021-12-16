@@ -354,13 +354,13 @@ function nBalloonSet(Ele){
 
 // 말풍선 요소 - 단일 사용
 function nBalloonTgl(area) {
-	var wrap = typeof area === 'string' ? document.querySelector(area) : area,
-		btn  = wrap.querySelector('.btn-bln'),
-		clsBtn = bln.querySelector('.btn-bln-close');
+	var wrap 	= typeof area === 'string' ? document.querySelector(area) : area,
+		btn 	= wrap.querySelector('.btn-bln'),
+		clsBtn 	= wrap.querySelector('.btn-bln-close');
 		
-		btn.addEventListener('click', function(){ bln.classList.toggle('on'); });
+		btn.addEventListener('click', function(){ wrap.classList.toggle('on'); });
 		if(!clsBtn) return;
-		clsBtn.addEventListener('click', function(){ bln.classList.remove('on'); });
+		clsBtn.addEventListener('click', function(){ wrap.classList.remove('on'); });
 }
 
 // 말풍선 요소 - 다수 적용
@@ -396,7 +396,7 @@ function animateScroll(scrollObj, targetVal, duration, direction, gap){
 		var scrollTo = function() {
 			var now = new Date().getTime(),
 				passed = now - startTime,
-				ease = easeInOutQuad(passed / dur);
+				ease = easeOutQuad(passed / dur);
 			if (now <= endTime) {
 				if(direction == 'x') scrollEle.scrollLeft = currentPos + (targetPos - currentPos) * ease;
 				else scrollEle.scrollTop = currentPos + (targetPos - currentPos) * ease;

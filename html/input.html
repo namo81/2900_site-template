@@ -24,23 +24,6 @@
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
-	<script src="/js/jquery-3.2.1.min.js"></script>
-	<script src="/js/common.js"></script>
-
-	<!--[if lt IE 9]>
-	<script src="/js/jquery-1.12.4.min.js"></script>
-    <script src="/js/html5shiv.js"></script>
-    <![endif]-->	
-
-	<!-- input design js -->
-	<script src="/js/inpdesign_v2.0.0.js"></script>
-	<!-- <script src="/js/old version/inpdesign_v1.2.0.js"></script> -->
-	
-	<script>
-		$(function(){ 
-			hljs.initHighlightingOnLoad(); 
-		});
-	</script>
 </head>
 <body>
 <div id="work-list">
@@ -78,6 +61,13 @@
 		&lt;span class="tx-red"&gt;내용을 입력해주세요.&lt;/span&gt;
 	&lt;/div&gt;
 &lt;/div&gt;
+</code></pre>
+<br>
+<pre><code class="js">// 단독요소 설정
+var inptName = new nTextSet('.inp-label');
+
+// 다수 요소 설정
+nText('.inp-label');
 </code></pre>
 			</div>
 
@@ -146,7 +136,7 @@
 				<h4 class="guide-sstit">단독형 (checkbox)</h3>
 				<p>checkbox 만 보여야 할 경우 .box 안에 텍스트 입력</p>
 				<div class="guide-show">
-					<div class="inp-check non-tx">
+					<div class="inp-check">
 						<input type="checkbox" name="" id="check2">
 						<label for="check2"><span class="box">체크박스</span></label>
 					</div>
@@ -214,6 +204,13 @@
 	&lt;/select&gt;
 &lt;/div&gt;
 </code></pre>
+<br>
+<pre><code class="js">// 단독요소 설정
+var selectName = new nSelectSet('.inp-select');
+
+// 다수 요소 설정
+nSelect('.inp-select');
+</code></pre>
 			</div>
 
 			<div class="guide-sec">
@@ -223,20 +220,22 @@
 				<div class="guide-show">
 					<div class="inp-file">
 						<label for="file" class="btn medium">파일첨부</label>
-						<input type="file" class="" id="file" disabled>
-						<button type="button" class="btn-clear" title="파일 경로 삭제"><span>X</span></button>
-					</div>
-					<div class="inp-file">
-						<label for="file2" class="btn medium">파일첨부</label>
-						<input type="file" class="" id="file2">
+						<input type="file" class="" id="file">
 						<button type="button" class="btn-clear" title="파일 경로 삭제"><span>X</span></button>
 					</div>
 				</div>
 <pre><code class="html">&lt;div class="inp-file"&gt;
-	&lt;label for="file"&gt;파일첨부&lt;/label&gt;
+	&lt;label for="file" class="btn medium"&gt;파일첨부&lt;/label&gt;
 	&lt;input type="file" class="" id="file"&gt;
 	&lt;button type="button" class="btn-clear" title="파일 경로 삭제"&gt;&lt;span&gt;X&lt;/span&gt;&lt;/button&gt;
 &lt;/div&gt;
+</code></pre>
+<br>
+<pre><code class="js">// 단독요소 설정
+var fileName = new nFileSet('.inp-file');
+
+// 다수 요소 설정
+nFile('.inp-file');
 </code></pre>
 			</div>
 		</section>
@@ -246,5 +245,20 @@
 	<a href="#work-list" class="guide-top">Top</a>	
 	
 </div>
+
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/common.js"></script>
+
+<!-- input design js -->
+<script src="/js/inpdesign_v2.0.0.js"></script>
+
+<script>
+	hljs.initHighlightingOnLoad();
+
+	var inpName = new nTextSet('.inp-label');
+	var selectName = new nSelectSet('.inp-select');
+	nFile('.inp-file');
+
+</script>
 </body>
 </html>

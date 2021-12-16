@@ -1,154 +1,204 @@
-$(function(){
-	var $tbl = $('.list table'),
-		$tblTotal,
-		tr = $tbl.find('tbody tr');
-	
-	//페이지 자동 넘버링
-	$tbl.find('.no').each(function(){
-		var $num = $(this).parent().index();
-		$(this).text($num + 1);
-		$tblTotal = $num;
-	});
+function getIndex( elm ){ 
+    var c = elm.parentNode.children, i = 0;
+    for(; i < c.length; i++ )
+        if( c[i] == elm ) return i;
+}
 
-	//depth1 에 텍스트 있을 경우 구분선 생성
-	$tbl.find('.depth1').each(function(){
-		if($(this).text().length > 0){
-			$(this).parent('tr').addClass('div');
-			if(tr.length > 30) $(this).append('<button type="button" class="btn-tr-tgl" title="ctrl 누른 채 클릭 시 전체 제어">Toggle</button>');
-		} else {
-			$(this).css('border-top','none');
-		}
+function elemsAddClass(elem, cls){
+	Array.prototype.forEach.call(elem, function(ele){
+		ele.classList.add(cls);
 	});
-
-	// 토글기능
-	var $tgl = $('.btn-tr-tgl');
-	
-	var ctrl = false;
-
-	$(document).on('keydown',function(e){
-		if(e.ctrlKey) ctrl = true;
-		else ctrl = false;
+}
+function elemsRemoveClass(elem, cls){
+	Array.prototype.forEach.call(elem, function(ele){
+		ele.classList.remove(cls);
 	});
-	$(document).on('keyup', function(e){
-		ctrl = false;
-	});
+}
 
-	if(tr.length > 30) {
-		$tgl.click(function(){
-			var parTr = $(this).closest('tr').index();
-			if(ctrl) {
-				if($(this).hasClass('open')) {
-					tr.each(function(){ if(!$(this).hasClass('div')) $(this).removeClass('hide');});
-					$tgl.removeClass('open');
-				} else {
-					tr.each(function(){ if(!$(this).hasClass('div')) $(this).addClass('hide');});
-					$tgl.addClass('open');
-				}
-			} else {
-				tr.each(function(){
-					if($(this).index() > parTr) {
-						if(!$(this).hasClass('div')){
-							$(this).toggleClass('hide');
-						} else return false;
+window.onload = function(){
+	var body 		= document.querySelector('body'),
+		tbl 		= document.querySelector('.list table');
+
+	if(tbl) {
+		var trs 		= tbl.querySelectorAll('tbody tr'),
+			previewChk 	= document.querySelector('#view-chk'),
+			frameWrap	= document.querySelector('.iframe'),
+			frame		= frameWrap.querySelector('iframe'),
+			frameClose  = frameWrap.querySelector('.btn-frame-close'),
+			tblTotal;
+
+		var td_no 		= tbl.querySelectorAll('.no'),
+			td_dep1 	= tbl.querySelectorAll('.depth1');
+
+		// 페이지 수 넘버링 추가
+		Array.prototype.forEach.call(td_no, function(td){
+			var num = getIndex(td.parentNode);
+			td.innerText = num + 1;
+			tblTotal = num;
+			td.parentNode.idx = num;
+		});
+
+		//depth1 에 텍스트 있을 경우 구분선 생성 및 토글버튼 추가
+		var tglBtnTx = '<button type="button" class="btn-tr-tgl" title="ctrl 누른 채 클릭 시 전체 제어">Toggle</button>',
+			ctrl = false;
+		Array.prototype.forEach.call(td_dep1, function(td){
+			if(td.innerText.length > 0){
+				td.parentNode.classList.add('div');
+				if(trs.length > 30) td.insertAdjacentHTML('beforeend', tglBtnTx);
+			} else td.style.borderTop = 'none';
+		});
+
+		// 섹션별 토글기능
+		var divArr = new Array(),
+			trDivs = document.querySelectorAll('tr.div'),
+			tglBtns = document.querySelectorAll('.btn-tr-tgl');
+
+		Array.prototype.forEach.call(trDivs, function(div){
+			divArr.push(div);
+		});
+
+		window.addEventListener('keydown', function(e){
+			e.ctrlKey ? ctrl = true : ctrl = false;
+		});
+		window.addEventListener('keyup', function(e){
+			ctrl = false;
+		});
+
+		if(trs.length > 30){
+			Array.prototype.forEach.call(tglBtns, function(btn){
+				btn.addEventListener('click', function(){
+					var parTr 		= btn.parentNode.parentNode,
+						parTrIdx 	= parTr.idx,
+						parArrIdx 	= divArr.indexOf(parTr);
+					if(ctrl){
+						if(btn.classList.contains('open')) {
+							Array.prototype.forEach.call(trs, function(tr){
+								if(!tr.classList.contains('div')) tr.classList.remove('hide');
+							});
+							elemsRemoveClass(tglBtns, 'open');
+						} else {
+							Array.prototype.forEach.call(trs, function(tr){
+								if(!tr.classList.contains('div')) tr.classList.add('hide');
+							});
+							elemsAddClass(tglBtns, 'open');
+						}
+					} else {
+						Array.prototype.forEach.call(trs, function(tr){
+							if(parArrIdx < divArr.length - 1) {
+								if(tr.idx > parTrIdx && tr.idx < divArr[parArrIdx + 1].idx) {
+									tr.classList.contains('hide') ? tr.classList.remove('hide') : tr.classList.add('hide');
+								}
+							} else {
+								if(tr.idx > parTrIdx && tr.idx) {
+									tr.classList.contains('hide') ? tr.classList.remove('hide') : tr.classList.add('hide');
+								}
+							}
+						});
+						btn.classList.contains('open') ? btn.classList.remove('open') : btn.classList.add('open');
 					}
 				});
-				$(this).toggleClass('open');
+			});
+		}
+
+
+		// 링크값 유무 + 종료일 유무에 따른 표기 / 미리보기 기능 설정
+		Array.prototype.forEach.call(trs, function(tr){
+			var btn 		= tr.querySelector('.link > a');
+			if(!btn) return;
+
+			var td_state 	= tr.querySelector('.state'),
+				td_end 		= tr.querySelector('.end-date');
+		
+			if(btn.getAttribute('href').length > 0) td_state.classList.add('ing');
+			else {
+				btn.classList.add('ready');
+				btn.addEventListener('click', function(e){ e.preventDefault(); });
+			}
+				
+			if(td_end.innerText.length > 0){
+				if(td_state.classList.contains('ing')) {
+					td_state.classList.remove('ing');
+					td_state.classList.add('end');
+				}
+			}
+
+			btn.addEventListener('mouseover', function(){
+				if(previewChk.checked == false) return;
+				var url = btn.getAttribute('href');
+				frame.setAttribute('src', url);
+				frameWrap.style.display = 'block';
+			});
+			
+		});
+		frameClose.addEventListener('click', function(){
+			frame.setAttribute('src', '');
+			frameWrap.style.display = 'none';
+			previewChk.checked = false;
+		});
+
+
+		// 전체 페이지 수 및 완료 페이지 표기
+		var pageTotal   = document.querySelector('.total-page'),
+			pageEnd 	= document.querySelector('.end-page'),
+			pagePer 	= document.querySelector('.per'),
+			endCount  	= tbl.querySelectorAll('.end').length,
+			endPer 		= (endCount / (tblTotal + 1)) * 100;
+
+			if(pageTotal) {
+				pageTotal.innerText = tblTotal + 1;
+				pageEnd.innerText = endCount;
+				pagePer.innerText = Math.round(endPer);
+			}
+
+		
+		// text 검색
+		var findBtn 	= document.querySelector('.btn-find-tx'),
+			findInp 	= document.querySelector('#find-tx'),
+			hiddenInp 	= document.querySelector('.temp');
+		
+		findBtn.addEventListener('click', function(){
+			var srchTx = findInp.value;
+			
+			Array.prototype.forEach.call(trs, function(tr){
+				var btn  = tr.querySelector('.link a');
+				if(!btn) return;
+				var link = btn.getAttribute('href');
+				btn.classList.remove('classUse');
+
+				var xhr = new XMLHttpRequest();
+				xhr.onload = function(){
+					if (xhr.status === 200) {
+						hiddenInp.value = xhr.responseText;
+						var valTx = hiddenInp.value;
+						valTx.match(srchTx) ? btn.classList.add('classUse') : null;
+						hiddenInp.value = '';
+					}
+				}
+				xhr.open("GET", link, true);
+				xhr.send(null);
+			});
+		});
+	}
+	
+	// 조직도 관련
+	var fldTree = document.querySelector('.folder-tree');
+	if(fldTree) {
+		var btnTrees = fldTree.querySelectorAll('button');
+		Array.prototype.forEach.call(btnTrees, function(btn){
+			if(btn.classList.contains('btn-tree')){
+				btn.addEventListener('click', function(){
+					btn.parentNode.classList.contains('on') ? btn.parentNode.classList.remove('on') : btn.parentNode.classList.add('on');
+				});
+			} else {
+				if(!btn.nextSibling) btn.classList.add('tree-last');
 			}
 		});
 	}
 
-	//링크에 url 있을 경우 진행중 표기
-	$tbl.find('.link > a').each(function(){
-		if($(this).attr('href').length > 0){
-			$(this).parent().siblings('.state').addClass('ing');
-		} else {
-			$(this).addClass('ready');
-			$(this).click(function(e){
-				e.preventDefault();
-			});
-		}
-	});
+	// top 버튼 추가
+	var topBtn = document.createElement('a');
+	body.appendChild(topBtn);
+	topBtn.classList.add('btn-guide-top');
+	topBtn.setAttribute('href', '#work-list');
 
-	//완료일자 입력 시 완료표기
-	$tbl.find('.end-date').each(function(){
-		if($(this).text().length > 0){
-			if($(this).siblings('.state').hasClass('ing')){
-				$(this).siblings('.state').removeClass('ing').addClass('end');
-			}
-		}
-	});
-
-	// 미리보기 기능
-	$tbl.find('.link > a').on('mouseover',function(){
-		if($('#view-chk').is(":checked")){
-			var $url = $(this).attr('href');
-			$('.iframe iframe').attr('src',''+$url+'');
-			$('.iframe').show();
-		}
-	});
-	$('.btn-frame-close').click(function(){
-		$('.iframe iframe').attr('src','');
-		$('.iframe').hide();
-		$('#view-chk').attr('checked',false);
-	});
-
-	// 진행율 표시
-	var $endTotal = $tbl.find('.end').size(),
-		$per = ($endTotal / ($tblTotal + 1)) * 100;
-	$('.ing-per .total-page').text($tblTotal + 1);
-	$('.ing-per .end-page').text($endTotal);
-	$('.ing-per .per').text(Math.round($per));
-
-
-	// class 검색
-
-	// temp 라는 div 에 값을 넣는 방식 - 기본적으로 head/body 태그는 중복되면 안되므로 jquery 가 삭제함. 때문에 특정 영역 검색 시 특정 영역의 id 값이 필요.
-	// id 없으면 스크립트를 다 불러오므로 오류 발생. 
-	/*
-	$('.btn-find-tx').click(function(){
-		var $tx = $('#find-tx').val(),
-			$area = $('#find-tx-id').val();
-		
-		if($area.length == 0) $area = 'body';
-		else null;
-
-		$('.tbl-wrap tr').each(function(){
-			var $link = $(this).find('a').attr('href'),
-				$btn = $(this).find('a');
-
-				$btn.removeClass('classUse');
-			$('.temp').load(''+$link+' #'+$area+'', function(){
-				if($('.temp').find('.'+$tx+'').length > 0) $btn.addClass('classUse');
-				else null;
-				$('.temp').empty();
-			});
-			
-		});
-	});
-	*/
-
-	// hidden input 에 val 형식으로 값을 넣고 문자열 검색하는 방식.
-	$('.btn-find-tx').click(function(){
-		var $tx = $('#find-tx').val();
-
-		$('.tbl-wrap tr').each(function(){
-			var $link = $(this).find('a').attr('href'),
-				$btn = $(this).find('a');
-
-				$btn.removeClass('classUse');
-			
-			$.ajax({
-				url : ''+$link+'',
-				success : function(data){
-					$('.temp').val(data);
-					$cnt = $('.temp').val();
-					/*if($cnt.match('class="'+$tx+'"')) $btn.addClass('classUse'); -- class 를 같이 검색할 경우 다중 클래스에서 검색이 안됨 */
-					if($cnt.match(''+$tx+'')) $btn.addClass('classUse'); 
-					else null;
-					$('.temp').val('');
-				}
-			});			
-		});
-	});
-
-});
+};

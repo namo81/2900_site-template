@@ -73,7 +73,7 @@ function nTimeSet(option){
         var areaWrap = btn.parentNode.parentNode.parentNode;
         btn.addEventListener('click', function(){
             var scrollVal = btn.offsetTop - (areaWrap.offsetHeight / 2) + (btn.offsetHeight / 2);
-            animateScroll(areaWrap, scrollVal, '', 200);
+            animateScroll(areaWrap, scrollVal, 200);
         });
         btn.addEventListener('keyup', function(e){
             var key = e.keyCode || e.which,
@@ -102,7 +102,7 @@ function nTimeSet(option){
         var scN = sc % 30;
         if(scN != 0) {
             scN < 16 ? sc = sc - scN : sc = sc + (30 - scN);
-            animateScroll(area, sc, '', 100);
+            animateScroll(area, sc, 100);
         }
         btnSet(area, sc);
     }
@@ -111,14 +111,14 @@ function nTimeSet(option){
         window.clearTimeout(hourTimeout);
         hourTimeout = window.setTimeout(function(){
             scSet(hour, hour.scrollTop);
-        }, 200);
+        }, 100);
     });
 
     min.addEventListener('scroll', function(){
         window.clearTimeout(minTimeout);
         minTimeout = window.setTimeout(function(){
             scSet(min, min.scrollTop);
-        }, 200);
+        }, 100);
     });
 
     // time set

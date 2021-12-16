@@ -23,7 +23,7 @@
 	<script src="../guide/vendor/highlight.pack.js"></script>
 
 	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
-	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
+	<link rel="stylesheet" href="../css/layout.css" media="screen, print" />
 
 </head>
 <body>
@@ -129,7 +129,14 @@
 		&lt;button type="button" class="btn-bln-close"&gt;말풍선 닫기&lt;/button&gt;
 	&lt;/div&gt;
 &lt;/div&gt;
+</code></pre> <br>
+<pre><code class="js">// 특정 말풍선 1개 실행
+nBalloonTgl('.balloon-wrap.click');
+
+// 페이지 내 다수 말풍선 공통적용
+nBalloonTgls('class 선택자');
 </code></pre>
+			<button type="button" class="btn medium btn-download">zip 다운로드</button>
 			</div>
 
 		</section>
@@ -138,11 +145,41 @@
 </div>
 
 <script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/vendor/jszip.min.js"></script>
+<script src="/js/vendor/FileSaver.js"></script>
+<script src="/js/vendor/jszip-utils.js"></script>
 <script src="/js/common.js"></script>
 <script>
 	hljs.initHighlightingOnLoad(); 
 	
-	//nBalloon('.balloon-wrap.js'); // 말풍선 여러개 동시 적용
+	nBalloonTgl('.balloon-wrap.click');
+
+	function urlToPromise(url) {
+		return new Promise(function (resolve, reject) {
+			JSZipUtils.getBinaryContent(url, function (err, data) {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(data);
+				}
+			});
+		});
+	}
+
+	var zipBtn = document.querySelector('.btn-download');
+	zipBtn.addEventListener('click', function(){
+		var zip = new JSZip();
+		zip.file('html/balloon.html', urlToPromise('../html/balloon.html'), { binary: true });
+		zip.file('css/layout.css', urlToPromise('../css/layout.css'), { binary: true });
+		zip.file('js/common.js', urlToPromise('../js/common.js'), { binary: true });
+		console.log(zip);
+
+		zip.generateAsync({ type: "blob" }).then(
+			function (blob) {
+				saveAs(blob, 'balloon.zip');
+			}
+		);
+	});
 </script>
 </body>
 </html>
