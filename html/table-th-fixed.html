@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="author" content="seonamho - SK MNS" >
+	<meta name="description" content="">
+	<meta name="keywords" content="Site Template">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Site Template">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
+
+	<title>헤더 고정형 테이블 | 가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	
+	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
+	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
+
+	<style>
+		.tbl.th-sticky { position:relative; max-height:100px; overflow-x:hidden; overflow-y:scroll; }
+		.tbl.th-sticky table { border-collapse:separate; border-spacing:0; }
+		.tbl.th-sticky thead { position:sticky; top:0; left:0; }
+		.tbl.th-sticky th + th, 
+		.tbl.th-sticky td + td { border-left:none; }
+
+		.tbl.th-fixed { position:relative; border:1px solid #ccc; }
+		.tbl.th-fixed .tbl-cnt { position:relative; max-height:100px; overflow-x:hidden; overflow-y:scroll; }
+		.tbl.th-fixed .tbl-cnt thead { position:absolute; top:0; left:0; width:100%; height:1px; opacity:0; z-index:-1; overflow:hidden; }
+		.tbl.th-fixed tr th:first-child, 
+		.tbl.th-fixed tr td:first-child { border-left:none; }
+		.tbl.th-fixed tr th:last-child, 
+		.tbl.th-fixed tr td:last-child { border-right:none; }
+	</style>
+</head>
+<body>
+<div id="work-list">
+	<div class="guide">
+
+		<section id="guide-basic">
+			<h2 class="guide-sec-tit">헤더 고정형 테이블</h2>
+			<div class="guide-sec">
+				<h3 class="guide-stit">sticky 방식</h3>
+				<p><strong>th-sticky</strong> 클래스 추가 시 상단 th 영역 sticky 로 고정</p>
+				<p class="tx-red"><strong>※ 주의 사항</strong></p>
+				<ul>
+					<li class="tx-red">브라우저 : IE 모든버전에서 사용 불가</li>
+					<li>border-collapse 설정을 separate 로 설정하여야 함</li>
+					<li>전체를 감싸는 외곽 테두리는 tbl-sticky 에 주는걸 추천.</li>
+					<li>column 과 column 사이 border 는 한쪽만 주어야 함. (border-collapse 가 separate 이기 때문에 라인두께가 2배로 보임)</li>
+				</ul>
+				<div class="guide-show">
+				<!-- 코드 작성 -->
+					<div class="tbl th-sticky">
+						<table>
+							<colgroup>
+								<col style="width:50%">
+								<col style="width:auto">
+							</colgroup>
+							<thead>
+								<tr>
+									<th scope="col">타이틀1</th>
+									<th scope="col">타이틀2</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>내용1</td>
+									<td>내용2</td>
+								</tr>
+								<tr>
+									<td>내용1</td>
+									<td>내용2</td>
+								</tr>
+								<tr>
+									<td>내용1</td>
+									<td>내용2</td>
+								</tr>
+								<tr>
+									<td>내용1</td>
+									<td>내용2</td>
+								</tr>
+								<tr>
+									<td>내용1</td>
+									<td>내용2</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				<!-- // 코드 작성 -->
+				</div>
+<pre><code class="html">&lt;div class="tbl th-sticky"&gt;
+	&lt;table&gt;
+		&lt;colgroup&gt;
+			&lt;col style="width:50%"&gt;
+			&lt;col style="width:auto"&gt;
+		&lt;/colgroup&gt;
+		&lt;thead&gt;
+			&lt;tr&gt;
+				&lt;th scope="col"&gt;타이틀1&lt;/th&gt;
+				&lt;th scope="col"&gt;타이틀2&lt;/th&gt;
+			&lt;/tr&gt;
+		&lt;/thead&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td&gt;내용1&lt;/td&gt;
+				&lt;td&gt;내용2&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+&lt;/div&gt;
+</code></pre><br>
+<pre><code class="css">.tbl.th-sticky { position:relative; max-height:100px; overflow-x:hidden; overflow-y:scroll; }
+.tbl.th-sticky table { border-collapse:separate; border-spacing:0; }
+.tbl.th-sticky thead { position:sticky; top:0; left:0; }
+.tbl.th-sticky th + th, 
+.tbl.th-sticky td + td { border-left:none; }
+</code></pre>
+			</div>
+
+			<div class="guide-sec">
+				<h3 class="guide-stit">테이블 분리 방식</h3>
+				<p><strong>th-fixed</strong> 클래스 추가 및 테이블 2개 사용</p>
+				<p>타이틀 테이블 + 컨텐츠 테이블 2개 구조이며, 컨텐츠 테이블의 th 영역은 hide 되어짐.</p>
+				<p>브라우저 : 사용제한 없음</p>
+				<p class="tx-red"><strong>※ 주의 사항</strong></p>
+				<ul>
+					<li>가로스크롤 발생 시 th-fixed 영역에 적용할 수 있으나, tbl-cnt 영역이 세로 스크롤의 우측에 있으므로 가로스크롤을 우측 끝으로 이동하지 않으면 보이지 않음</li>
+					<li>전체를 감싸는 외곽 테두리는 tbl-fixed 에 주어야 함.</li>
+					<li>col 너비 설정 시 px 단위 사용.</li>
+					<li>타이틀-컨텐츠 테이블의 colgroup 값을 동일하게 넣되, <strong>컨텐츠 테이블의 마지막 column 너비가 타이틀 테이블 마지막 column 보다 -17px 작아야함.</strong></li>
+				</ul>
+				<div class="guide-show">
+				<!-- 코드 작성 -->
+					<div class="tbl th-fixed">
+						<table>
+							<colgroup>
+								<col style="width:auto">
+								<col style="width:200px">
+							</colgroup>
+							<thead>
+								<tr>
+									<th scope="col">타이틀1</th>
+									<th scope="col">타이틀2</th>
+								</tr>
+							</thead>
+						</table>
+						<div class="tbl-cnt">
+							<table>
+								<colgroup>
+									<col style="width:auto">
+									<col style="width:183px">
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col" aria-hidden="true">타이틀1</th>
+										<th scope="col" aria-hidden="true">타이틀2</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>내용1</td>
+										<td>내용2</td>
+									</tr>
+									<tr>
+										<td>내용1</td>
+										<td>내용2</td>
+									</tr>
+									<tr>
+										<td>내용1</td>
+										<td>내용2</td>
+									</tr>
+									<tr>
+										<td>내용1</td>
+										<td>내용2</td>
+									</tr>
+									<tr>
+										<td>내용1</td>
+										<td>내용2</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				<!-- // 코드 작성 -->
+				</div>
+<pre><code class="html">&lt;div class="tbl th-fixed"&gt;
+	&lt;table&gt;
+		&lt;colgroup&gt;
+			&lt;col style="width:auto"&gt;
+			&lt;col style="width:200px"&gt;
+		&lt;/colgroup&gt;
+		&lt;thead&gt;
+			&lt;tr&gt;
+				&lt;th scope="col"&gt;타이틀1&lt;/th&gt;
+				&lt;th scope="col"&gt;타이틀2&lt;/th&gt;
+			&lt;/tr&gt;
+		&lt;/thead&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td&gt;내용1&lt;/td&gt;
+				&lt;td&gt;내용2&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;div class="tbl-cnt"&gt;
+		&lt;table&gt;
+			&lt;colgroup&gt;
+				&lt;col style="width:auto"&gt;
+				&lt;col style="width:184px"&gt;
+			&lt;/colgroup&gt;
+			&lt;thead&gt;
+				&lt;tr&gt;
+					&lt;th scope="col"&gt;타이틀1&lt;/th&gt;
+					&lt;th scope="col"&gt;타이틀2&lt;/th&gt;
+				&lt;/tr&gt;
+			&lt;/thead&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td&gt;내용1&lt;/td&gt;
+					&lt;td&gt;내용2&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><br>
+<pre><code class="css">.tbl.th-fixed { position:relative; border:1px solid #ccc; }
+.tbl.th-fixed .tbl-cnt { position:relative; max-height:100px; overflow-x:hidden; overflow-y:scroll; }
+.tbl.th-fixed .tbl-cnt thead { position:absolute; top:0; left:0; width:100%; height:1px; opacity:0; z-index:-1; overflow:hidden; }
+.tbl.th-fixed tr th:first-child, 
+.tbl.th-fixed tr td:first-child { border-left:none; }
+.tbl.th-fixed tr th:last-child, 
+.tbl.th-fixed tr td:last-child { border-right:none; }
+</code></pre>
+			</div>
+
+		</section>
+	</div>
+	<a href="#work-list" class="guide-top">Top</a>
+
+	<script src="../guide/vendor/highlight.pack.js"></script>	
+	<script>
+		hljs.initHighlightingOnLoad(); 
+	</script>
+</div>
+</body>
+</html>

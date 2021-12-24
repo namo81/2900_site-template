@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<meta name="author" content="seonamho - SK MNS" >
+	<meta name="description" content="">
+	<meta name="keywords" content="Site Template">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Site Template">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<link rel="shortcut icon" href="data:;base64,iVBORwOKGO=" />
+
+	<title>페이징 | 가이드</title>
+
+	<!-- 가이드 관련 -->
+	<link rel="stylesheet" href="../guide/list-guide.css" media="screen, print" />
+	<link rel="stylesheet" href="../guide/vendor/railscasts.css">
+	
+	<!-- 프로젝트 관련 CSS 및 JS 파일 로드 -->
+	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
+
+</head>
+<body>
+<div id="work-list">
+	<div class="guide">
+
+		<section id="guide-basic">
+			<h2 class="guide-sec-tit">페이징</h2>
+			<div class="guide-sec">
+				
+				<div class="guide-show">
+				<!-- 코드 작성 -->
+					<div class="paging">
+						<a href="#" class="btn-paging first">처음으로</a>
+						<a href="#" class="btn-paging prev">이전</a>
+						<span>
+							<a href="#" class="on">1</a>
+							<a href="#">2</a>
+							<a href="#">3</a>
+							<a href="#">4</a>
+							<a href="#">5</a>
+						</span>
+						<a href="#" class="btn-paging next">다음</a>
+						<a href="#" class="btn-paging end">마지막</a>
+					</div>
+				<!-- // 코드 작성 -->
+				</div>
+<pre><code class="html">&lt;div class="paging"&gt;
+	&lt;a href="#" class="btn-paging first"&gt;처음으로&lt;/a&gt;
+	&lt;a href="#" class="btn-paging prev"&gt;이전&lt;/a&gt;
+	&lt;span&gt;
+		&lt;a href="#" class="on"&gt;1&lt;/a&gt;
+		&lt;a href="#"&gt;2&lt;/a&gt;
+		&lt;a href="#"&gt;3&lt;/a&gt;
+		&lt;a href="#"&gt;4&lt;/a&gt;
+		&lt;a href="#"&gt;5&lt;/a&gt;
+	&lt;/span&gt;
+	&lt;a href="#" class="btn-paging next"&gt;다음&lt;/a&gt;
+	&lt;a href="#" class="btn-paging end"&gt;마지막&lt;/a&gt;
+&lt;/div&gt;
+</code></pre><br>
+<pre><code class="css">.paging { margin:20px 0; text-align:center; }
+.paging > span a, .paging > span button, .btn-paging { display:inline-block; min-width:30px; height:30px; padding:0 5px; font-size:14px; line-height:30px; border:1px solid #ccc; vertical-align:middle; border-radius:2px; box-sizing:border-box; color:#777; }
+.paging > span { display:inline-block; margin:0 10px; }
+.paging > span a.on, .paging > span button.on { background:#555; color:#fff; border-color:#555; }
+.btn-paging { text-indent:-10000px; background-repeat:no-repeat; background-position:left top; border:none; }
+.btn-paging.first { background-image:url(/images/paging_first.png); }
+.btn-paging.prev { background-image:url(/images/paging_prev.png); }
+.btn-paging.next { background-image:url(/images/paging_next.png); }
+.btn-paging.end { background-image:url(/images/paging_end.png); }
+</code></pre>
+			</div>
+
+		</section>
+	</div>
+	<a href="#work-list" class="guide-top">Top</a>
+
+	<script src="../guide/vendor/highlight.pack.js"></script>	
+	<script>
+		hljs.initHighlightingOnLoad(); 
+	</script>
+</div>
+</body>
+</html>
