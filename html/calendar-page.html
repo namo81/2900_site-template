@@ -26,21 +26,6 @@
 	<link rel="stylesheet" href="/css/layout.css" media="screen, print" />
 	<script src="/js/jquery-3.2.1.min.js"></script>
 
-	<!--[if lt IE 9]>
-    <script src="/js/html5shiv.js"></script>
-    <![endif]-->
-
-	<!-- calendar 관련 설정 -->
-	<link rel="stylesheet" href="/css/nCalendar.css" media="screen, print" />
-	<script src="/js/nCalendarPage_v1.0.0.js"></script>
-	<script>
-		$(function(){
-			hljs.initHighlightingOnLoad(); 
-			
-			$('.inp-cal').nCalendarPage();
-		});
-	</script>
-
 	<style type="text/css">
 		#guide-input { position:relative; }
 	</style>
@@ -91,5 +76,16 @@
 	</div>
 	<a href="#work-list" class="guide-top">Top</a>	
 </div>
+
+<!-- calendar 관련 설정 -->
+<link rel="stylesheet" href="/css/nCalendar.css" media="screen, print" />
+<script src="/js/nCalendarPage_v2.1.0.js"></script>
+<script>
+	hljs.initHighlightingOnLoad(); 
+	
+	var newPageCal = new nCalendarPage({
+		input : '.inp-cal'
+	});
+</script>
 </body>
 </html>

@@ -32,6 +32,27 @@
 
 		<section id="guide-basic">
 			<h2 class="guide-sec-tit">말풍선</h2>
+
+			<div class="guide-sec">
+				<h3 class="guide-stit">CSS</h3>
+<pre><code class="css">/* 말풍선 =============================================================== */
+.balloon-wrap { position:relative; display:inline-block; z-index:0;}
+.balloon-wrap:hover { z-index:1; }
+.balloon-wrap .balloon { position:absolute; visibility:hidden; padding:10px; top:calc(100% + 5px); left:0; background:#aaa; white-space:nowrap; opacity:0; transition:opacity .3s, visibility .3s; }
+.balloon-wrap .balloon.center { transform:translate3d(-50%, 0, 0); margin-left:50%; }
+.balloon-wrap .balloon.center:after { left:50%; margin-left:-5px; }
+.balloon-wrap .balloon.top { top:auto; bottom:calc(100% + 5px); }
+.balloon-wrap .balloon.top:after { top:auto; bottom:-10px; transform:rotate(180deg); }
+.balloon-wrap .balloon.right { top:50%; left:calc(100% + 10px); transform:translate3d(0, -50%, 0); }
+.balloon-wrap .balloon.right:after { top:50%; left:-10px; margin-top:-5px; transform:rotate(-90deg); }
+.balloon-wrap .balloon.left { top:50%; left:auto; right:calc(100% + 10px); transform:translate3d(0, -50%, 0); }
+.balloon-wrap .balloon.left:after { top:50%; left:auto; right:-10px; margin-top:-5px; transform:rotate(90deg); }
+.balloon-wrap.on .balloon,
+.balloon-wrap:not(.click) .btn-bln:hover + .balloon { visibility:visible; opacity:1; }
+.balloon-wrap .balloon:after { content:''; position:absolute; width:0; height:0; top:-10px; left:5px; border:5px solid transparent; border-bottom-color:#aaa; }
+</code></pre>
+			</div>
+
 			<div class="guide-sec">
 				<h3 class="guide-stit">말풍선</h3>
 				<h4 class="guide-sstit">기본형</h4>

@@ -255,7 +255,7 @@ function nTabSet(Ele){
 }
 
 // tab 메뉴 개별 설정형
-/* tab 메뉴 개별 설정형
+/* 
 	var 변수명 = new nTabMenu({
        wrap         : '.tab-wrap', - 탭 메뉴 및 컨텐츠를 포함하는 영역 선택자
        menuWrap     : '.tab-menu', - 탭 메뉴 선택자

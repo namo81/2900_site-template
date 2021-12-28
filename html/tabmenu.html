@@ -27,26 +27,6 @@
 	<script src="/js/jquery-3.2.1.min.js"></script>
 	<script src="/js/common.js"></script>
 
-	<!--[if lt IE 9]>
-    <script src="/js/html5shiv.js"></script>
-	<![endif]-->
-
-	<script>
-		$(function(){ 
-			hljs.initHighlightingOnLoad(); 
-		});
-	</script>
-	
-	<script>
-		window.onload = function(){
-			var tab1 = new nTabMenu({
-				wrap 		: '.tab-wrap.ex1',
-				menuWrap 	: '.tab-menu',
-				tabCnt 		: '.tab-cnt'
-			});
-		}
-	</script>
-
 </head>
 <body>
 <div id="work-list">
@@ -58,6 +38,7 @@
 				<h3 class="guide-stit">메뉴만</h3>
 				<p>기본형 탭 메뉴.</p>
 				<p><strong>tab-menu</strong> : 기능 클래스 / <strong>tab-type1</strong> : 스타일 클래스</p>
+				<p>탭 버튼은 'a'태그 사용 (웹 접근성 고려)</p>
 				<div class="guide-show">
 					<div class="tab-menu tab-type1">
 						<ul>
@@ -147,10 +128,38 @@
 &lt;/div&gt;
 </code></pre>
 			</div>
+			
+			<div class="guide-sec">
+				<h3 class="guide-stit">JS 설정</h3>
+				<h4 class="guide-sstit">1개 단독 설정</h4>
+<pre><code class="js">var 변수명 = new nTabMenu({
+	wrap         : '.tab-wrap', - 탭 메뉴 및 컨텐츠를 포함하는 영역 선택자
+	menuWrap     : '.tab-menu', - 탭 메뉴 선택자
+	tabCnt       : '.tab-cnt'   - 탭 컨텐츠 선택자
+ });
+</code></pre>
+				<h4 class="guide-sstit">동일구조 다수 tab 전체 적용</h4>
+				<p>버튼 영역 클래스는 <strong>'tab-menu'</strong></p>
+				<p>컨텐츠 영역 클래스는 <strong>'tab-cnt'</strong></p>
+				<p>탭 안의 탭 같은 depth 구조에서는 사용불가</p>
+<pre><code class="js">nTab('css 선택자'); - 탭 메뉴 및 컨텐츠를 포함하는 영역 선택자
+</code></pre>
+			</div>
 
 		</section>
 	</div>
 	<a href="#work-list" class="guide-top">Top</a>	
 </div>
+
+
+<script>
+	hljs.initHighlightingOnLoad();
+
+	var tab1 = new nTabMenu({
+		wrap 		: '.tab-wrap.ex1',
+		menuWrap 	: '.tab-menu',
+		tabCnt 		: '.tab-cnt'
+	});
+</script>
 </body>
 </html>

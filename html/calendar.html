@@ -47,7 +47,7 @@
 
 			<div class="guide-sec">
 				<h3 class="guide-stit">기본형</h3>
-				<h4 class="guide-sstit">1개일 경우</h4>
+				<h4 class="guide-sstit">모달 표시</h4>
 				<p>자체 제작 달력 플러그인 사용</p>
 				<p>width 값은 별도 지정</p>
 				<p>달력 style은 nCalendar.css 로 설정</p>
@@ -63,8 +63,12 @@
 <pre><code class="javascript">var 변수명 = new nCalendar({
 	calInp : '.cal'						// 달력 기능 적용할 input 선택자
 	showType : 'button',					// 달력 호출 방식 / button - 버튼 클릭시 / input - input 에 focus / both - 버튼,input 둘다 사용	
+	splitType : '-', 					// 날짜 구분선
+	mobileDevice : false,					// true : 모바일일 경우 left 값 0 고정 / false : input 위치값 적용
+	gapTop : 0,						// 달력 top 위치 gap
+	gapLeft : 0,						// 달력 left 위치 gap
 	calType : null,						// null: 일반 기본형 ,  month : 월간달력
-	dayType : 'kr',						// kr : 한글, en : 영문 (월~일 표기)
+	langType : 'kr',						// kr : 한글, en : 영문 (월~일 표기)
 	changeMon : true,					// 달력 상단 월 변경 select 표출 여부
 	changeYear : true,					// 달력 상단 연도 변경 select 표출 여부
 	yearRange : '2019:2040',				// 연도 제한 '시작연도:종료연도'
@@ -78,6 +82,22 @@
 	todayGap 		: '0D', 			// 오늘 기준일의 gap 설정 (ex. 내일부터 제한, 5일전까지 제한 등)
 	limitType       : 'before',				// 제한 방향 설정 - before : 오늘 이전 날짜 선택 제한(기본값) / after : 오늘 이후 날짜 선택 제한
 	limitGap 		: null 				// 제한 기간 설정 - null : 기한 없음 / nY : n년 / nM : n개월 / nD : n일 - 3가지 방식 중 택1
+});
+</code></pre>
+<pre><code class="html">&lt;div class="inp-cal" style="width:300px"&gt;
+	&lt;input type="text" name="" placeholder="" class="cal"/&gt;
+&lt;/div&gt;
+</code></pre>
+				<h4 class="guide-sstit">페이지 내 고정 표시</h4>
+				<p>기본 기능 설정은 모달형과 같으며, in-page 옵션만 추가 설정</p>
+				<div class="guide-show">
+					<div class="inp-cal" style="width:300px">
+						<input type="text" name="" placeholder="" class="cal-page" />
+					</div>
+				</div>
+<pre><code class="javascript">var 변수명 = new nCalendar({
+	inPage : false,					//	'false' : 기본/ 모달형, 'true' : 페이지형
+	inTarget : null					// 달력 컨텐츠 표시할 영역 선택 (별도 지정 없을 경우 inp-cal 영역 내 표기됨)
 });
 </code></pre>
 <pre><code class="html">&lt;div class="inp-cal" style="width:300px"&gt;
@@ -137,7 +157,7 @@
 
 	<!-- calendar 관련 설정 -->
 	<link rel="stylesheet" href="/css/nCalendar.css" media="screen, print" />
-	<script src="/js/nCalendar_v2.2.0.js"></script>
+	<script src="/js/nCalendar_v2.3.0.js"></script>
 	
 	<script>
 		hljs.initHighlightingOnLoad(); 
@@ -154,6 +174,11 @@
 			calType : 'month',
 			langType : 'en',
 			todayLimit : true
+		});
+
+		var calPage = new nCalendar({
+			calInp : '.cal-page',
+			inPage : true
 		});
 	</script>
 </body>

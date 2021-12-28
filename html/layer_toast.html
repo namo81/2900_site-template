@@ -33,6 +33,19 @@
 		<div class="guide">
 			<section id="guide-basic">
 				<h2 class="guide-sec-tit">Toast Bar</h2>
+
+				<div class="guide-sec">
+					<h3 class="guide-stit">CSS</h3>					
+<pre><code class="css">/* Toast 및 Snack Bar =============================================================== */
+.toast { position:fixed; display:none; width:100%; height:100%; top:0; left:0; z-index:1001; }
+.toast .toast-cnt { position:relative; width:90%; top:5%; left:5%; padding:15px; background-color:#fff; border-radius:5px; box-sizing:border-box; box-shadow:1px 1px 6px rgba(0,0,0,.3); transform:translateY(-1000px); }
+.toast.show { display:block; }
+.toast.show .toast-cnt { transform:translateY(0); animation:toastShow 3s; }
+
+.toast.bottom .toast-cnt { top:95%; transform:translateY(-100%); }
+</code></pre>
+				</div>
+
 				<div class="guide-sec">
 					<h3 class="guide-stit">Toast Bar</h3>
 					<p>스타일 및 show 모션은 css 에서 별도 설정</p>

@@ -33,6 +33,21 @@
 			<section id="guide-basic">
 				<h2 class="guide-sec-tit">레이어팝업</h2>
 				<div class="guide-sec">
+					<h3 class="guide-stit">CSS</h3>
+	<pre><code class="css ">/* layer-pop - v4.0 용*/
+.layer-pop,
+.layer { position:fixed; display:none; width:100%; height:100%; top:0; left:0; background:rgba(0,0,0,.8); overflow-x:hidden; overflow-y:auto; z-index:1000; }
+.layer > .inbox { display:flex; align-items:center; min-height:calc(100% - 60px); margin:30px; }
+.layer-cnt { position:relative; width:700px; margin:auto; padding:25px; background:#fff; box-sizing:border-box;}
+.layer-top { position:relative; height:50px; flex-basis:50px; flex-shrink:0; }
+.layer > .inbox.in-scroll { min-height:unset; height:100%; margin:0; }
+.in-scroll .layer-cnt { display:flex; flex-direction:column; max-height:calc(100% - 60px); }
+.in-scroll .layer-mid { flex:1 1 auto; overflow-y:auto; }
+.layer.showOn { display:block; }
+</code></pre>
+				</div>
+
+				<div class="guide-sec">
 					<h3 class="guide-stit">레이어팝업</h3>
 					<h4 class="guide-sstit">호출버튼</h4>
 					<p>스타일은 버튼 관련 css 에서 별도 설정</p>
@@ -48,7 +63,7 @@
 	</code></pre>
 
 	<pre><code class="js">nlayer.showBtn('호출버튼 클래스'); // 버튼 클릭 호출형
-	nlayer.showFunc('호출할 레이어 ID'); // 함수형 호출 - 대상 팝업 id 값 설정
+nlayer.showFunc('호출할 레이어 ID'); // 함수형 호출 - 대상 팝업 id 값 설정
 	</code></pre>
 					<h4 class="guide-sstit">레이어팝업 컨텐츠</h4>
 					<p>디테일한 스타일은 css 로 설정</p>
@@ -57,16 +72,16 @@
 					<p>닫기버튼 클래스 'close-layer' 사용</p>
 					<p>show 된 레이어가 여러개일 경우 - 모두 닫고자 할 때 close-layer 에 'all' 클래스 추가</p>
 	<pre><code class="html">&lt;div class="layer" id="layer2"&gt;
-		&lt;div class="inbox"&gt; &lt;!-- in-scroll 추가 시 내부 스크롤 --&gt;
-			&lt;div class="layer-cnt"&gt;
-				&lt;div class="layer-top"&gt;test&lt;/div&gt;
-				&lt;div class="layer-mid"&gt;
-					&lt;button type="button" class="close-layer all"&gt;전체닫기&lt;/button&gt;
-					&lt;button type="button" class="close-layer"&gt;닫기&lt;/button&gt;
-				&lt;/div&gt;
+	&lt;div class="inbox"&gt; &lt;!-- in-scroll 추가 시 내부 스크롤 --&gt;
+		&lt;div class="layer-cnt"&gt;
+			&lt;div class="layer-top"&gt;test&lt;/div&gt;
+			&lt;div class="layer-mid"&gt;
+				&lt;button type="button" class="close-layer all"&gt;전체닫기&lt;/button&gt;
+				&lt;button type="button" class="close-layer"&gt;닫기&lt;/button&gt;
 			&lt;/div&gt;
 		&lt;/div&gt;
 	&lt;/div&gt;
+&lt;/div&gt;
 	</code></pre>
 				</div>
 

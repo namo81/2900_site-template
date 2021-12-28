@@ -5,6 +5,7 @@
 // 2020-08-05 - 달력 외 영역 클릭 시 달력 hide 추가
 // 2020-09-24 - v2.1.0 : 기간 제한 관련 기능 정리
 // 2020-12-24 - v2.2.0 : jquery 제거
+// 2021-12-27 - v2.3.0 : 페이지 고정형 옵션 추가
 
 function nCalendar(option){
 
@@ -28,7 +29,9 @@ function nCalendar(option){
 		todayLimit      = option.todayLimit ? option.todayLimit : false,			// 오늘 기준 선택 제한
 		todayGap 		= option.todayGap ? option.todayGap : '0D', 				// 오늘 기준일의 gap 설정 (ex. 내일부터 제한, 5일전까지 제한 등)
 		limitType       = option.limitType ? option.limitType : 'before',			// 제한 방향 설정 - before : 오늘 이전 날짜 선택 제한 / after : 오늘 이후 날짜 선택 제한
-		limitGap 		= option.limitGap ? option.limitGap : null 					// 제한 기간 설정 - null : 기한 없음 / nY : n년 / nM : n개월 / nD : n일
+		limitGap 		= option.limitGap ? option.limitGap : null, 				// 제한 기간 설정 - null : 기한 없음 / nY : n년 / nM : n개월 / nD : n일
+		inPage			= option.inPage ? option.inPage : false,					// 페이지 내 표기 선택
+		inTarget		= option.inTarget ? option.inTarget : null					// 페이지 표기 할 영역 선택
 	
 	//초기 날짜 관련 세팅 및 변수	
 	var now         = new Date(),
@@ -106,7 +109,10 @@ function nCalendar(option){
 
 	// 달력 영역 변수 설정
 	var newCal = document.createElement('div');
-	document.querySelector('body').appendChild(newCal);
+	if(inPage == true) {
+		newCal.classList.add('in-page');
+		inTarget != null ? document.querySelector(inTarget).appendChild(newCal) : inp.parentNode.appendChild(newCal);
+	} else document.querySelector('body').appendChild(newCal);	
 	wrap = newCal;
 	wrap.classList.add('cal-wrap');
 	wrap.setAttribute('tabindex', '0');
@@ -117,6 +123,7 @@ function nCalendar(option){
 	/* common functions --------------------------------------- */
 	// 달력 생성 위치 설정 함수
 	function calPosition(){
+		if(inPage == true) return;
 		var top		= offset(inp).top,
 			left	= offset(inp).left;
 
@@ -159,6 +166,7 @@ function nCalendar(option){
 	calCloseAll = function(){
 		var wrapAll = document.querySelectorAll('.cal-wrap');
 		for(a=0; a<wrapAll.length; a++){
+			if(wrapAll[a].classList.contains('in-page')) return;
 			wrapAll[a].style.top = '';
 			wrapAll[a].style.left = '';
 			wrapAll[a].style.display = 'none';
@@ -244,13 +252,13 @@ function nCalendar(option){
 				btnArea.insertAdjacentHTML('beforeend', '<button type="button" class="btn-cal-today">'+todayBtnTx+'</button>');
 				todayBtn = wrap.querySelector('.btn-cal-today');
 			}
-			if(closeBtnTx != null){
+			if(closeBtnTx != null && inPage == false){
 				btnArea.insertAdjacentHTML('beforeend', '<button type="button" class="btn-cal-close">'+closeBtnTx+'</button>');
 				closeBtn = wrap.querySelector('.btn-cal-close');
 			}
 
 			todayBtn.addEventListener('click',goToday);
-			closeBtn.addEventListener('click',calClose);
+			if(inPage == false) closeBtn.addEventListener('click',calClose);
 		}
 
 
@@ -296,7 +304,7 @@ function nCalendar(option){
 			wrap.style.display = 'block';
 			wrap.focus();
 			
-			outSideClick(); // 달력 외 영역 클릭 시 달력 hide
+			if(inPage == false) outSideClick(); // 달력 외 영역 클릭 시 달력 hide
 		}
 
 		/* click ------------------------------------------------------------------------ */
@@ -419,7 +427,12 @@ function nCalendar(option){
 				inpDate = new Date(dateBtn.getAttribute('data-year'), dateBtn.getAttribute('data-month') - 1, dateBtn.innerText);
 
 			inp.value = changeToYMD(inpDate);
-			calClose();
+			if(inPage == false) calClose();
+			else {
+				dateSetToInp(inp);
+				setMarkReset();
+				setDateMark();
+			}
 			inp.dispatchEvent(changeEvt);
 		}, dateBtnSet = function(){
 			var btnDate = wrap.querySelectorAll('td button');
@@ -465,6 +478,11 @@ function nCalendar(option){
 			}
 		}, dateMark = function(){
 			if( year == thisYear && month == thisMonth || year == activeYear && month == activeMonth) setDateMark();
+		}, setMarkReset = function(){
+			var chkBtn = cal.querySelectorAll('button');
+			Array.prototype.forEach.call(chkBtn, function(btn){
+				btn.classList.remove('select-day');
+			});
 		}
 
 		// 달력 날짜 그리기 함수
@@ -506,6 +524,8 @@ function nCalendar(option){
 			dateBtnSet();
 			dateMark();
 		}
+		
+		if(inPage == true) calShow(inp);
 	}
 
 /* 월간 달력 ==================================================================================================================================================================================== */
@@ -548,11 +568,11 @@ function nCalendar(option){
 		if(showBtnPanel == true) {
 			wrap.insertAdjacentHTML('beforeend', '<div class="cal-btns"></div>');
 			btnArea = wrap.querySelector('.cal-btns');
-			if(closeBtnTx != null){
+			if(closeBtnTx != null && inPage == false){
 				btnArea.insertAdjacentHTML('beforeend', '<button type="button" class="btn-cal-close">'+closeBtnTx+'</button>');
 				closeBtn = wrap.querySelector('.btn-cal-close');
 			}
-			closeBtn.addEventListener('click',calClose);
+			if(inPage == false) closeBtn.addEventListener('click',calClose);
 		}
 
 
@@ -586,7 +606,7 @@ function nCalendar(option){
 			wrap.style.display = 'block';
 			wrap.focus();
 
-			outSideClick(); // 달력 외 영역 클릭 시 달력 hide
+			if(inPage == false) outSideClick(); // 달력 외 영역 클릭 시 달력 hide
 		}
 		
 		/* click ------------------------------------------------------------------------ */
@@ -647,7 +667,12 @@ function nCalendar(option){
 				inpDate = new Date(dateBtn.getAttribute('data-year'), dateBtn.getAttribute('data-month') - 1, 1);
 
 			inp.value = changeToYMD(inpDate);
-			calClose();
+			if(inPage == false) calClose();
+			else {
+				dateSetToInp(inp);
+				setMarkReset();
+				setDateMark();
+			}
 			inp.dispatchEvent(changeEvt);
 		}, dateBtnSet = function(){
 			var btnDate = wrap.querySelectorAll('li button');
@@ -693,6 +718,11 @@ function nCalendar(option){
 			}
 		}, dateMark = function(){
 			if( year == thisYear || year == activeYear) setDateMark();
+		}, setMarkReset = function(){
+			var chkBtn = cal.querySelectorAll('button');
+			Array.prototype.forEach.call(chkBtn, function(btn){
+				btn.classList.remove('select-day');
+			});
 		}
 
 		// 달력 날짜 그리기 함수
@@ -711,6 +741,8 @@ function nCalendar(option){
 			dateBtnSet();
 			dateMark();
 		}
+
+		if(inPage == true) calShow(inp);
 	}
 	
 
@@ -720,4 +752,5 @@ function nCalendar(option){
 	} else {
 		calSetDay();
 	}
+	
 }
